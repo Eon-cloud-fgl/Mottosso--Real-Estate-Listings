@@ -39,7 +39,7 @@ function Paragraphs(){
         
             <section>
                 <article>
-                <div className="fondo-texto" className="sinpadding">
+                <div className="fondo-texto">
                     <p>No lo dudes mas, la inversion es el
                     exito que te espera</p>
                 </div>

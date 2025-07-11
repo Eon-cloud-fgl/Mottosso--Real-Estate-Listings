@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
+import "../styles/global.css";
 import logo from '/MottosoLogo.png';
 export default function Navbar() {
     return (
