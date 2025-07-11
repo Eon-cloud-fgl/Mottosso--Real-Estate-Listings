@@ -1,3 +1,7 @@
+#logo{
+  width: 7%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -6,19 +10,15 @@ body {
   margin: 0;
 }
 
-.container {
-  margin: 1rem;
-  text-align: center;
-}
-
 .nav {
-  background-color: #333;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
   gap: 2rem;
   padding: 0 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .site-title {
@@ -39,13 +39,11 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: .25rem;
+  padding: 0 1rem 0 1rem;
+  font-family: "Arial", sans-serif;
 }
 
-.nav li.active {
-  background-color: #555;
-}
 
-.nav li:hover {
-  background-color: #777;
+.nav li a:hover {
+  color: rgb(129, 129, 129);
 }

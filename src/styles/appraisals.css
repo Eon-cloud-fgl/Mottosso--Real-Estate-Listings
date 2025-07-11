@@ -1,0 +1,29 @@
+.fondo-texto{
+    background-color: #012855;
+    color: white;
+    padding: 5px;
+}
+
+#titulo-tasaciones{
+    text-align: center;
+}
+.sinpadding{
+  width: 50%;
+  height: 50px;
+  background-color: #012855;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight:700;
+  text-align: center;
+  border-radius: 5px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+#divfather{
+    padding-top: 250px;
+    text-align: left;
+}

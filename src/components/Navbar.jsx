@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
+import logo from '/MottosoLogo.png';
 export default function Navbar() {
     return (
         <nav className='nav'>
-            <Link to="/" className='site-title'>Montosso</Link>
+            <img src={logo} alt="Mottoso" id='logo'/>
             <ul>
-            <CustomLink to="/pricing">Pricing</CustomLink>
-            <CustomLink to="/about">About</CustomLink>
+            <CustomLink to="/">Inicio</CustomLink>
+            <CustomLink to="/estate">Inmuebles</CustomLink>
+            <CustomLink to="/appraisals">Tasaciones</CustomLink>
+            <CustomLink to="/news">Novedades</CustomLink>
+            <CustomLink to="/enterprise">La Empresa</CustomLink>
+            <CustomLink to="/contact">Contacto</CustomLink>
             </ul>
         </nav>
     );
