@@ -3,11 +3,12 @@
     background-color: #f1f1f1;
     color: #333;
     text-align: center;
-    padding: 10px 0px 0px 0px;
-    position: relative;
+    padding: 20px 0px 0px 0px;
+    position: sticky;
     bottom: 0;
     width: 100%;
     justify-content: center;
+    z-index: 1000;
 }
 .footer-content{
   display: grid;
