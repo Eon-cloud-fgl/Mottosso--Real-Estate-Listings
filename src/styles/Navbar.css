@@ -1,5 +1,8 @@
 #logo{
-  width: 7%;
+  width: 8%;
+  height: auto;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 
 * {
@@ -14,11 +17,14 @@ body {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  justify-content: space-around;
+  align-items: center;
   gap: 2rem;
   padding: 0 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  font-weight: bold; 
+  font-family: "Arial", sans-serif;
 }
 
 .site-title {
@@ -30,7 +36,16 @@ body {
   margin: 0;
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 2.25rem;
+  justify-content: center;
+  height: 100%;
+  color: #181818;
+}
+
+.nav svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .nav a {
@@ -46,4 +61,13 @@ body {
 
 .nav li a:hover {
   color: rgb(129, 129, 129);
+  border-bottom: 2px solid rgb(129, 129, 129);
+  padding-bottom: 0.5rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.nav li a.active {
+  color: rgb(129, 129, 129);
+  border-bottom: 2px solid rgb(129, 129, 129);
+  padding-bottom: 0;
 }

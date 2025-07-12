@@ -29,6 +29,7 @@
     background-color: var(--primary) ;
     color: white;
     text-align: center;
+    margin: 0;
 }
 
 .fondo-encabezado p {

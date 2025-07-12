@@ -1,0 +1,89 @@
+/* Estilo de los Items */
+#item-titulo-principal {
+  font-size: 30px;
+  color: white;
+  background-color: var(--primary);;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#item-footer{
+  font-size: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+
+}
+
+/* Estilo de los contenedores */
+.contenedor-novedades-mayor {
+  padding-top: 60px; 
+  padding-bottom: 60px;
+  display: grid;
+  grid-template-columns: repeat(1, auto); 
+  gap: 20px;
+}
+
+/* Aplica solo si ES invertido */
+.contenedor-novedades-menor.invertido {
+  flex-direction: row-reverse;
+  background-color: var(--primary);
+}
+
+.contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
+  margin-left: 0;
+  margin-right: -100px;
+}
+
+/* Aplica solo si NO es invertido */
+.contenedor-novedades-menor:not(.invertido) .contenedor-novedades-menor-article {
+  margin-left: -100px;
+
+}
+
+.contenedor-novedades-principal {
+  text-align: center;
+}
+
+.contenedor-novedades-menor {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+  margin: 0 auto;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.contenedor-novedades-menor-imagen {
+  flex: 0 0 40%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.contenedor-novedades-menor-imagen img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  display: block;
+  object-fit: cover;
+}
+
+.contenedor-novedades-menor-article {
+  background-color: #ffffff;
+  border-radius: 5px;
+  flex: 0 0 40%;
+  padding: 20px;
+  height: auto;
+  position: relative;
+  z-index: 3;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}

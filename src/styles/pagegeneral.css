@@ -5,4 +5,11 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    
+}
+
+:root {
+    --primary: #012855;
+    --secondary: #E6E9F7;
+    --text-color: #333;
 }
