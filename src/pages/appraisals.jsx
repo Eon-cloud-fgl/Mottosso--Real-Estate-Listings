@@ -1,163 +1,170 @@
 import "../styles/appraisals.css";
 import { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
+
+
+function Banner() {
+    return (
+        <>
+            <div className="bn-container" id="titulo-tasaciones">
+                <p className="fondo-texto">Solicitud de tasacion</p>
+            </div>
+        </>
+    );
+}
+
+function Description() {
+    return (
+        <div className="ds-container">
+            <h2>Tasasiones Inmobiliarias con Propiedades Mottoso</h2>
+            <p>Realizamos el análisis de su inmueble basado en un profundo analisis, para brindar un valor real del mercado, tomando en cuenta la ubicación, superficie, comodidades y las caracteristicas unicas de tu hogar.</p>
+            <h3>¿Que tipo de propiedades se pueden tasar?</h3>
+            <ul>
+                <li>Casas</li>
+                <li>Departamentos</li>
+                <li>Terrenos</li>
+                <li>Locales comerciales</li>
+                <li>Oficinas</li>
+            </ul>
+            <span>No lo dudes más, la inversión es el éxito que te espera</span>
+        </div>
+    )
+}
+
+
+function Form() {
+    const [step, setStep] = useState(0);
+    const totalSteps = 4;
+
+    const nextStep = () => setStep((prev) => Math.min(prev + 1, totalSteps));
+    const prevStep = () => setStep((prev) => Math.max(prev - 1, 0));
+
+    return (
+        <div className="form-container">
+            <h3>Formulario de Tasación</h3>
+
+            {/* Barra de progreso */}
+            <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${((step + 1) / (totalSteps + 1)) * 100}%` }}></div>
+            </div>
+
+            <form>
+                {step === 0 && (
+                    <div className="form-step">
+                        <label htmlFor="address">Dirección:</label>
+                        <input type="text" id="address" name="address" placeholder="Ingrese la dirección" required />
+                    </div>
+                )}
+
+                {step === 1 && (
+                    <div className="form-step">
+                        <label htmlFor="locality">Localidad:</label>
+                        <input type="text" id="locality" name="locality" placeholder="Ingrese la localidad" required />
+                    </div>
+                )}
+
+                {step === 2 && (
+                    <div className="form-step">
+                        <label htmlFor="property-type">Tipo de Propiedad:</label>
+                        <select id="property-type" name="property-type">
+                            <option value="casa">Casa</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="terreno">Terreno</option>
+                            <option value="local-comercial">Local Comercial</option>
+                            <option value="oficina">Oficina</option>
+                        </select>
+                    </div>
+                )}
+
+                {step === 3 && (
+                    <div className="form-step">
+                        <label htmlFor="operation-type">Tipo de Operación:</label>
+                        <select id="operation-type" name="operation-type">
+                            <option value="venta">Venta</option>
+                            <option value="alquiler">Alquiler</option>
+                            <option value="ambos">Ambos</option>
+                        </select>
+
+                        <label htmlFor="description">Descripción:</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Ingrese una descripción" required></textarea>
+                    </div>
+                )}
+
+                {step === 4 && (
+                    <div>
+                        <div className="form-step">
+                            <label htmlFor="contact-name">Nombre:</label>
+                            <input type="text" id="contact-name" name="contact-name" placeholder="Ingrese su nombre" required />
+                        </div>
+                        <div className="form-step">
+                            <label htmlFor="contact-email">Email:</label>
+                            <input type="email" id="contact-email" name="contact-email" placeholder="Ingrese su email" required />
+                        </div>
+                        
+                        <div className="form-step">
+                            <label htmlFor="contact-phone">Teléfono:</label>
+                            <input type="tel" id="contact-phone" name="contact-phone" placeholder="Ingrese su número" required />
+                        </div>
+
+                    </div>
+                )}
+
+                <div className="form-buttons">
+                    {step > 0 && (
+                        <button type="button" className="btn secondary" onClick={prevStep}>
+                            Anterior
+                        </button>
+                    )}
+                    {step < totalSteps ? (
+                        <button type="button" className="btn primary" onClick={nextStep}>
+                            Siguiente
+                        </button>
+                    ) : (
+                        <button type="submit" className="btn submit">
+                            Enviar Solicitud
+                        </button>
+                    )}
+                </div>
+            </form>
+
+            <Contact />
+
+        </div>
+    );
+}
+
+
+
+function Contact(){
+    return(
+        <div className="contact-info">
+            <h3>Tambien podes contactarnos por Whatsapp</h3>
+            <p>Nuestros Agentes atenderan tus consultas</p>
+            <a href="https://api.whatsapp.com/send?phone=" target="_blank" rel="noopener noreferrer">
+                <button className="btn whatsapp"><FaWhatsapp/> Contactar</button>
+            </a>
+        </div>
+    );
+}
+
 export default function Appraisals() {
     return (
         <>
 
-        <header>
-            <Banner/>
-        </header>
+            <header>
+                <Banner />
+            </header>
 
-        <main>
-            <div className="flex-wrapper">
-                <Description />
-                <Data_box />
-            </div>
-        </main>
+            <main>
+                <div className="flex-wrapper">
+                    <Description />
+
+                    <Form />
+                </div>
+            </main>
 
         </>
     )
 }
 
-// Creammos un banner para la pagina de tasaciones, tiene un titulo y un fondo de color
-function Banner() {
-    return(
-        <div className="container"> 
-            <div className="fondo-texto" id="titulo-tasaciones">
-                <h2>Solicitacion de tasaciones</h2>
-            </div>
-        </div>
-    );
-}
-// El componente que llama los parrafos principales de la pagina de tasaciones 
-function Description() {
-    return (
-        <div className="container">
-            <DescriptionItem/>
-        </div>
-    )  
-
-}
-
-// Este es el componente que crea los parrafos que se muestran en la pagina de tasaciones, son tres articulos con un texto cada uno
-// el primer y tercer articulo tiene un id que le da un estilo de texto alineado a la izquierda
-// el segundo articulo tiene un id que le da un estilo de texto sin padding y un color de fondo
-function DescriptionItem() {
-    return (
-        <div classname="paragraphs" id="text-left">
-            <article>
-                <div  className="text-corrections">
-                    <p>Realizamos el análisis de su inmueble, para <br/>
-                    brindar un valor real del mercado, tomando <br/>
-                    en cuenta la ubicación, superficie y <br/>
-                    comodidades.</p>
-                </div>
-            </article>
-            
-            <article>
-                <div className="fondo-texto" id="sinpadding">
-                    <p>No lo dudes más, la inversión es el <br/>
-                    éxito que te espera</p>
-                </div>
-            </article>
-
-            <article>
-                <div className="text-corrections">
-                    <p>Lo asesoraremos como es debido y le <br/>
-                    haremos saber que le conviene mas</p>
-                </div>  
-            </article>
-        </div>
-        
-    )
-}
-
-
-// Este es el componente que crea el formulario de tasaciones, tiene dos titulos y un boton de submit
-function Form(){
-    return(
-        <div>
-
-            <div className="form-title">
-                <h2>Datos del solicitante</h2>
-            </div>
-
-            <div className="form-wrapper">
-                <form id="form-container">
-
-                
-                    <Text_camp type="text"  placeholder="Nombre y apellido / Razon social"/>
-                    <Text_camp  type="text" placeholder="Email"/>
-                    <Text_camp  type="text" placeholder="Telefono"/>
-                
-                    <div className="form-title">
-                        <h3>Datos de inmueble</h3>
-                    </div>
-
-                    <Text_camp placeholder="Tipo de inmueble"/>
-                    <Text_camp placeholder="Datos castrales si los posee"/>
-                
-                    <div className="form-title">
-                        <h3>Comentarios</h3>
-                    </div>
-
-                    <div className="comment-box">
-                        <CommentBox/>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    )
-}
-
-function Text_camp({placeholder}){
-    return (
-        <input type="text" placeholder={placeholder}/>
-    )
-}
-
-// Creamos un componente que maneja el cuadro de texto para comentarios 
-function CommentBox(){
-    
-    const [comment, setComment] = useState("");
-
-    // Esta funcion manipula el cambio y la carga del valor que va a insertar el usuario en la caja de comentarios (lo almacena en comment)
-    const handleChange = (e) => {
-        setComment(e.target.value);
-    }
-
-    // Esta funcion maneja el envio del formulario, en este caso solo imprime el comentario en la consola y limpia el campo de comentario
-    // En una aplicacion real, aqui se enviaria el comentario a un servidor o se guardaria en una base de datos
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Comentario enviado:", comment);
-        setComment(""); 
-    };
-
-    return (
-        <div div="comment-box">
-        <form onSubmit={handleSubmit}>
-            <label htmlFor=" Comentarios Adicionales:"></label>
-            <textarea 
-            id="comment"
-            value={comment}
-            onChange={handleChange}
-            placeholder="Escribí acá tu opinión o duda..."
-            />
-            <div>
-                <button type="submit">solicitud de tasacion</button>
-            </div>
-        </form>
-        </div>
-    );
-}
-
-function Data_box() {
-    return (
-        <div>
-            <Form/>
-        </div>
-    )
-    }
 
