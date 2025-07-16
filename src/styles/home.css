@@ -2,7 +2,7 @@
 .fondo-encabezado {
   position: relative;
   background-color: #f4f4f4;
-  height: 550px;
+  height:120vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +47,7 @@
   justify-content: end;
   align-items: center;
   padding: 20px;
+  height: 100vh;
 }
 
 .cd-item {

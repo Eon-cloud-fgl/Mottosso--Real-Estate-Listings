@@ -3,8 +3,7 @@ import "../styles/home.css";
 function Banner() {
     return (
         <div className="contenedor-titulo-encabezado">
-            <p>Propiedades</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mottoso</p>
+            <p>Propiedades <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mottoso</p>
         </div>
     );
 }
