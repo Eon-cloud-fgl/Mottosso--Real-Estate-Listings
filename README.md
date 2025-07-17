@@ -1,12 +1,49 @@
-# React + Vite
+# 🏠 Mottoso Propiedades – Sistema de Gestión Inmobiliaria
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Mottoso Propiedades** es una plataforma digital diseñada para facilitar la gestión de inmuebles y potenciar la experiencia del usuario tanto del lado administrativo como del lado del cliente final.  
 
-Currently, two official plugins are available:
+Este sistema no solo permite publicar y administrar propiedades, sino también generar un canal de contacto cálido, humano y profesional, alineado con la identidad de marca.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Funcionalidades principales
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Carga, edición y gestión de propiedades en venta o alquiler.
+- Gestión de usuarios con distintos roles (administrador/editor).
+- Administración de imágenes asociadas a cada propiedad.
+- Registro de consultas de clientes desde formularios web.
+- Interfaz intuitiva y adaptable a diferentes dispositivos (si se conecta con frontend).
+- Base sólida y escalable sobre MySQL.
+
+---
+
+## 👥 Roles del sistema
+
+- **Administrador**: acceso total al sistema, incluyendo gestión de usuarios.
+- **Editor**: puede cargar y editar propiedades, gestionar imágenes y responder consultas.
+
+---
+
+## 🔧 Tecnologías utilizadas
+
+- **Backend**: PHP.
+- **Base de datos**: MySQL.
+- **Frontend**: React + CSS puro.
+- **Control de versiones**: Git + GitHub.
+
+---
+
+## 🎯 Objetivo del proyecto
+
+Brindar una solución ágil, profesional y personalizable para el sector inmobiliario, pensada para pequeñas y medianas empresas que buscan modernizar su proceso comercial sin perder la calidez del trato humano.
+
+---
+
+## 📬 Contacto
+
+Desarrollado por **Eon Dev Team**  
+Consultas o colaboración: eon.solutions.fgl@gmail.com  
+
+---
+
+> Este sistema está en constante evolución, abierto a mejoras y nuevas funcionalidades según las necesidades del negocio.
