@@ -1,28 +1,27 @@
+import { useEffect, useState } from "react";
 import "../styles/estate.css";
 import { AiFillPhone, AiOutlineKey, AiFillFilter } from "react-icons/ai";
 import { RxHome, RxRulerSquare, RxDimensions } from "react-icons/rx";
 import { PiToiletPaper } from "react-icons/pi";
 
-function EstateItem() {
+function EstateItem({ estate }) {
     return (
         <a href="">
             <div className="ce-item">
-
                 <img src={`/info-banner-1.avif`} alt="" />
 
                 <div className="ce-item-content">
                     <div className="ce-item-info">
-                        <h6 className="ce-info--price">Precio</h6>
-                        <span className="ce-info--address">address</span>
+                        <h6 className="ce-info--price">${estate.price}</h6>
+                        <span className="ce-info--address">{estate.address}</span>
                         <div className="ce-info--icon">
-                            <span> <RxHome /> 337m² terreno </span>
-                            <span> <RxRulerSquare /> 240m² cubiertos </span>
-                            <span> <RxDimensions /> 3 habitaciones </span>
-                            <span> <PiToiletPaper /> 2 baños </span>
+                            <span><RxHome /> {estate.terrain_size}m² terreno</span>
+                            <span><RxRulerSquare /> {estate.covered_area}m² cubiertos</span>
+                            <span><RxDimensions /> {estate.rooms} habitaciones</span>
+                            <span><PiToiletPaper /> {estate.bathrooms} baños</span>
                         </div>
-                        <p className="ce-info--description">Descripcion breve del in mueble, con detalles importantes como ubicacion, precio y caracteristicas.</p>
+                        <p className="ce-info--description">{estate.description}</p>
                     </div>
-
                     <div className="ce-item-actions">
                         <button className="ce-action--icon"><AiFillPhone /></button>
                     </div>
@@ -61,15 +60,40 @@ function Filter() {
 }
 
 export default function Estate() {
+    const [estates, setEstates] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php?action=getAllEstates")
+            .then((res) => res.json())
+            .then((data) => {
+                setEstates(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Error cargando propiedades:", err);
+                setLoading(false);
+            });
+    }, []);
+
+    // Lógica de contenido a renderizar
+    let content;
+    if (loading) {
+        content = <p>Cargando propiedades...</p>;
+    } else if (estates.length === 0) {
+        content = <p>No hay propiedades disponibles.</p>;
+    } else {
+        content = estates.map((estate) => (
+            <EstateItem key={estate.id} estate={estate} />
+        ));
+    }
+
     return (
-        <>
-            <div className="ce-container">
-                <Filter />
-                <div className="ce-items">
-                    <EstateItem />
-                    <EstateItem />
-                </div>
+        <div className="ce-container">
+            <Filter />
+            <div className="ce-items">
+                {content}
             </div>
-        </>
+        </div>
     );
 }
