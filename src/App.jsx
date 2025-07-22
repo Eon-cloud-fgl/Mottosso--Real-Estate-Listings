@@ -10,6 +10,7 @@ import News from "./pages/news"
 import GlobalStyle from "./pages/globalstyle"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
+import Login from "./pages/admin/Login"
 
 function App() {
     const [loading, setLoading] = useState(false)
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/enterprise" element={<Enterprise />} />
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
+                    <Route path="/admin/login" element={<Login />} />
                 </Routes>
             </div>
             <Footer />
