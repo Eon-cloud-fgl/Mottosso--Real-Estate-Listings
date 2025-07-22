@@ -1,54 +1,125 @@
-.login-container {
-  max-width: 400px;
-  margin: 200px 0 300px 100px;
-  padding: 2rem;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px #012855;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  
 }
 
+.main-bg {
+  background: url('/mottoso-fondo.png') no-repeat center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+ #logo-login img{
+  width: 100px;
+  margin: 0 0 0 150px;
+  -webkit-user-drag: none;
+}
+
+
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.login-form h2 {
+  margin-bottom: 40px;
+  color: #012855;
+}
+
+.login-form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 20px;
+}
 
 .login-form input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 10px;
-}
-
-
-.login-form input {
   border: none;
   border-bottom: 1.5px solid #012855;
   background-color: transparent;
   font-size: 14px;
   color: #012855;
-  padding: 10px;
+  padding: 10px 0;
+  margin-top: 5px;
 }
 
-
-
-
-.login-form h2 {
-  margin-bottom: 50px;
+.login-form label span {
+  font-size: 15px;
+  font-weight: 500;
 }
 
-  .login-form button {
-  padding: 10px;
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+#micheckbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #012855;
+  cursor: pointer;
+}
+
+.login-form button {
+  padding: 10px 20px;
   color: #ffffff;
   background-color: #012855;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-form button:hover {
-  background-color: #01438f; 
-  box-shadow: 0 0 10px rgba(1, 40, 85, 0.6); 
+  background-color: #01438f;
+  box-shadow: 0 0 10px rgba(1, 40, 85, 0.6);
 }
 
+.form-links {
+  margin-top: 20px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-links a {
+  color: #012855;
+  text-decoration: none;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+
+.login-form .checkbox-label {
+  display: flex !important;
+  text-align: left;
+}
+
+.login-footer button{
+  margin-left: 100px;
+}
