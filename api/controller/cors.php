@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: http://localhost:5173"); // el puerto de Vite
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Headers: Content-Type");
