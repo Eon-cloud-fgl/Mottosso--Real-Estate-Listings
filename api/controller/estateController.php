@@ -15,13 +15,26 @@ $estateModel = new EstateModel($conn); // Crea una instancia del modelo de propi
 // $userId = $_SESSION['user_id']; // Obtiene el ID del usuario autenticado desde la sesión.
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    
+
     $data = json_decode(file_get_contents('php://input'), true);
     $action = isset($data['action']) ? $data['action'] : (isset($_GET['action']) ? $_GET['action'] : '');
 
     switch ($action) {
         case 'getAllEstates':
-            $estates = $estateModel->getAllEstates(); // Llama al método del modelo para obtener todas las propiedades.
+            $filters = [
+                'query' => isset($_GET['query']) ? $_GET['query'] : '',
+                'type' => isset($_GET['type']) ? $_GET['type'] : '',
+                'operation' => isset($_GET['operation']) ? $_GET['operation'] : '',
+
+                // FILTROS AVANZADOS
+                'rooms' => $_GET['rooms'] ?? '',
+                'bedrooms' => $_GET['bedrooms'] ?? '',
+                'bathrooms' => $_GET['bathrooms'] ?? '',
+                'garage' => $_GET['garage'] ?? '',
+                'priceMin' => $_GET['priceMin'] ?? '',
+                'priceMax' => $_GET['priceMax'] ?? ''
+            ];
+            $estates = $estateModel->getAllEstates($filters); // Llama al método del modelo para obtener todas las propiedades.
             echo json_encode($estates); // Devuelve las propiedades en formato JSON.
             break;
 
@@ -32,13 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     $data = json_decode(file_get_contents('php://input'), true);
     $action = isset($data['action']) ? $data['action'] : (isset($_POST['action']) ? $_POST['action'] : '');
 
     switch ($action) {
         case '':
-            
+
 
         default:
             http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.
@@ -46,9 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             break;
     }
 
-} 
-
-else {
+} else {
     http_response_code(405); // Establece el código de estado HTTP a 405 si el método no está permitido.
     echo json_encode(['error' => 'Método no permitido']); // Envía un mensaje de error indicando que el método no está permitido.
 }
