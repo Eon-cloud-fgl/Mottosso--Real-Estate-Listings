@@ -1,43 +1,133 @@
-/*estilo para header*/
-.fondo-encabezado {
-  position: relative;
-  background-color: #f4f4f4;
-  height:120vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; 
+
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 5rem;
 }
 
-.fondo-encabezado::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("/MottosoLogoPuro.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.3; 
-  z-index: 0;
+.hero-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
 }
 
-#text-final{
-    padding:20px;
-    background-color: var(--primary) ;
+.hero-content {
+    position: absolute;
+    top: 15%;
+    left: 8%;
     color: white;
-    text-align: center;
-    margin: 0;
+    max-width: 600px;
 }
 
-.fondo-encabezado p {
-  position: relative;
-  z-index: 1;
-  color: black;
-  font-size: 25px;
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
 }
+
+.hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #e0e0e0;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.hero-search {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    padding: 0.5rem 1rem;
+    max-width: 400px;
+}
+
+.hero-search input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    background: transparent;
+    color: white;
+}
+
+.hero-search input::placeholder {
+    color: #ccc;
+}
+
+.hero-search button {
+    background-color: white;
+    color: #222;
+    border: none;
+    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-search button svg {
+    margin-left: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    fill: currentColor;
+    vertical-align: middle;
+}
+
+.hero-search button:hover {
+    background-color: var(--primary);
+    opacity: 0.8;
+    color: white;
+}
+
+.hero-form-bar {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 50px;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    align-items: center;
+    z-index: 10;
+}
+
+.hero-form-bar select,
+.hero-form-bar input {
+    border: none;
+    background: #f5f5f5;
+    padding: 0.75rem 1rem;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.hero-form-bar button {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-form-bar button:hover {
+    background: #155d94;
+}
+
 
 /* Descripcion */
 
@@ -47,12 +137,15 @@
   justify-content: end;
   align-items: center;
   padding: 20px;
-  height: 100vh;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  height: auto;
+  gap: 15rem;
 }
 
 .cd-item {
   width: 280px;
-  height: 500px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,6 +168,55 @@
   margin-top: 10px;
   color: #f4f4f4;
 }
+
+
+.image-stack {
+  position: relative;
+  width: 600px; 
+  height: 350px;
+}
+
+.stack-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.6s ease;
+  will-change: transform;
+  filter: brightness(0.9);
+  cursor: pointer;
+}
+
+.stack-img:hover {
+  transform: scale(1.05) translateY(-10px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.img-1 {
+  z-index: 1;
+  top: 0;
+  left: -80px;
+}
+.img-2 {
+  z-index: 2;
+  top: 10px;
+  left: -40px;
+}
+.img-3 {
+  z-index: 3;
+  top: 20px;
+  left: 0;
+}
+.img-4 {
+  z-index: 4;
+  top: 30px;
+  left: 40px;
+}
+
 
 /* Estilos para el contenedor mayor y menor */
 .contenedor-mayor{
@@ -154,4 +296,15 @@
   cursor: pointer;
   margin-top: 20px;
   font-weight:700;
+}
+
+#text-final {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ddd;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    background-color: #012855;
+    margin: 0;
 }
