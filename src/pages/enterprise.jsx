@@ -1,4 +1,6 @@
 import "../styles/enterprise.css";
+import NavbarSeparator from "../components/Separator";
+
 
 
 function Banner() {
@@ -15,7 +17,7 @@ function AboutUs() {
     return (
         <div className="about-us-container">
             <div className="au-img-container">
-                <img src="/casa.avif" alt="about us" className="au-img" />
+                <img src="/banner/about-us-banner.jpg" alt="about us" className="au-img" />
             </div>
             <div className="au-content-container">
                 <div className="au-text-container">
@@ -57,6 +59,7 @@ function AboutUs() {
 export default function Enterprise() {
     return (
         <>
+            <NavbarSeparator />
             <Banner />
             <AboutUs />
         </>

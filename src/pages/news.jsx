@@ -1,4 +1,6 @@
 import "../styles/news.css";
+import NavbarSeparator from "../components/Separator";
+
 // Componente que renderiza el banner principal
 function Banner() {
     return(
@@ -63,6 +65,7 @@ function Miscellaneous() {
 export default function News() {
     return (
         <>
+            <NavbarSeparator />
             <Banner />
             <Miscellaneous />
         </>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "../styles/estate.css";
 import Filters from "../components/FilterForm";
+import NavbarSeparator from "../components/Separator";
+import AutocompleteInput from "../components/AutoCompleteMap";
 import { AiFillPhone, AiOutlineKey, AiFillFilter } from "react-icons/ai";
 import { RxHome, RxRulerSquare, RxDimensions } from "react-icons/rx";
 import { PiToiletPaper } from "react-icons/pi";
@@ -35,10 +37,10 @@ function EstateItem({ estate }) {
 
 function Filter({ onFilterChange }) {
     const [showForm, setShowForm] = useState(false);
-    const [query, setQuery] = useState("");
-    const [type, setType] = useState("");
-    const [operation, setOperation] = useState("");
     const [searchParams] = useSearchParams();
+    const [query, setQuery] = useState(searchParams.get("query") || "");
+    const [type, setType] = useState(searchParams.get("type") || "");
+    const [operation, setOperation] = useState(searchParams.get("operation") || "");
 
     const handleAddEmployee = () => {
         setShowForm(true);
@@ -69,12 +71,7 @@ function Filter({ onFilterChange }) {
     return (
         <div className="ce-filter">
             <div className="ce-filter--search">
-                <input
-                    type="text"
-                    placeholder="Buscar por ubicación"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
+                <AutocompleteInput value={query} onChange={setQuery} />
                 <span><AiOutlineKey /></span>
             </div>
 
@@ -129,6 +126,8 @@ export default function Estate() {
     useEffect(() => {
         fetchEstates();
     }, []);
+
+
     // Lógica de contenido a renderizar
     let content;
     if (loading) {
@@ -143,6 +142,8 @@ export default function Estate() {
 
     return (
         <div className="ce-container">
+            <NavbarSeparator />
+
             <Filter onFilterChange={fetchEstates} />
             <div className="ce-items">
                 {content}

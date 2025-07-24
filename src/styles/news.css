@@ -32,7 +32,7 @@
 /* Aplica solo si ES invertido */
 .contenedor-novedades-menor.invertido {
   flex-direction: row-reverse;
-  background-color: var(--primary);
+  background-color: var(--secondary);
 }
 
 .contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
