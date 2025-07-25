@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-07-2025 a las 00:46:44
+-- Tiempo de generación: 21-07-2025 a las 03:16:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mottoso_db`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insert_user` (IN `p_name` VARCHAR(100), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(255), IN `p_role` ENUM('admin','editor'))   BEGIN
+    IF TRIM(p_name) = '' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nombre no puede estar vacío';
+    END IF;
+
+    IF TRIM(p_email) = '' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El email no puede estar vacío';
+    END IF;
+
+    IF TRIM(p_password) = '' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La contraseña no puede estar vacía';
+    END IF;
+
+    IF p_role NOT IN ('admin', 'editor') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El rol debe ser admin o editor';
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM user WHERE email = p_email) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El email ya está registrado';
+    END IF;
+
+    INSERT INTO user (name, email, password, role)
+    VALUES (p_name, p_email, p_password, p_role);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 

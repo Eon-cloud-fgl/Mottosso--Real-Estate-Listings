@@ -1,4 +1,5 @@
 import "../styles/appraisals.css";
+import NavbarSeparator from "../components/Separator";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -150,7 +151,7 @@ function Contact(){
 export default function Appraisals() {
     return (
         <>
-
+            <NavbarSeparator />
             <header>
                 <Banner />
             </header>

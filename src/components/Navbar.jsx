@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 import "../styles/global.css";
-import logo from '/MottosoLogo.png';
+import logo from '/MottosoLogoPuro.png';
 import { FaHome, FaHandHoldingUsd, FaNewspaper, FaPhone } from "react-icons/fa";
 import { MdRealEstateAgent, MdBusinessCenter } from "react-icons/md";
 export default function Navbar() {
@@ -20,6 +20,7 @@ export default function Navbar() {
 
             </ul>
         </nav>
+
     );
 }
 
