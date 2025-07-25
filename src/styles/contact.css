@@ -9,10 +9,6 @@
   overflow: hidden;
 }
 
-.contenedor-contacto{
-  height: 100vh;
-}
-
 .fondo-encabezado-contacto::before {
   content: "";
   position: absolute;
@@ -66,7 +62,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem 2rem 1rem 2rem;
+  
 }
 
 .faq-question {
@@ -113,12 +110,16 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: auto;
-  height: 100%;
+  height: auto;
   padding: 2rem;
   z-index: 1;
   font-family: 'Segoe UI', sans-serif;
 }
-
+#message{
+  resize: none; 
+  width: auto; 
+  height: 100px;
+}
 .contenedor-formulario h2 {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
@@ -339,7 +340,8 @@ hr {
 }
 
 .contenedor-contacto-maps {
-    width: 100%;
+    width:auto;
+    padding: 0rem 4rem 0rem 4rem;
     height: auto;
     display: flex;
     align-items: center;

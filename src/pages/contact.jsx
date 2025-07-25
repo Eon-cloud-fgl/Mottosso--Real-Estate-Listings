@@ -20,6 +20,16 @@ function OpenFaqs(e) {
     const button = e.currentTarget;
     const answer = button.nextElementSibling;
 
+    document.querySelectorAll(".faq-answer.open").forEach(openAnswer => {
+        if (openAnswer !== answer) {
+            openAnswer.classList.remove("open");
+            const openButton = openAnswer.previousElementSibling;
+            if (openButton?.classList.contains("open")) {
+                openButton.classList.remove("open");
+            }
+        }
+    });
+
     answer.classList.toggle("open");
     button.classList.toggle("open");
 }
