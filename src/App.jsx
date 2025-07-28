@@ -7,15 +7,20 @@ import Contact from "./pages/contact"
 import Enterprise from "./pages/enterprise"
 import Estate from "./pages/estate"
 import News from "./pages/news"
-import GlobalStyle from "./pages/globalstyle"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
 import Login from "./pages/admin/Login"
+import Dashboard from "./pages/admin/Dashboard"
+import NavbarAdmin from "./components/NavbarAdmin"
 
 function App() {
     const [loading, setLoading] = useState(false)
     const [showLoader, setShowLoader] = useState(false)
     const location = useLocation()
+
+    const isAdminRoute = location.pathname.startsWith("/admin")
+    const ruta = location.pathname;
+    const rutaBooleano = ruta === "/admin/dashboard";
 
     useEffect(() => {
         setShowLoader(true)
@@ -35,21 +40,24 @@ function App() {
 
     return (
         <>
-            <GlobalStyle />
-            <Navbar />
+            {!isAdminRoute && <Navbar />}
+            {isAdminRoute && rutaBooleano && <NavbarAdmin />}
             {showLoader && <Loader visible={loading} />}
-            <div className="container">
+            <div className={isAdminRoute ? "admin-container" : "container"}>
                 <Routes>
+                    {/*RUTA USUARIO*/}
                     <Route path="/" element={<Home />} />
                     <Route path="/appraisals" element={<Appraisals />} />
                     <Route path="/contact" element={<Contact />}/>
                     <Route path="/enterprise" element={<Enterprise />} />
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
-                    <Route path="/admin/login" element={<Login />} />
+                    {/*RUTA ADMIN*/}
+                    <Route path="/admin" element={<Login />} />
+                    <Route path="/admin/dashboard" element={<Dashboard />} />
                 </Routes>
             </div>
-            <Footer />
+            {!isAdminRoute && <Footer />}
         </>
     )
 }
