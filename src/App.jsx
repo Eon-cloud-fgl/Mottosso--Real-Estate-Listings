@@ -10,8 +10,12 @@ import News from "./pages/news"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
 import Login from "./pages/admin/Login"
+<<<<<<< HEAD
 import Dashboard from "./pages/admin/Dashboard"
 import NavbarAdmin from "./components/NavbarAdmin"
+=======
+import Property from "./pages/property";
+>>>>>>> 75eeb53acf98a78d084bbd7ad937a47a1b32794e
 
 function App() {
     const [loading, setLoading] = useState(false)
@@ -52,9 +56,14 @@ function App() {
                     <Route path="/enterprise" element={<Enterprise />} />
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
+<<<<<<< HEAD
                     {/*RUTA ADMIN*/}
                     <Route path="/admin" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
+=======
+                    <Route path="/admin/login" element={<Login />} />
+                    <Route path="/property" element={<Property />} />
+>>>>>>> 75eeb53acf98a78d084bbd7ad937a47a1b32794e
                 </Routes>
             </div>
             {!isAdminRoute && <Footer />}
