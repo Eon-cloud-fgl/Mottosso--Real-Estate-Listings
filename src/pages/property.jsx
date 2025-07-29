@@ -9,6 +9,7 @@ import { MdSignalCellularAlt } from "react-icons/md";
 import { IoMdPerson } from "react-icons/io";
 import { VscSymbolProperty } from "react-icons/vsc";
 import { IoLocationOutline } from "react-icons/io5";
+import { FaPhone } from "react-icons/fa";
 
 
 
@@ -23,22 +24,37 @@ export default function Property() {
                 <Description />
 
                 <div className="image-contact-wrapper">
-
-                    <div className="image-characteristics-group" draggable="false"> 
-                        <Image />
-                        <Characteristics />
-                    </div>
-
-                <div className="location-wrapper">
-                    <LocationDescription />
-                    <ContactsSection />
+                    {/* columna izquierda (imagen y características) */}
+                    <div className="image-characteristics-group" id="image-background">
+                        <div className="container-image-wrapper">
+                            <Image />
+                            <ContactIcons /> 
+                        </div>
+                        
+                    <Characteristics />
+                    <AboutProperty />
                 </div>
 
-            </div>
+                    {/* columna derecha (ubicación y formulario) */}
+                    <div className="right-side-column">
+                        <LocationDescription />
+
+                        <div id="mapa-google">
+                            {/* mapa */}  
+                        </div>
+
+
+                    </div>
+                </div>
+
+            
+
+                <PhoneContactButton />
             </main>
         </>
     );
 }
+
 
 
 function Banner() {
@@ -61,23 +77,35 @@ function LocationDescription() {
     return (
         <div className="description_location">
             <IoLocationOutline />
-            <p>Ubicacion</p>
+            <p>Ubicacion: Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
         </div>
+    );
+}
+
+function PhoneContactButton() {
+    return (
+        <a className="phone-contact-button">
+            <FaPhone size={40} />
+        </a>
     );
 }
 
 
 function Image() {
-    return (
+  return (
+    <>
+    
         <div className="container-image">
             <img src="/casa.avif" />
         </div>
-    );
+        
+    </>
+  );
 }
 
-function ContactsSection() {
+function ContactIcons() {
     return (
-        <div className="container-section">
+        <div className="contact-icons-wrapper">
             <FaWhatsapp size={30} />
             <CgMail size={30} />
             <FaFacebookSquare size={30} />
@@ -116,5 +144,12 @@ function Characteristics() {
     );
 }
 
-
+function AboutProperty() {
+    return (
+        <div className="about-property">
+            <h3>Sobre la propiedad</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+        </div>
+    );
+}
 
