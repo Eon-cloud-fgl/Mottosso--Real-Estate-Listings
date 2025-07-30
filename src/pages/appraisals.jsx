@@ -2,6 +2,7 @@ import "../styles/appraisals.css";
 import NavbarSeparator from "../components/Separator";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import WhatsAppButton from "../components/WhatsappBtn.jsx";
 
 
 function Banner() {
@@ -101,7 +102,7 @@ function Form() {
                             <label htmlFor="contact-email">Email:</label>
                             <input type="email" id="contact-email" name="contact-email" placeholder="Ingrese su email" required />
                         </div>
-                        
+
                         <div className="form-step">
                             <label htmlFor="contact-phone">Teléfono:</label>
                             <input type="tel" id="contact-phone" name="contact-phone" placeholder="Ingrese su número" required />
@@ -136,14 +137,31 @@ function Form() {
 
 
 
-function Contact(){
-    return(
+function Contact() {
+    return (
         <div className="contact-info">
             <h3>Tambien podes contactarnos por Whatsapp</h3>
             <p>Nuestros Agentes atenderan tus consultas</p>
-            <a href="https://api.whatsapp.com/send?phone=" target="_blank" rel="noopener noreferrer">
-                <button className="btn whatsapp"><FaWhatsapp/> Contactar</button>
-            </a>
+            <WhatsAppButton
+                phone="5491123456789"
+                message="Hola, estoy interesado en tazar una propiedad."
+            />
+
+        </div>
+    );
+}
+
+function Advice() {
+    return (
+        <div className="advice-container">
+            <h3>¿Buscas un Asesoramiento Personalizado?</h3>
+            <div className="advice-info">
+                <WhatsAppButton
+                    phone="5491123456789"
+                    message="Hola, estoy interesado en Asesoramiento Personalizado."
+                />
+                <button className="btn-secondary">Contactar</button>
+            </div>
         </div>
     );
 }
@@ -162,6 +180,7 @@ export default function Appraisals() {
 
                     <Form />
                 </div>
+                <Advice />
             </main>
 
         </>

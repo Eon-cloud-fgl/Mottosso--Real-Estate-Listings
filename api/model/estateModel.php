@@ -9,11 +9,15 @@ class EstateModel
         $this->conn = $conn;
     }
 
-    function getAllEstates($filters = [])
+    function getAllEstates($filters = [], $includeDrafts = false)
     {
         $query = "SELECT * FROM properties WHERE 1=1";
         $params = [];
         $type = '';
+
+        if (!$includeDrafts) {
+            $query .= " AND status != 'draft'"; // Excluye propiedades en borrador por defecto
+        }
 
         if (!empty($filters['query'])) {
             $query .= " AND city = ?";
@@ -84,5 +88,55 @@ class EstateModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    function modifyEstate($estateId, $estateData)
+    {
+        $query = "UPDATE properties SET ";
+        $params = [];
+        $type = '';
+
+        foreach ($estateData as $key => $value) {
+            if ($key !== 'Id') {
+                $query .= "$key = ?, ";
+                $params[] = $value;
+                $type .= is_numeric($value) ? 'd' : 's'; // Determina el tipo de dato
+            }
+        }
+
+        $query = rtrim($query, ', ') . " WHERE Id = ?";
+        $params[] = $estateId;
+        $type .= 'i'; // El ID es un entero
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param($type, ...$params);
+        return $stmt->execute();
+    }
+
+    function addEstate($estateData)
+    {
+        $query = "INSERT INTO properties (city, type, operation, rooms, bedrooms, bathrooms, garage, price, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param(
+            'sssiidds',
+            $estateData['city'],
+            $estateData['type'],
+            $estateData['operation'],
+            $estateData['rooms'],
+            $estateData['bedrooms'],
+            $estateData['bathrooms'],
+            $estateData['garage'],
+            $estateData['price'],
+            $estateData['description']
+        );
+        return $stmt->execute();
+    }
+
+    function deleteEstate($estateId)
+    {
+        $query = "UPDATE properties SET status = 'draft' WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $estateId);
+        return $stmt->execute();
+
+    }
 }
 ?>

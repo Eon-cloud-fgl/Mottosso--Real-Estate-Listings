@@ -1,0 +1,23 @@
+
+.btn-wsp {
+    background-color: #25d366;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btn-wsp:hover {
+    background-color: #128c7e;
+    transition: background-color 0.3s ease;
+}
+
+.btn-wsp svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: sub;
+}

@@ -15,7 +15,7 @@ export default function Navbar() {
                 <CustomLink to="/news"><FaNewspaper />Novedades</CustomLink>
                 <CustomLink to="/enterprise"><MdBusinessCenter />La Empresa</CustomLink>
                 <CustomLink to="/contact"><FaPhone />Contacto</CustomLink>
-                {/* <CustomLink to="/admin/Login">Logueo</CustomLink> */}
+                <CustomLink to="/admin/Login">Logueo</CustomLink>
                 <CustomLink to="/property">inmuebles_pruebas</CustomLink>
             </ul>
         </nav>

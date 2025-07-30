@@ -150,7 +150,7 @@ function ContactSection() {
                     <div className="icon"><FaMapMarkerAlt /></div>
                     <div>
                         <strong>Direccion</strong>
-                        <p>Av. Mitre 2450, Quilmes Centro, Buenos Aires</p>
+                        <p>Av. Talas de Tuyú N°3295, San Clementes del Tuyu, Provincia de Buenos Aires</p>
                     </div>
                 </div>
 
@@ -158,7 +158,15 @@ function ContactSection() {
                     <div className="icon"><FaPhoneAlt /></div>
                     <div>
                         <strong>Telefono</strong>
-                        <p>+53 1112345678</p>
+                        <p>2252 485229</p>
+                    </div>
+                </div>
+
+                <div className="contact-item">
+                    <div className="icon"><FaPhoneAlt /></div>
+                    <div>
+                        <strong>Telefono</strong>
+                        <p>2252 412525</p>
                     </div>
                 </div>
 
@@ -166,7 +174,7 @@ function ContactSection() {
                     <div className="icon"><FaEnvelope /></div>
                     <div>
                         <strong>Correo</strong>
-                        <p>mottoso@gmail.com</p>
+                        <p>mottosopropiedades@gmail.com</p>
                     </div>
                 </div>
             </div>

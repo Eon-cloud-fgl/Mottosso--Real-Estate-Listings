@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 import "../styles/estate.css";
 import Filters from "../components/FilterForm";
 import NavbarSeparator from "../components/Separator";
@@ -101,31 +102,30 @@ function Filter({ onFilterChange }) {
 export default function Estate() {
     const [estates, setEstates] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchParams] = useSearchParams();
 
     const fetchEstates = async (filters = {}) => {
         setLoading(true);
 
-        const params = new URLSearchParams({
-            action: "getAllEstates",
-            ...filters,
-        });
-
         try {
-            const res = await fetch(`http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php?${params}`);
-            const data = await res.json();
-            setEstates(data);
+            const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+                params: {
+                    action: "getPublishedEstates",
+                    ...filters,
+                },
+            });
+
+            setEstates(res.data);
         } catch (error) {
             console.error("Error cargando propiedades:", error);
         } finally {
             setLoading(false);
         }
-
-    }
+    };
 
     useEffect(() => {
-        fetchEstates();
+        fetchEstates(); // Si no pasás filtros, igual se manda action=getAllEstates
     }, []);
+
 
 
     // Lógica de contenido a renderizar
