@@ -438,6 +438,7 @@ export default function Dashboard() {
 
   return (
     <>
+    <div className="dashboard-container">
       <Miscellaneous />
       <Buttons
         onShowAdd={handleShowAdd}
@@ -462,6 +463,7 @@ export default function Dashboard() {
         />
       )}
       <ToastContainer />
+    </div>
     </>
   );
 }

@@ -1,88 +1,138 @@
 /* Estilo de los Items */
 #item-titulo-principal {
-  font-size: 30px;
+  font-size: 2rem; /* más escalable que 30px */
   color: white;
-  background-color: var(--primary);;
-  padding: 10px;
+  background-color: var(--primary);
+  padding: 0.75rem 1rem;
   margin: 0;
   width: 100%;
   box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
 }
 
-#item-footer{
-  font-size: 10px;
+#item-footer {
+  font-size: 0.75rem;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 10px;
-
+  padding: 0.5rem 1rem;
+  color: #555;
+  background: rgba(255,255,255,0.8);
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
 }
 
-/* Estilo de los contenedores */
+/* Contenedor mayor novedades */
 .contenedor-novedades-mayor {
-  padding-top: 60px; 
-  padding-bottom: 60px;
+  padding: 3rem 1rem; 
   display: grid;
-  grid-template-columns: repeat(1, auto); 
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* Aplica solo si ES invertido */
-.contenedor-novedades-menor.invertido {
-  flex-direction: row-reverse;
-  background-color: var(--secondary);
-}
-
-.contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
-  margin-left: 0;
-  margin-right: -100px;
-}
-
-/* Aplica solo si NO es invertido */
-.contenedor-novedades-menor:not(.invertido) .contenedor-novedades-menor-article {
-  margin-left: -100px;
-
-}
-
-.contenedor-novedades-principal {
-  text-align: center;
-}
-
+/* Contenedor menor novedades */
 .contenedor-novedades-menor {
   display: flex;
   flex-wrap: wrap;
   max-width: 80%;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
+  background-color: #fff;
+  padding: 1.25rem;
   box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  gap: 1rem;
 }
 
+/* Imagen en contenedor menor */
 .contenedor-novedades-menor-imagen {
   flex: 0 0 40%;
   position: relative;
   z-index: 2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .contenedor-novedades-menor-imagen img {
   width: 100%;
-  height: auto;
-  border-radius: 5px;
-  display: block;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: 5px;
 }
 
+/* Article en contenedor menor */
 .contenedor-novedades-menor-article {
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 5px;
-  flex: 0 0 40%;
-  padding: 20px;
-  height: auto;
+  flex: 1 1 50%; /* más flexible */
+  padding: 1.25rem;
   position: relative;
   z-index: 3;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  margin: auto 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Cuando es invertido */
+.contenedor-novedades-menor.invertido {
+  flex-direction: row-reverse;
+  background-color: var(--secondary);
+  gap: 2rem;
+}
+
+.contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Cuando NO es invertido */
+.contenedor-novedades-menor:not(.invertido) .contenedor-novedades-menor-article {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Centrado para el contenedor principal */
+.contenedor-novedades-principal {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .contenedor-novedades-menor {
+    display: flex !important;
+    flex-direction: column !important;
+    max-width: 100% !important;
+    padding: 1rem !important;
+  }
+
+  .contenedor-novedades-menor-imagen,
+  .contenedor-novedades-menor-article {
+    flex: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .contenedor-novedades-menor-imagen {
+    order: 0 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .contenedor-novedades-menor-article {
+    order: 1 !important;
+    padding-bottom: 10rem;
+  }
+  
+  .contenedor-novedades-menor.invertido {
+    flex-direction: column !important;
+  }
 }

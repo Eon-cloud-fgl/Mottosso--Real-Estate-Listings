@@ -53,11 +53,10 @@ function App() {
                     <Route path="/enterprise" element={<Enterprise />} />
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
+                    <Route path="/property" element={<Property />} />
                     {/*RUTA ADMIN*/}
                     <Route path="/admin" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
-                    <Route path="/admin/login" element={<Login />} />
-                    <Route path="/property" element={<Property />} />
                 </Routes>
             </div>
             {!isAdminRoute && <Footer />}

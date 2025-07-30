@@ -186,3 +186,88 @@
     background: #004aad;
     color: white;
 }
+@media (max-width: 600px) {
+  .ce-filter--search {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .ce-filter--options {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .ce-filter--options select,
+  .ce-filter--options button {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .ce-item {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .ce-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .filters-container {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+@media (max-width: 600px) {
+  .filters-group {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .filter-group {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .filter-group .filter-title {
+    font-size: 1rem;
+    padding-bottom: 8px;
+  }
+
+  .options {
+    gap: 12px;
+  }
+
+  .options label.radio-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+
+  .price-inputs input {
+    height: 40px;
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .filter-actions {
+    padding: 12px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-actions button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+}
