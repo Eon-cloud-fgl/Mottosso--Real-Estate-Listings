@@ -4,6 +4,7 @@ import "../styles/global.css";
 import logo from '/MottosoLogoPuro.png';
 import { FaHome, FaHandHoldingUsd, FaNewspaper, FaPhone } from "react-icons/fa";
 import { MdRealEstateAgent, MdBusinessCenter } from "react-icons/md";
+
 export default function Navbar() {
     return (
         <nav className="nav-glass">
@@ -19,7 +20,6 @@ export default function Navbar() {
                 <CustomLink to="/property">inmuebles_pruebas</CustomLink>
             </ul>
         </nav>
-
     );
 }
 
