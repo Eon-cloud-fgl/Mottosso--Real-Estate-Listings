@@ -138,5 +138,16 @@ class EstateModel
         return $stmt->execute();
 
     }
+
+    function getEstateById($estateId)
+    {
+        $query = "SELECT * FROM properties WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $estateId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->fetch_assoc();
+    }
 }
 ?>

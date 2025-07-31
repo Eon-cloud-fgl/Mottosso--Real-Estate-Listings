@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'priceMin' => $_GET['priceMin'] ?? '',
                 'priceMax' => $_GET['priceMax'] ?? ''
             ];
-            
+
             $estates = $estateModel->getAllEstates($filters, true); // Llama al método del modelo para obtener todas las propiedades, incluyendo draft.
             echo json_encode($estates); // Devuelve las propiedades en formato JSON.
             break;
@@ -57,6 +57,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $estates = $estateModel->getAllEstates($filters); // Llama al método del modelo para obtener todas las propiedades.
             echo json_encode($estates); // Devuelve las propiedades en formato JSON.
             break;
+
+        case 'getProperty':
+            if (isset($_GET['id'])) {
+                $estateId = $_GET['id'];
+                $estate = $estateModel->getEstateById($estateId); // Llama al método del modelo para obtener una propiedad por su ID.
+                echo json_encode($estate); // Devuelve la propiedad en formato JSON.
+                break;
+            } else {
+                http_response_code(400); // Establece el código de estado HTTP a 400 si falta el ID.
+                echo json_encode(['error' => 'ID de propiedad no proporcionado']); // Envía un mensaje de error indicando que falta el ID.
+                break;
+            }
+            
         default:
             http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.
             echo json_encode(['error' => 'Acción no válida']); // Envía un mensaje de error indicando que la acción no es válida.
