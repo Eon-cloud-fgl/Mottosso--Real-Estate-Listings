@@ -278,6 +278,7 @@ textarea {
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
     padding: 40px;
     font-family: var(--font-family-sans-serif);
 }
