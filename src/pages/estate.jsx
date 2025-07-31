@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import "../styles/estate.css";
 import Filters from "../components/FilterForm";
@@ -7,11 +7,21 @@ import NavbarSeparator from "../components/Separator";
 import AutocompleteInput from "../components/AutoCompleteMap";
 import { AiFillPhone, AiOutlineKey, AiFillFilter } from "react-icons/ai";
 import { RxHome, RxRulerSquare, RxDimensions } from "react-icons/rx";
+import { FaHome, FaExchangeAlt } from "react-icons/fa";
 import { PiToiletPaper } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+
 
 function EstateItem({ estate }) {
+
+    const navigate = useNavigate();
+
+    const handleSelectEstate = () => {
+        navigate(`/property?id=${estate.id}`);
+    };
+
     return (
-        <a href="">
+        <a onClick={handleSelectEstate} className="ce-item-link">
             <div className="ce-item">
                 <img src={`/info-banner-1.avif`} alt="" />
 
@@ -77,18 +87,31 @@ function Filter({ onFilterChange }) {
             </div>
 
             <div className="ce-filter--options">
-                <select value={type} onChange={(e) => setType(e.target.value)} className="ce-filter--select">
-                    <option value="">Tipo de propiedad</option>
-                    <option value="house">Casa</option>
-                    <option value="apartment">Apartamento</option>
-                    <option value="land">Terreno</option>
-                </select>
+                <div className="ce-filter--wrapper">
+                    <FaHome className="ce-filter--icon" />
+                    <select
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                        className="ce-filter--select"
+                    >
+                        <option value="" disabled hidden>Tipo de propiedad</option>
+                        <option value="">Todos</option>
+                        <option value="house">Casa</option>
+                        <option value="apartment">Apartamento</option>
+                        <option value="land">Terreno</option>
+                    </select>
+                </div>
 
-                <select value={operation} onChange={(e) => setOperation(e.target.value)} className="ce-filter--select">
-                    <option value="">Operación</option>
-                    <option value="sale">Compra</option>
-                    <option value="rent">Alquiler</option>
-                </select>
+                <div className="ce-filter--wrapper">
+                    <FaExchangeAlt className="ce-filter--icon" />
+                    <select value={operation} onChange={(e) => setOperation(e.target.value)} className="ce-filter--select">
+                        <option value="" disabled hidden>Operación</option>
+                        <option value="">Todos</option>
+                        <option value="sale">Compra</option>
+                        <option value="rent">Alquiler</option>
+                    </select>
+                </div>
+
 
                 <button onClick={handleAddEmployee}><AiFillFilter /> Filtros</button>
 

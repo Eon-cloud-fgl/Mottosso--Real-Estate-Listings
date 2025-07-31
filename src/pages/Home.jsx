@@ -7,7 +7,7 @@ import { GoChevronRight } from "react-icons/go";
 function Banner() {
     return (
         <div className="hero-container">
-            <img src="/banner/home-banner--b1.jpg" className="hero-background" />
+            <img src="/banner/home-banner--b2.jpg" className="hero-background" />
 
             <div className="hero-content">
                 <h1 className="hero-title">Encontrar tu nuevo hogar es sencillo</h1>

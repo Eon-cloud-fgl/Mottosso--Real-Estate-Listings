@@ -7,6 +7,7 @@
   --dark: #333;
   --light: #f9f9f9;
   --transparent: transparent;
+  --background: #fafafa;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -27,6 +28,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     min-height: 100vh;
+    background-color: var(--background);
 }
 
 a {
