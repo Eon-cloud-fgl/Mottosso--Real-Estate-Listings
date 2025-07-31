@@ -333,3 +333,88 @@ textarea {
     font-size: 1.2rem;
     font-weight: bold;
 }
+@media (max-width: 1024px) {
+  .flex-wrapper {
+    flex-direction: column;
+    padding: 20px 10px;
+    gap: 30px;
+  }
+
+  .ds-container {
+    width: 90%;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .form-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .advice-container {
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .advice-info {
+    flex-direction: column;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .fondo-texto {
+    font-size: 22px;
+    padding: 8px;
+  }
+
+  .ds-container h2 {
+    font-size: 1.75rem;
+  }
+
+  .ds-container h3 {
+    font-size: 1.5rem;
+  }
+
+  .ds-container p,
+  .ds-container ul li,
+  .contact-info p {
+    font-size: 1rem;
+  }
+
+  .form-step input,
+  .form-step select,
+  .form-step textarea {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+    padding: 8px 16px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .contact-info {
+    padding: 20px;
+  }
+
+  .contact-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .advice-container h3 {
+    font-size: 1.4rem;
+  }
+}

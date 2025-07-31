@@ -200,3 +200,115 @@
     line-height: 1.5;
     font-weight: 300;
 }
+
+@media (max-width: 1024px) {
+  .au-content-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem;
+    margin-top: 2rem;
+    gap: 2rem;
+  }
+
+  .au-text-container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .au-img {
+    width: 80%;
+    max-height: 400px;
+  }
+
+  .services-container ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .services-container li {
+    width: 220px;
+  }
+
+  .agent-card {
+    width: 220px;
+    height: 220px;
+    padding: 15px;
+  }
+
+  .agent-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .agent-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .au-img {
+    width: 95%;
+    max-height: 300px;
+  }
+
+  .au-text-container h2 {
+    font-size: 1.75rem;
+  }
+
+  .au-text-container h3 {
+    font-size: 1.25rem;
+  }
+
+  .au-text-container h4 {
+    font-size: 1.1rem;
+  }
+
+  .au-text-container span {
+    font-size: 0.95rem;
+    margin-left: 0.5rem;
+    padding-left: 8px;
+  }
+
+  .au-text-container p {
+    font-size: 0.95rem;
+  }
+
+  .services-container h1,
+  .agents-container h1 {
+    font-size: 1.75rem;
+  }
+
+  .services-container h2,
+  .agents-container h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .services-container ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .services-container li {
+    width: 90%;
+    font-size: 1.25rem;
+  }
+
+  .agent-card {
+    width: 200px;
+    height: 200px;
+  }
+
+  .agent-card svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .agent-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .agent-card p {
+    font-size: 0.9rem;
+  }
+}

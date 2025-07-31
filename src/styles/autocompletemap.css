@@ -32,3 +32,19 @@
 .suggestions-list li:hover {
     background-color: #f0f0f0;
 }
+@media (max-width: 600px) {
+  .autocomplete-wrapper input {
+    font-size: 0.95rem;
+    padding: 0.45rem;
+  }
+
+  .suggestions-list {
+    top: 38px; 
+    max-height: 150px;
+    font-size: 0.95rem;
+  }
+
+  .suggestions-list li {
+    padding: 0.45rem;
+  }
+}

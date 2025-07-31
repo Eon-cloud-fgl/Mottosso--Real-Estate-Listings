@@ -1,4 +1,7 @@
 
+main {
+  flex: 1;
+}
 .hero-container {
     position: relative;
     width: 100%;
@@ -149,7 +152,8 @@
   justify-content: end;
   align-items: center;
   padding: 20px;
-  padding-bottom: 50pxnpn;
+  padding-bottom: 50px;
+
   margin: 0 auto;
   height: auto;
   gap: 15rem;
@@ -321,4 +325,91 @@
     font-weight: bold;
     background-color: #012855;
     margin: 0;
+}
+@media (max-width: 768px) {
+  .contenedor-descripcion {
+    flex-direction: column;
+    align-items: center; 
+    gap: 2rem; 
+  }
+
+  .cd-item {
+    width: 90%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .image-stack {
+    width: 100%;
+    max-width: 600px; 
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .stack-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .img-1 { left: -40px; top: 0; }
+  .img-2 { left: -20px; top: 5px; }
+  .img-3 { left: 0; top: 10px; }
+  .img-4 { left: 20px; top: 15px; }
+}
+
+@media (max-width: 768px) {
+
+  .contenedor-mayor {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 10px;
+  }
+
+
+  .contenedor-menor {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+
+  .contenedor-descripcion {
+    width: 90%;
+    gap: 2rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .hero-search {
+    max-width: 100%;
+  }
+  .hero-form-bar {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  .hero-form-bar select,
+  .hero-form-bar input,
+  .hero-form-bar button {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .image-stack {
+    max-width: 300px;
+    aspect-ratio: 16 / 9;
+  }
 }

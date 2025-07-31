@@ -217,3 +217,109 @@
   cursor: pointer;
   border: none;
 }
+
+@media (max-width: 1024px) {
+  .ce-filter--search {
+    width: 90%;
+  }
+
+  .ce-filter--options {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .ce-filter--options select,
+  .ce-filter--options button {
+    width: 90%;
+    max-width: 400px;
+    font-size: 1.1rem;
+  }
+
+  .ce-item {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .ce-item img {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+  }
+
+  .ce-item-content {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .ce-info--price {
+    font-size: 1.5rem;
+  }
+
+  .ce-info--address {
+    font-size: 1.1rem;
+  }
+
+  .ce-info--description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .ce-filter {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .ce-filter--search {
+    flex-direction: row;
+    width: 100%;
+    padding: 8px;
+  }
+
+  .ce-filter--search input {
+    font-size: 0.95rem;
+  }
+
+  .ce-filter--options select,
+  .ce-filter--options button {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  .ce-item {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .ce-item img {
+    height: 200px;
+  }
+
+  .ce-info--price {
+    font-size: 1.3rem;
+  }
+
+  .ce-info--address {
+    font-size: 1rem;
+  }
+
+  .ce-info--icon {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ce-item-actions {
+    justify-content: center;
+  }
+
+  .ce-action--icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+}
