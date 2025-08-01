@@ -25,7 +25,6 @@ import {
     MdSignalCellularAlt
 } from "react-icons/md";
 
-import { LuRuler } from "react-icons/lu";
 
 import NavbarSeparator from "../components/Separator";
 

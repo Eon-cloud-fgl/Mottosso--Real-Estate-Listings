@@ -69,6 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo json_encode(['error' => 'ID de propiedad no proporcionado']); // Envía un mensaje de error indicando que falta el ID.
                 break;
             }
+
+        case 'getEstateByOutstanding':
+            $estate = $estateModel->getEstateByOutstanding();
+            echo json_encode($estate);
+            break;
             
         default:
             http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.

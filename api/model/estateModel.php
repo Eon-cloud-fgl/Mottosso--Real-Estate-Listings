@@ -149,5 +149,15 @@ class EstateModel
         $stmt->close();
         return $result->fetch_assoc();
     }
+
+    function getEstateByOutstanding()
+    {
+        $query = "SELECT * FROM properties WHERE status = 'outstanding' ORDER BY RAND() LIMIT 4";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
