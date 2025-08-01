@@ -3,6 +3,8 @@ import "../styles/home.css";
 import AutocompleteInput from "../components/AutoCompleteMap";
 import { useNavigate } from "react-router-dom";
 import { GoChevronRight } from "react-icons/go";
+import { FiStar } from "react-icons/fi";
+import { BsFillDiamondFill } from "react-icons/bs";
 import axios from "axios";
 
 function Banner() {
@@ -135,8 +137,15 @@ function Miscellaneous() {
 }
 
 function OutstandingItem({ estate }) {
+    
+    const navigate = useNavigate();
+
+    const handleSelectEstate = () => {
+        navigate(`/property?id=${estate.id}`);
+    };
+
     return (
-        <div className="outstanding-item">
+        <a className="outstanding-item" onClick={handleSelectEstate}>
             <div className="image-wrapper">
                 <img src="/casa.avif" alt={estate.title} className="outstanding-image" />
                 <span className="badge">Destacado</span>
@@ -153,7 +162,7 @@ function OutstandingItem({ estate }) {
                     <li>{estate.bathrooms} Baños</li>
                 </ul>
             </div>
-        </div>
+        </a>
     );
 }
 
@@ -192,14 +201,22 @@ function Outstanding() {
                 {loading ? (
                     <p>Cargando propiedades...</p>
                 ) : (
-                    estates.map((estate) => (
-                        <OutstandingItem key={estate.id} estate={estate} />
+                    estates.map((estate, index) => (
+                        <div key={estate.id} className="outstanding-item-wrapper">
+                            <OutstandingItem estate={estate} />
+                            {index < estates.length - 1 && (
+                                <div className="separator-icon">
+                                    <BsFillDiamondFill />
+                                </div>
+                            )}
+                        </div>
                     ))
                 )}
             </div>
         </section>
     );
 }
+
 
 export default function Home() {
     return (

@@ -443,6 +443,21 @@ main {
   position: relative;
 }
 
+.outstanding-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 2.5rem;;
+}
+
+.separator-icon {
+    margin: 16px 0;
+    font-size: 25px;
+    color: #012855;
+    opacity: 0.9;
+}
+
 .badge {
   position: absolute;
   top: 10px;
