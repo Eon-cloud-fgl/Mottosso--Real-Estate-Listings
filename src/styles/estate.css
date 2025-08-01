@@ -59,7 +59,7 @@
 }
 
 .ce-filter--select {
-  padding: 0.5rem 2rem 0.5rem 2.75rem; /* más espacio a la izquierda para el ícono */
+  padding: 0.5rem 2rem 0.5rem 2.75rem; 
   color: #333;
   appearance: none;
   -webkit-appearance: none;
@@ -76,7 +76,7 @@
 .ce-filter--select:focus {
   outline: none;
   border: 2px solid var(--secondary);
-  box-shadow: 0 0 0 3px rgba(28, 119, 188, 0.2); /* si tu --primary es #1c77bc */
+  box-shadow: 0 0 0 3px rgba(28, 119, 188, 0.2);
   background-color: #fff;
   transition: box-shadow 0.2s ease, border 0.2s ease;
 }
@@ -224,19 +224,19 @@
   }
 
   .ce-filter--options {
-    flex-direction: column;
+    flex-direction:row;
     gap: 20px;
     width: 100%;
-    align-items: center;
+    
   }
 
   .ce-filter--options select,
   .ce-filter--options button {
-    width: 90%;
+    width: 100%;
     max-width: 400px;
+    
     font-size: 1.1rem;
   }
-
   .ce-item {
     flex-direction: column;
     width: 90%;
@@ -278,7 +278,6 @@
   .ce-filter--search {
     flex-direction: row;
     width: 100%;
-    padding: 8px;
   }
 
   .ce-filter--search input {
@@ -288,7 +287,6 @@
   .ce-filter--options select,
   .ce-filter--options button {
     font-size: 1rem;
-    padding: 8px;
   }
 
   .ce-item {

@@ -63,14 +63,16 @@
 }
 
 .ds-container ul li::before {
-    content: "🟦";
     font-weight: bold;
     display: inline-block;
     width: 1.5rem;
     margin-left: -1em;
     margin-right: 0.5em;
 }
-
+.icon-descripcion{
+    width: 20px;
+    color: var(--primary);
+}
 .ds-container span {
     font-size: 1.15rem;
     font-weight: 500;
@@ -388,7 +390,6 @@ textarea {
   .contact-info p {
     font-size: 1rem;
   }
-
   .form-step input,
   .form-step select,
   .form-step textarea {

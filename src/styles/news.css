@@ -1,6 +1,6 @@
 /* Estilo de los Items */
 #item-titulo-principal {
-  font-size: 2rem; /* más escalable que 30px */
+  font-size: 2rem; 
   color: white;
   background-color: var(--primary);
   padding: 0.75rem 1rem;
@@ -13,15 +13,7 @@
 
 #item-footer {
   font-size: 0.75rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.5rem 1rem;
   color: #555;
-  background: rgba(255,255,255,0.8);
-  border-radius: 0 0 5px 5px;
-  box-sizing: border-box;
 }
 
 /* Contenedor mayor novedades */
@@ -38,22 +30,53 @@
 /* Contenedor menor novedades */
 .contenedor-novedades-menor {
   display: flex;
-  flex-wrap: wrap;
-  max-width: 80%;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
+  position: relative;
   background-color: #fff;
   padding: 1.25rem;
   box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   gap: 1rem;
+  overflow: visible;
+  isolation: isolate;
+  transform: translateX(-10rem);
+  transition: transform 0.40s ease-out, box-shadow 0.40s ease-out;
+}
+.contenedor-novedades-menor.invertido{
+  transform: translateX(10rem);
+  transition: transform 0.40s ease-out, box-shadow 0.40s ease-out;
+}
+.contenedor-novedades-menor:hover {
+  transform: translateY(-1px) scale(1.0025);
+  z-index: 15;
+  transition: transform 0.45s ease-out, box-shadow 0.45s ease-out;
 }
 
+.contenedor-novedades-menor.invertido:hover {
+  transform: translateY(-1px) scale(1.0025);
+  z-index: 15;
+  transition: transform 0.45s ease-out, box-shadow 0.45s ease-out;
+}
+.contenedor-novedades-menor::before {
+  content: "";
+  position: absolute;
+  inset: 0rem;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
 /* Imagen en contenedor menor */
 .contenedor-novedades-menor-imagen {
-  flex: 0 0 40%;
+  flex: 0 0 60%;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   overflow: hidden;
@@ -71,16 +94,45 @@
 .contenedor-novedades-menor-article {
   background-color: #fff;
   border-radius: 5px;
-  flex: 1 1 50%; /* más flexible */
+  flex: 1 0 60%; /* más flexible */
   padding: 1.25rem;
   position: relative;
-  z-index: 3;
-  margin: auto 0;
+  height: auto;
+  z-index: 5;
+  transform: translateX(-10rem);
+  margin: auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
+}
+.etiqueta-item {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: #012855;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  z-index: 10;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Colores personalizados por tipo */
+.etiqueta-item.destacado {
+  background-color: #f59e0b; /* naranja */
+}
+
+.etiqueta-item.nuevo {
+  background-color: #10b981; /* verde */
+}
+
+.etiqueta-item.rebajas {
+  background-color: #ef4444; /* rojo */
 }
 
 /* Cuando es invertido */
@@ -88,11 +140,13 @@
   flex-direction: row-reverse;
   background-color: var(--secondary);
   gap: 2rem;
+  transform: translateX(10rem);
 }
 
 .contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
   margin-left: 0;
   margin-right: 0;
+  transform: translateX(10rem);
 }
 
 /* Cuando NO es invertido */
@@ -109,30 +163,39 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .contenedor-novedades-menor {
-    display: flex !important;
-    flex-direction: column !important;
-    max-width: 100% !important;
-    padding: 1rem !important;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 1rem;
+    transform: none; /* Quitar desplazamiento */
+  }
+
+  .contenedor-novedades-menor.invertido {
+    flex-direction: column;
+    transform: none; /* Quitar desplazamiento */
   }
 
   .contenedor-novedades-menor-imagen,
   .contenedor-novedades-menor-article {
-    flex: none !important;
-    width: 100% !important;
-    margin: 0 !important;
+    flex: none;
+    width: 100%;
+    margin: 0;
+    transform: none; /* Quitar desplazamiento */
   }
-
+  .contenedor-novedades-menor.invertido .contenedor-novedades-menor-article{
+    flex: none;
+    width: 100%;
+    margin: 0;
+    transform: none;
+  }
   .contenedor-novedades-menor-imagen {
-    order: 0 !important;
-    margin-bottom: 1rem !important;
+    order: 0;
+    margin-bottom: 1rem;
+    z-index: 1;
   }
 
   .contenedor-novedades-menor-article {
-    order: 1 !important;
-    padding-bottom: 10rem;
-  }
-  
-  .contenedor-novedades-menor.invertido {
-    flex-direction: column !important;
+    order: 1;
+    padding: 1.25rem;
+    z-index: 2;
   }
 }
