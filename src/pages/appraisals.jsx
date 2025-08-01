@@ -1,11 +1,13 @@
 import "../styles/appraisals.css";
 import NavbarSeparator from "../components/Separator";
 import { useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaHome, FaBuilding } from "react-icons/fa";
+import { FaShop } from "react-icons/fa6";
 import WhatsAppButton from "../components/WhatsappBtn.jsx";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { MdLandscape } from "react-icons/md";
+import { PiOfficeChairFill } from "react-icons/pi";
 
 function Banner() {
     return (
@@ -24,11 +26,11 @@ function Description() {
             <p>Realizamos el análisis de su inmueble basado en un profundo analisis, para brindar un valor real del mercado, tomando en cuenta la ubicación, superficie, comodidades y las caracteristicas unicas de tu hogar.</p>
             <h3>¿Que tipo de propiedades se pueden tasar?</h3>
             <ul>
-                <li>Casas</li>
-                <li>Departamentos</li>
-                <li>Terrenos</li>
-                <li>Locales comerciales</li>
-                <li>Oficinas</li>
+                <li><span className="icon-descripcion"><FaHome/></span>Casas</li>
+                <li><span className="icon-descripcion"><FaBuilding/></span>Departamentos</li>
+                <li><span className="icon-descripcion"><MdLandscape/></span>Terrenos</li>
+                <li><span className="icon-descripcion"><FaShop/></span>Locales comerciales</li>
+                <li><span className="icon-descripcion"><PiOfficeChairFill/></span>Oficinas</li>
             </ul>
             <span>No lo dudes más, la inversión es el éxito que te espera</span>
         </div>
