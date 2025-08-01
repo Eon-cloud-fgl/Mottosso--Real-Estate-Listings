@@ -44,6 +44,7 @@
   transform: translateX(-10rem);
   transition: transform 0.40s ease-out, box-shadow 0.40s ease-out;
 }
+/* Animacion suave */
 .contenedor-novedades-menor.invertido{
   transform: translateX(10rem);
   transition: transform 0.40s ease-out, box-shadow 0.40s ease-out;
@@ -59,6 +60,7 @@
   z-index: 15;
   transition: transform 0.45s ease-out, box-shadow 0.45s ease-out;
 }
+/* Gradiente */
 .contenedor-novedades-menor::before {
   content: "";
   position: absolute;
@@ -94,7 +96,7 @@
 .contenedor-novedades-menor-article {
   background-color: #fff;
   border-radius: 5px;
-  flex: 1 0 60%; /* más flexible */
+  flex: 1 0 60%; 
   padding: 1.25rem;
   position: relative;
   height: auto;
