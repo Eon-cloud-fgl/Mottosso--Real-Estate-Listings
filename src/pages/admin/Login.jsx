@@ -38,7 +38,7 @@ function LoginForm() {
 
         try {
             const response = await axios.post(
-                "http://localhost/Montosso--Real-Estate-Listings/api/controller/userController.php",
+                "http://localhost/Mottoso-Real-Estate-Listings/api/controller/userController.php",
                 { ...input, action: "LoginForm" },
                 { headers: { "Content-Type": "application/json" },
                 withCredentials: true 

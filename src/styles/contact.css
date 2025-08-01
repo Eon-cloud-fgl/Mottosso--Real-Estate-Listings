@@ -380,6 +380,7 @@ hr {
   .contenedor-formulario-open {
     width: 100%;
     padding: 1.5rem;
+    align-items: normal;
   }
 
   .boton-contacto {
@@ -406,8 +407,6 @@ hr {
   }
 
   .contact-section {
-    width: 100%;
-    max-width: 100%;
     padding: 1rem;
   }
 
@@ -453,6 +452,56 @@ hr {
     font-size: 0.95rem;
   }
 
+  .faq-answer.open {
+    max-height: 300px;
+  }
+
+  .social {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+@media (max-width: 450px) {
+  #titulo-banner-contact {
+    font-size: 18px;
+  }
+
+  .contenedor-formulario-open h2,
+  .contact-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .form-group button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .contact-item .icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .faq-question {
+    font-size: 0.95rem;
+  }
+  .contact-section {
+    max-width: min-content;
+  }
   .faq-answer.open {
     max-height: 300px;
   }
