@@ -3,52 +3,53 @@ import axios, { Axios } from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import "../../styles_admin/login.css";
 
-export default function Login () {
-    return(
+export default function Login() {
+    return (
         <main className="main-bg">
             <div className="main-bg-overlay">
                 <div id="logo-login">
-                    <img src="/logo-cabeza.png" draggable="false" alt="Logo Mottoso"/>
+                    <img src="/logo-cabeza.png" draggable="false" alt="Logo Mottoso" />
                 </div>
-                <LoginForm/>
+                <LoginForm />
             </div>
         </main>
     );
 }
 
 function LoginForm() {
-    
+
     const [input, setInput] = useState({
-            name: "",
-            email: "",
-            password: "",
-            rememberme: ""
-        });
+        name: "",
+        email: "",
+        password: "",
+        rememberme: ""
+    });
     const [respuesta, setRespuesta] = useState("");
 
     const handleChange = (e) => {
         setInput({
-        ...input,
-        [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+            ...input,
+            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
         });
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
         try {
             const response = await axios.post(
                 "http://localhost/Mottoso-Real-Estate-Listings/api/controller/userController.php",
                 { ...input, action: "LoginForm" },
-                { headers: { "Content-Type": "application/json" },
-                withCredentials: true 
-                }  
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true
+                }
             );
 
-        setRespuesta(response.data.message);
-        toast.success(response.data.message);
+            setRespuesta(response.data.message);
+            toast.success(response.data.message);
         } catch (error) {
-             //console.error("Error:", error); esto es por si quieren ver el error que tira el axios
+            //console.error("Error:", error); esto es por si quieren ver el error que tira el axios
             if (error.response && error.response.data && error.response.data.message) {
                 setRespuesta(error.response.data.message);
                 toast.error(error.response.data.message);
@@ -81,12 +82,14 @@ function LoginForm() {
                 <div className="login-footer">
                     <label className="checkbox-label">
                         <span>Recuérdame</span>
-                        <input type="checkbox" name="rememberme" checked={input.rememberme} onChange={handleChange} id="micheckbox"/>
-                        <button type="submit">Ingresar</button>
-                        <ToastContainer />
+                        <input type="checkbox" name="rememberme" checked={input.rememberme} onChange={handleChange} id="micheckbox" />
                     </label>
+                    <div className='login-footer-buttons'>
+                        <button type="submit">Ingresar</button>
+                    </div>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 }

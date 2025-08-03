@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/home.css";
 import AutocompleteInput from "../components/AutoCompleteMap";
 import { useNavigate } from "react-router-dom";
 import { GoChevronRight } from "react-icons/go";
+import { FiStar } from "react-icons/fi";
+import { BsFillDiamondFill } from "react-icons/bs";
+import axios from "axios";
 
 function Banner() {
     return (
@@ -120,12 +123,100 @@ function MisItems({ imageN, title, info }) {
 function Miscellaneous() {
     return (
         <div className="contenedor-mayor">
-            <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." />
-            <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." />
-            <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." />
+            {/* <div className="outstanding-header">
+                <h2 className="outstanding-title-main">Soluciones para vos</h2>
+                <p className="outstanding-subtitle">“Desde la búsqueda hasta la tasación, estamos con vos en cada paso.”</p>
+            </div> */}
+            <div className="miscellaneous-items">
+                <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." />
+                <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." />
+                <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." />
+            </div>
         </div>
     );
 }
+
+function OutstandingItem({ estate }) {
+    
+    const navigate = useNavigate();
+
+    const handleSelectEstate = () => {
+        navigate(`/property?id=${estate.id}`);
+    };
+
+    return (
+        <a className="outstanding-item" onClick={handleSelectEstate}>
+            <div className="image-wrapper">
+                <img src="/casa.avif" alt={estate.title} className="outstanding-image" />
+                <span className="badge">Destacado</span>
+            </div>
+            <div className="outstanding-details">
+                <h6 className="outstanding-title">{estate.title}</h6>
+                <p className="outstanding-address">{estate.address}</p>
+                <p className="outstanding-price">${estate.price}</p>
+                <p className="outstanding-separator"></p>
+                <ul className="outstanding-features">
+                    <li>{estate.total_area} m²</li>
+                    <li>{estate.rooms} Amb</li>
+                    <li>{estate.bedrooms} Dorm</li>
+                    <li>{estate.bathrooms} Baños</li>
+                </ul>
+            </div>
+        </a>
+    );
+}
+
+
+function Outstanding() {
+    const [estates, setEstates] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchEstates = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+                params: { action: "getEstateByOutstanding" },
+            });
+            setEstates(res.data);
+            console.log("Respuesta:", res.data);
+        } catch (error) {
+            console.error("Error cargando propiedades:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchEstates();
+    }, []);
+
+    return (
+        <section className="outstanding-section">
+            <div className="outstanding-header">
+                <h2 className="outstanding-title-main">Propiedades destacadas</h2>
+                <p className="outstanding-subtitle">Una selección especial para vos</p>
+            </div>
+
+            <div className="outstanding-container">
+                {loading ? (
+                    <p>Cargando propiedades...</p>
+                ) : (
+                    estates.map((estate, index) => (
+                        <div key={estate.id} className="outstanding-item-wrapper">
+                            <OutstandingItem estate={estate} />
+                            {index < estates.length - 1 && (
+                                <div className="separator-icon">
+                                    <BsFillDiamondFill />
+                                </div>
+                            )}
+                        </div>
+                    ))
+                )}
+            </div>
+        </section>
+    );
+}
+
 
 export default function Home() {
     return (
@@ -136,9 +227,10 @@ export default function Home() {
             <main>
                 <Description />
                 <Miscellaneous />
+                <p id="text-final">Inversion Asegurada</p>
+                <Outstanding />
             </main>
             <footer>
-                <p id="text-final">Inversion Asegurada</p>
             </footer>
         </>
     );
