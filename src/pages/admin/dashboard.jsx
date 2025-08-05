@@ -71,7 +71,7 @@ function AddProduct({ onClose }) {
           <select name="type" required>
             <option value="">Seleccione</option>
             <option value="house">Casa</option>
-            <option value="aparment">Departamento</option>
+            <option value="apartment">Departamento</option>
           </select>
         </label>
 
@@ -138,6 +138,10 @@ function AddProduct({ onClose }) {
           <input type="file" name="main_image" accept="image/*" />
         </label>
 
+        <label>Galería de imágenes:
+        <input type="file" name="gallery_images[]" accept="image/*" multiple />
+        </label>
+
         <button type="submit">Agregar Propiedad</button>
       </form>
     </div>
@@ -146,17 +150,62 @@ function AddProduct({ onClose }) {
 
 
 function ModifyProduct({ onClose, estate, onUpdate }) {
-  if (!estate) return null; // Por si estate es null, evita error
+  if (!estate) return null; 
   const [loading, setLoading] = useState(false);
+  const [deleteImageId, setDeleteImageId] = useState(null);
+  const handleDeleteImage = async (imageId) => {
+    const confirm = window.confirm("¿Seguro que deseas eliminar esta imagen?");
+    if (!confirm) return;
 
+    try {
+      const res = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+        action: "deleteImage",
+        id_imagen: imageId
+      });
+
+      if (res.data.success) {
+        toast.success("Imagen eliminada");
+        onUpdate();  // Actualiza propiedades
+      } else {
+        toast.error("Error al eliminar imagen");
+      }
+    } catch (err) {
+      toast.error("Error al eliminar imagen");
+      console.error(err);
+    }
+  };
+
+  const handleReplaceImage = async (imageId, newFile) => {
+    const formData = new FormData();
+    formData.append("action", "replaceImage");
+    formData.append("id_imagen", imageId);
+    formData.append("new_image", newFile);
+
+    try {
+      const res = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+
+      if (res.data.success) {
+        toast.success("Imagen reemplazada");
+        onUpdate();
+      } else {
+        toast.error("Error al reemplazar imagen");
+      }
+    } catch (err) {
+      toast.error("Error al reemplazar imagen");
+      console.error(err);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    
     const formData = new FormData(e.target);
     formData.append("action", "modifyEstate");
     formData.append("id", estate.id);
-
     try {
       const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php",
         formData, {
@@ -178,9 +227,8 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     } finally {
       setLoading(false);
     }
+    
   };
-
-
   return (
     <div className="form-overlay" onClick={onClose} >
       <form className="form-modify" onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
@@ -277,14 +325,28 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
         <label>Imagen principal:
           <input type="file" name="main_image" accept="image/*" />
         </label>
-
+        <div className="gallery-preview">
+        <h3>Galería Actual</h3>
+        {estate.property_images && estate.property_images.map((img) => (
+          <div key={img.id_imagen} className="gallery-image-box">
+            <img src={`/${img.ruta_imagen}`} alt={`Imagen ${img.id_imagen}`} className="gallery-image" />
+            <button type="button" onClick={() => handleDeleteImage(img.id_imagen)}>Eliminar</button>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleReplaceImage(img.id_imagen, e.target.files[0])}
+            />
+          </div>
+        ))}
+        <label>Añadir imágenes:
+        <input type="file" name="gallery_images[]" accept="image/*" multiple />
+        </label>
+      </div>
         <button type="submit" disabled={loading}>{loading ? "Modificando..." : "Modificar Propiedad"}</button>
       </form>
     </div >
   );
 }
-
-
 function ItemContainer({ items, selectedItemId, onSelectItem, currentPage, onPageChange, itemsPerPage }) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
@@ -329,7 +391,7 @@ function Item({ estate, onSelect, selected }) {
     <div className={`item ${selected ? "selected" : ""}`} onClick={onSelect}>
       <div
         className="item-img"
-        style={{ backgroundImage: `url(/casa.avif)` }}
+        style={{ backgroundImage: `url(/${estate.main_image})` }}
       ></div>
       <h2>{estate.title}</h2>
       <p>{estate.type} en {estate.operation}</p>

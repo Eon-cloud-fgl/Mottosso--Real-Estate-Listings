@@ -121,6 +121,7 @@
   background-size: cover;
   border-radius: 14px;
   flex-grow: 1;
+  height: 12rem;
 }
 
 /* BOTONES DE PAGINACIÓN */

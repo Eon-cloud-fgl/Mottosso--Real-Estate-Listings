@@ -84,8 +84,20 @@ class EstateModel
 
         $stmt->execute();
         $result = $stmt->get_result();
+        $estates = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        foreach ($estates as &$estate) {
+            $propertyId = $estate['id'];
+
+            $imgStmt = $this->conn->prepare("SELECT id AS id_imagen, image_url AS ruta_imagen FROM property_images WHERE property_id = ?");
+            $imgStmt->bind_param('i', $propertyId);
+            $imgStmt->execute();
+            $imgResult = $imgStmt->get_result();
+            $estate['property_images'] = $imgResult->fetch_all(MYSQLI_ASSOC);
+            $imgStmt->close();
+        }
+
+        return $estates;
     }
 
     function modifyEstate($estateId, $estateData)
@@ -113,10 +125,10 @@ class EstateModel
 
     function addEstate($estateData)
     {
-        $query = "INSERT INTO properties (city, type, operation, rooms, bedrooms, bathrooms, garage, price, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO properties (city, type, operation, rooms, bedrooms, bathrooms, garage, price, description, address, state, title, main_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param(
-            'sssiidds',
+            'sssiiiddsssss',
             $estateData['city'],
             $estateData['type'],
             $estateData['operation'],
@@ -125,9 +137,17 @@ class EstateModel
             $estateData['bathrooms'],
             $estateData['garage'],
             $estateData['price'],
-            $estateData['description']
+            $estateData['description'],
+            $estateData['address'],
+            $estateData['state'],
+            $estateData['title'],
+            $estateData['main_image']
         );
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return $this->conn->insert_id; 
+        } else {
+            return false;
+        }
     }
 
     function deleteEstate($estateId)
@@ -183,5 +203,37 @@ class EstateModel
 
         return $statusList;
     }
+    function getImagesByEstateId($estateId) 
+    {
+        $query = "SELECT * FROM property_images WHERE property_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $estateId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    function deleteImageById($imageId) 
+    {
+        $query = "DELETE FROM property_images WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $imageId);
+        return $stmt->execute();
+    }
+    function updateImage($imageId, $imagePath) 
+    {
+        $query = "UPDATE property_images SET image_url = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('si', $imagePath, $imageId);
+        return $stmt->execute();
+    }
+    function addImage($estateId, $imagePath) 
+    {
+        $query = "INSERT INTO property_images (property_id, image_url) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('is', $estateId, $imagePath);
+        return $stmt->execute();
+    }
+
 }
 ?>

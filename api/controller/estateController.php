@@ -110,49 +110,160 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $estateId = $data['id'];
                 $estateData = $_POST;
                 unset($estateData['action'], $estateData['id']);
+                
+                    if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
+                        $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
+                        $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
 
-                $result = $estateModel->modifyEstate($estateId, $estateData); // Llama al método del modelo para modificar una propiedad.
+                        if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
+                            $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo); 
+                        } else {
+                            echo json_encode(['error' => 'Error al subir la imagen']);
+                            exit;
+                        }
+                    }
+                    
+                    //esto se fija que la galeria de imagenes( el input que sube las imagenes no este vacio y procede )
+                        if (isset($_FILES['gallery_images'])) {
+                            $files = $_FILES['gallery_images'];
+
+                            for ($i = 0; $i < count($files['name']); $i++) {
+                                if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                                    $tmpName = $files['tmp_name'][$i];
+                                    $name = basename($files['name'][$i]);
+                                    $targetDir = __DIR__ . '/../upload/';
+                                    $uniqueName = uniqid() . '-' . $name;
+                                    $targetFile = $targetDir . $uniqueName;
+
+                                    if (move_uploaded_file($tmpName, $targetFile)) {
+                                        $imagePath = 'api/upload/' . $uniqueName;
+        
+                                        $estateModel->addImage($estateId, $imagePath);
+                                    } else {
+
+                                        echo json_encode(['error' => 'Error al subir una imagen de la galería']);
+                                        exit;
+                                    }
+                                }
+                            }
+                        }
+
+                $result = $estateModel->modifyEstate($estateId, $estateData); 
                 echo json_encode(['success' => $result === true]);
             } else {
-                http_response_code(400); // Establece el código de estado HTTP a 400 si faltan datos.
-                echo json_encode(['error' => 'Datos incompletos']); // Envía un mensaje de error indicando que los datos están incompletos.
+                http_response_code(400); 
+                echo json_encode(['error' => 'Datos incompletos']); 
             }
 
             break;
 
-        case 'addEstate':
-            if (!empty($_POST['title']) && !empty($_POST['description'])) { // Verifica que los campos necesarios estén presentes.
-                $estateData = $_POST;
-                unset($estateData['action']); // Eliminar campos que no son necesarios para la inserción.
-                $result = $estateModel->addEstate($estateData);
-                echo json_encode(['success' => $result === true]);
-            } else {
-                http_response_code(400);
-                echo json_encode(['error' => 'Datos incompletos']);
-            }
-            break;
+            case 'addEstate':
+                if (!empty($_POST['title']) && !empty($_POST['description'])) {
+                    $estateData = $_POST;
+                    unset($estateData['action']);
+
+                  
+                    if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
+                        $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
+                        $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
+
+                        if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
+                            $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo);
+                        } else {
+                            echo json_encode(['error' => 'Error al subir la imagen principal']);
+                            exit;
+                        }
+                    }
+
+                
+                    $newEstateId = $estateModel->addEstate($estateData); 
+                    if ($newEstateId) {
+           
+                        if (isset($_FILES['gallery_images'])) {
+                            $files = $_FILES['gallery_images'];
+
+                            for ($i = 0; $i < count($files['name']); $i++) {
+                                if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                                    $tmpName = $files['tmp_name'][$i];
+                                    $name = basename($files['name'][$i]);
+                                    $targetDir = __DIR__ . '/../upload/';
+                                    $uniqueName = uniqid() . '-' . $name;
+                                    $targetFile = $targetDir . $uniqueName;
+
+                                    if (move_uploaded_file($tmpName, $targetFile)) {
+                                        $imagePath = 'api/upload/' . $uniqueName;
+                                        $estateModel->addImage($newEstateId, $imagePath);
+                                    }
+                                }
+                            }
+                        }
+
+                        echo json_encode([
+                            'success' => true,
+                            'estate_id' => $newEstateId
+                        ]);
+                    } else {
+                        echo json_encode(['error' => 'No se pudo guardar la propiedad']);
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'Datos incompletos']);
+                }
+                break;
 
         case 'deleteEstate':
             if (isset($data['id'])) {
                 $estateId = $data['id'];
-                $result = $estateModel->deleteEstate($estateId); // Llama al método del modelo para eliminar una propiedad.
+                $result = $estateModel->deleteEstate($estateId); 
                 echo json_encode(['success' => $result === true]);
             } else {
-                http_response_code(400); // Establece el código de estado HTTP a 400 si faltan datos.
-                echo json_encode(['error' => 'Datos incompletos']); // Envía un mensaje de error indicando que los datos están incompletos.
+                http_response_code(400); 
+                echo json_encode(['error' => 'Datos incompletos']);
             }
             break;
+            case 'replaceImage':
+            if (isset($data["id_imagen"]) && isset($_FILES['new_image'])) {
+                $imageId = $data["id_imagen"];
+                $nombreArchivo = uniqid() . '_' . basename($_FILES['new_image']['name']);
+                $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
 
-
-        default:
-            http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.
-            echo json_encode(['error' => 'Acción no válida']); // Envía un mensaje de error indicando que la acción no es válida.
+                if (move_uploaded_file($_FILES['new_image']['tmp_name'], $rutaDestino)) {
+                    $imagePath = 'api/upload/' . $nombreArchivo;
+                    $result = $estateModel->updateImage($imageId, $imagePath);
+                    echo json_encode(['success' => $result]);
+                } else {
+                    echo json_encode(['error' => 'Error al subir imagen']);
+                }
+            } else {
+                echo json_encode(['error' => 'Faltan datos']);
+            }
             break;
-    }
+            case 'deleteImage':
+            if (isset($data["id_imagen"])) {
+                $result = $estateModel->deleteImageById($data["id_imagen"]);
+                echo json_encode(['success' => $result]);
+            } else {
+                echo json_encode(['error' => 'ID de imagen no proporcionado']);
+            }
+            break;
+            case 'getImagesByProperty':
+            if (isset($_GET['estateId'])) {
+                $images = $estateModel->getImagesByEstateId($_GET['estateId']);
+                echo json_encode($images);
+            } else {
+                echo json_encode(['error' => 'Falta el ID de la propiedad']);
+            }
+            break;
+        default:
+            http_response_code(400); 
+            echo json_encode(['error' => 'Acción no válida']); 
+            break;
+            
+        }
 
 } else {
-    http_response_code(405); // Establece el código de estado HTTP a 405 si el método no está permitido.
-    echo json_encode(['error' => 'Método no permitido']); // Envía un mensaje de error indicando que el método no está permitido.
+    http_response_code(405); 
+    echo json_encode(['error' => 'Método no permitido']); 
 }
 
 

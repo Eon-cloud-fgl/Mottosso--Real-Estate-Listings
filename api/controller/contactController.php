@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $action = $data['action'] ?? '';
-
+    
     switch ($action) {
         case 'appraisalsMail':
             if (isset($data['email'])) {
@@ -63,68 +63,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->isHTML(true);
                     $mail->Subject = 'Verificacion de pedido de Tasacion - MOTTOSO Propiedades';
                     $mail->Body = "
-                        <html>
-                            <head>
-                                <style>
-                                    body {
-                                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                        background-color: #f5f5f5;
+                                    <html>
+                                        <head>
+                                        <meta charset='UTF-8'>
+                                    <style>
+                                        .content p{
+                                        color:black;
+                                        }
+                                        body {
+                                        background-color: #f4f4f4;
+                                        font-family: 'Roboto', sans-serif;
                                         margin: 0;
-                                        padding: 2rem;
-                                        color: #333;
-                                    }
-
-                                    .container {
+                                        padding: 0;
+                                        }
+                                        .container {
                                         max-width: 600px;
-                                        margin: 0 auto;
-                                        background-color: #ffffff;
-                                        padding: 2rem;
+                                        margin: 30px auto;
+                                        background-color: #fff;
                                         border-radius: 8px;
-                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                                    }
-
-                                    .header {
+                                        overflow: hidden;
+                                        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                                        padding: 30px;
+                                        color: #333;
+                                        border: 1px solid #D3D3D3;
+                                        border-radius:14px;
+                                        }
+                                        .header {
+                                        background-color: #ffffff;
                                         text-align: center;
-                                        margin-bottom: 2rem;
-                                    }
-
-                                    .header h2 {
-                                        color: #1c77bc;
-                                        margin: 0;
-                                    }
-
-                                    .content {
-                                        font-size: 1rem;
+                                        padding: 20px 0 10px;
+                                        border-bottom: 1px solid #eee;
+                                        }
+                                        .header img {
+                                        max-height: 60px;
+                                        }
+                                        .content h2 {
+                                        color: #1a73e8;
+                                        margin-top: 0;
+                                        font-size: 24px;
+                                        margin-bottom: 20px;
+                                        }
+                                        .content p {
+                                        font-size: 16px;
                                         line-height: 1.6;
-                                    }
-
-                                    .footer {
-                                        margin-top: 2rem;
-                                        font-size: 0.9rem;
+                                        margin: 10px 0;
+                                        color:black;
+                                        }
+                                        .footer {
+                                        background-color: #ffffffff;
                                         text-align: center;
+                                        font-size: 12px;
+                                        padding: 20px;
                                         color: #888;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <div class='container'>
-                                    <div class='header'>
-                                        <h2>¡Hemos recibido tu solicitud!</h2>
-                                    </div>
-                                    <div class='content'>
-                                        <p>Hola,</p>
-                                        <p>Gracias por confiar en nosotros. Hemos registrado correctamente tu pedido de tasación. Nuestro equipo lo revisará y se pondrá en contacto contigo a la brevedad para brindarte una respuesta personalizada.</p>
-                                        <p>No responder a este correo.</p>
-                                        <p>Saludos cordiales,</p>
-                                        <p><strong>El equipo de MOTTOSO propiedades</strong></p>
-                                    </div>
-                                    <div class='footer'>
-                                        Este es un mensaje automático. Por favor, no respondas a este correo si no se indica lo contrario.
-                                    </div>
-                                </div>
-                            </body>
-                        </html>
-                    ";
+                                        justify-content: center;
+                                        }
+                                        .content{
+                                        text-align:center;
+                                        }
+                                        #titule{
+                                        font-weight:normal;
+                                        }
+                                    </style>
+                                        </head>
+                                        <body>
+                                        <div class='container'>
+                                            <div class='header'>
+                                            <img src='http://localhost/Mottosso--Real-Estate-Listings/public/MottosoLogoPuro.png' alt='Mottoso Logo' />
+                                            </div>
+                                            <h2 id='title'>¡Gracias por tu solicitud!</h2>
+                                            <div class='content'>
+                                            <p>Hola,</p>
+                                            <p>Recibimos tu pedido de tasación correctamente. Nuestro equipo lo revisará y se pondrá en contacto contigo a la brevedad con una respuesta personalizada.</p>
+                                            <p>Este mensaje es automático. No es necesario que respondas.</p>
+                                            <p>Saludos cordiales,<br><strong>El equipo de MOTTOSO Propiedades</strong></p>
+                                            </div>
+                                            <div class='footer'>
+                                            Este correo ha sido enviado automáticamente. Por favor, no respondas a este mensaje. <br>
+                                            © 2025 Mottoso. Todos los derechos reservados.
+                                            </div>
+                                        </div>
+                                        </body>
+                                        </html>";
 
                     $mail->AltBody = "Hemos recibido tu pedido de tasación. Pronto nos pondremos en contacto contigo.";
 
@@ -149,7 +168,129 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['error' => 'Datos incompletos']);
             }
             break;
+            case 'FormContacto':
+            $nombre = $data['name'] ?? '';
+            $email = $data['email'] ?? '';
+            $telefono = $data['phone'] ?? '';
+            $direccion = $data['address'] ?? '';
+            $tipoConsulta = $data['typeofq'] ?? '';
+            $mensaje = $data['message'] ?? '';
+
+            $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $envVars['SMTP_MAIL'];
+            $mail->Password = $envVars['SMTP_PASSWORD'];
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            $mail->setFrom($email, $nombre);
+            $mail->addAddress('correoprueba@gmail.com');
+            $mail->Subject = 'Nuevo mensaje desde el formulario de contacto';
+            $mail->Body = $mail->Body = "
+                                    <html>
+                                    <head>
+                                    <meta charset='UTF-8'>
+                                    <style>
+                                        .content p{
+                                        color:black;
+                                        }
+                                        body {
+                                        background-color: #f4f4f4;
+                                        font-family: 'Roboto', sans-serif;
+                                        margin: 0;
+                                        padding: 0;
+                                        }
+                                        .container {
+                                        max-width: 600px;
+                                        margin: 30px auto;
+                                        background-color: #fff;
+                                        border-radius: 8px;
+                                        overflow: hidden;
+                                        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                                        padding: 30px;
+                                        color: #333;
+                                        border: 1px solid #D3D3D3;
+                                        border-radius:14px;
+                                        }
+                                        .header {
+                                        background-color: #ffffff;
+                                        text-align: center;
+                                        padding: 20px 0 10px;
+                                        border-bottom: 1px solid #eee;
+                                        }
+                                        .header img {
+                                        max-height: 60px;
+                                        }
+                                        .content h2 {
+                                        color: #1a73e8;
+                                        margin-top: 0;
+                                        font-size: 24px;
+                                        margin-bottom: 20px;
+                                        }
+                                        .content p {
+                                        font-size: 16px;
+                                        line-height: 1.6;
+                                        margin: 10px 0;
+                                        }
+                                        .footer {
+                                        background-color: #ffffffff;
+                                        text-align: center;
+                                        font-size: 12px;
+                                        padding: 20px;
+                                        color: #888;
+                                        justify-content: center;
+                                        }
+                                        #descripcion{
+                                        text-align:center;
+                                        color:#D3D3D3;
+                                        }
+                                        #titule{
+                                        font-weight:normal;
+                                        }
+                                    </style>
+                                    </head>
+                                    <body>
+                                    <div class='container'>
+                                        <div class='header'>
+                                        <img src='http://localhost/Mottosso--Real-Estate-Listings/public/MottosoLogoPuro.png' alt='Mottoso Logo' />
+                                        <h1 id='titule'>Consulta por $nombre</h1>
+                                        </div>
+                                        <div class='content'>
+                                        <p id='descripcion'>Este mensaje a sido enviado por un usuario</p>
+                                        <p><strong>Nombre:</strong> $nombre</p>
+                                        <p><strong>Email:</strong> $email</p>
+                                        <p><strong>Teléfono:</strong> $telefono</p>
+                                        <p><strong>Dirección:</strong> $direccion</p>
+                                        <p><strong>Tipo de consulta:</strong> $tipoConsulta</p>
+                                        <p><strong>Mensaje:</strong><br>$mensaje</p>
+                                        </div>
+                                    </div>
+                                        <div class='footer'>
+                                        Este correo ha sido enviado automáticamente. Por favor, no respondas a este mensaje. <br>
+                                        © 2025 Mottoso. Todos los derechos reservados.
+                                        </div>
+                                    </body>
+                                    </html>";
+
+            $mail->AltBody = "Mensaje de consulta enviado por un usuario.";
+
+            $mail->send();
+
+            echo json_encode(['success' => true, 'message' => 'Consulta enviada correctamente']);
+            http_response_code(200);
+    }   catch (Exception $e) {
+            echo json_encode(['error' => 'Error al enviar el correo: ' . $mail->ErrorInfo]);
+            http_response_code(500);
+    }
+    exit();
     }
 
 }
+      
+
+
 ?>

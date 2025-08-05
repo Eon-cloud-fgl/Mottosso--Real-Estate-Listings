@@ -1,6 +1,7 @@
 import "../styles/contact.css";
 import NavbarSeparator from "../components/Separator";
 import MapEmbed from "../components/Maps";
+import axios, { Axios } from 'axios';
 import { IoIosArrowDown, IoIosArrowBack } from "react-icons/io";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaTwitter, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 
@@ -93,12 +94,38 @@ function OpenContactButton() {
         </>
     );
 }
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await axios.post(
+            'http://localhost/Mottoso-Real-Estate-Listings/api/controller/contactController.php',
+            JSON.stringify(data),
+            {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+            }
+        );
+
+        if (response.data.success) {
+            console.log("Mail enviado correctamente");
+        } else {
+            console.log("Error en el envío", response.data);
+        }
+    } catch (err) {
+        console.error("fallo:", err);
+    }
+};
 // Formulario de contacto
 function ContactForm() {
     return (
         <>
             <div className="contenedor-formulario">
-                <form>
+                <form className="contact-form" onSubmit={handleSubmit}> 
                     <h2>Formulario de Contacto</h2>
                     <div className="form-group">
                         <label htmlFor="name">Nombre y Apellido:</label>
@@ -129,6 +156,7 @@ function ContactForm() {
                         <label htmlFor="message">Mensaje:</label>
                         <textarea id="message" name="message" rows="4" placeholder="Ingrese su mensaje" required></textarea>
 
+                        <input type="hidden" name="action" value="FormContacto" />
                         <button type="submit">Enviar</button>
                     </div>
                 </form>
@@ -136,7 +164,6 @@ function ContactForm() {
         </>
     );
 }
-
 function ContactSection() {
     return (
         <section className="contact-section">
