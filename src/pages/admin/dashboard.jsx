@@ -32,10 +32,10 @@ function AddProduct({ onClose }) {
     try {
       const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php",
         formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       if (response.data.success) {
         toast.success("Propiedad agregada exitosamente");
@@ -127,9 +127,10 @@ function AddProduct({ onClose }) {
         </label>
 
         <label>Estado:
-          <select name="status" required>
+          <select name="status" required defaultValue="new">
+            <option value="new">Nuevo</option>
             <option value="published">Publicado</option>
-            <option value="draft">Borrador</option> 
+            <option value="draft">Borrador</option>
           </select>
         </label>
 
@@ -267,6 +268,9 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
             <option value="reserved">Reservado</option>
             <option value="sold">Vendido</option>
             <option value="rented">Rentado</option>
+            <option value="new">Nuevo</option>
+            <option value="outstanding">Destacado</option>
+            <option value="sale">Rebaja</option>
           </select>
         </label>
 
@@ -438,32 +442,32 @@ export default function Dashboard() {
 
   return (
     <>
-    <div className="dashboard-container">
-      <Miscellaneous />
-      <Buttons
-        onShowAdd={handleShowAdd}
-        onShowModify={handleShowModify}
-        onDeleteItem={handleDeleteItem}
-        isDeleteDisabled={selectedItemId === null}
-      />
-      <ItemContainer
-        items={items}
-        selectedItemId={selectedItemId}
-        onSelectItem={handleSelectItem}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-      />
-      {showFormAdd && <AddProduct onClose={() => setShowFormAdd(false)} />}
-      {showFormModify && (
-        <ModifyProduct
-          onClose={() => setShowFormModify(false)}
-          estate={items.find(item => item.id === selectedItemId)}
-          onUpdate={() => setUpdateFlag(prev => !prev)}  // Callback para actualizar la lista
+      <div className="dashboard-container">
+        <Miscellaneous />
+        <Buttons
+          onShowAdd={handleShowAdd}
+          onShowModify={handleShowModify}
+          onDeleteItem={handleDeleteItem}
+          isDeleteDisabled={selectedItemId === null}
         />
-      )}
-      <ToastContainer />
-    </div>
+        <ItemContainer
+          items={items}
+          selectedItemId={selectedItemId}
+          onSelectItem={handleSelectItem}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+        />
+        {showFormAdd && <AddProduct onClose={() => setShowFormAdd(false)} />}
+        {showFormModify && (
+          <ModifyProduct
+            onClose={() => setShowFormModify(false)}
+            estate={items.find(item => item.id === selectedItemId)}
+            onUpdate={() => setUpdateFlag(prev => !prev)}  // Callback para actualizar la lista
+          />
+        )}
+        <ToastContainer />
+      </div>
     </>
   );
 }

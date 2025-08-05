@@ -460,8 +460,8 @@ main {
 
 .badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0.75rem;
+  left: 0.75rem;
   background: var(--primary);
   opacity: 0.9;
   color: white;

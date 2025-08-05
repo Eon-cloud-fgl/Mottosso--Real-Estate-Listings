@@ -42,22 +42,32 @@
 .description-location {
     display: flex;
     align-items: center;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
     background-color: #f4f4f4;
-    background: linear-gradient(to right, #dbeeff, #fafafa);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-left: 3px solid #4c6b88;
     padding: 20px;
-    border-radius: 5px;
     max-width: 320px;
     display: flex;
     align-items: center;
 }
 
-.description-location svg {
+.location-title{
+    display: flex;
+}
+
+.location-container{
+    width: 100%;
+}
+
+
+.location-title svg {
     width: 24px;
     height: 24px;
     color: #4c6b88;
+    vertical-align: middle;
 }
 
 .location-details {
@@ -408,13 +418,6 @@
     width: 100%;
 }
 
-#mapa-google {
-    height: 400px;
-    background-color: #dbeeff;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-}
 
 /* Lado derecho */
 .right-side-column {

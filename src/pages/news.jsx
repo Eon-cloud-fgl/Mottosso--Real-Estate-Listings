@@ -1,71 +1,139 @@
 import "../styles/news.css";
 import NavbarSeparator from "../components/Separator";
+import { useState, useEffect } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaDollarSign,
+  FaRulerCombined,
+  FaCouch,
+  FaBed,
+  FaBath,
+} from "react-icons/fa";
+import axios from 'axios'
 
-// Componente que renderiza el banner principal
 function Banner() {
-    return(
-        <>
-        <div className="contenedor-novedades-principal">
-            <p id="item-titulo-principal">Novedades</p>
-        </div>
-        
-        </>
-    );
+  return (
+    <div className="contenedor-novedades-principal">
+      <p id="item-titulo-principal">Novedades</p>
+    </div>
+  );
 }
-// Componente que renderiza los items de novedades
-function MisItems({ imageN, title, info, infooter, invertido, etiqueta }) {
-    return (
-        <div className={`contenedor-novedades-menor ${invertido ? 'invertido' : ''}`}>
-            <div className="contenedor-novedades-menor-imagen">
-                {etiqueta && <span className={`etiqueta-item ${etiqueta.toLowerCase()}`}>{etiqueta}</span>}
-                <img src={`/info-banner-${imageN}.avif`} alt={title} />
-            </div>
-            <div className="contenedor-novedades-menor-article">
-                <p id="item-titulo">{title}</p>
-                <p id="item-info">{info}</p>
-                <p id="item-footer">{infooter}</p>
-            </div>
-        </div>
-    );
-}
-// array que almacena los items
-const items = [];
-// funcion que agrega items al array
-function agregarItem(imageN, title, info, infooter, etiqueta) {
-  items.push({ imageN, title, info, infooter, etiqueta });
-}
-// precargar los items
-agregarItem(1, "USD 98.000. Financiación disponible.", "...", "...", "Destacado");
-agregarItem(1, "USD 98.000. Financiación disponible.", "...", "...", "Nuevo");
-agregarItem(1, "USD 98.000. Financiación disponible.", "...", "...", "Rebajas");
 
-// componente que renderiza los items y se encarga de la logica de si es invertido o no
-function Miscellaneous() {
-    return (
-        <>
-        <div className="contenedor-novedades-mayor">
-        {items.map((item, index) => (
-            <MisItems
-            key={index}
-            imageN={item.imageN}
-            title={item.title}
-            info={item.info}
-            infooter={item.infooter}
-            etiqueta={item.etiqueta}
-            invertido={index % 2 !== 0}
-            />
+function MisItems({ estate, invertido}) {
+  return (
+    <div className={`contenedor-novedades-menor ${invertido ? "invertido" : ""} fade-slide-in`}>
+      <div className="contenedor-novedades-menor-imagen">
+        {estate.status && (
+          <span className={`etiqueta-item ${estate.status.toLowerCase()}`}>
+            {estate.status}
+          </span>
+        )}
+        <img src={`/info-banner-1.avif`} alt={estate.title} />
+      </div>
+
+      <div className="contenedor-novedades-menor-article">
+        <h6 className="outstanding-title">{estate.title}</h6>
+
+        <p className="outstanding-address">
+          <FaMapMarkerAlt style={{ marginRight: "6px" }} />
+          {estate.address}
+        </p>
+
+        <p className="outstanding-price">
+          <FaDollarSign style={{ marginRight: "6px" }} />
+          {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}`}
+        </p>
+
+        <p className="outstanding-separator"></p>
+
+        <ul className="outstanding-features">
+          <li><FaRulerCombined style={{ marginRight: "4px" }} />{estate.total_area} m²</li>
+          <li><FaCouch style={{ marginRight: "4px" }} />{estate.rooms} Amb</li>
+          <li><FaBed style={{ marginRight: "4px" }} />{estate.bedrooms} Dorm</li>
+          <li><FaBath style={{ marginRight: "4px" }} />{estate.bathrooms} Baños</li>
+        </ul>
+
+        <button className="btn-detalles">Ver más detalles</button>
+      </div>
+    </div>
+  );
+}
+
+function CarruselPorEtiqueta({ titulo, etiqueta }) {
+  const [estates, setEstates] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchEstates = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+        params: { action: "getNewsEstate" },
+      });
+      setEstates(res.data);
+      console.log("Respuesta:", res.data);
+    } catch (error) {
+      console.error("Error cargando propiedades:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEstates();
+  }, [])
+
+
+
+  const filtrados = estates.filter((estate) => estate.status === etiqueta);
+
+  const [indice, setIndice] = useState(0);
+
+  const siguiente = () => {
+    setIndice((prev) => (prev + 1) % filtrados.length);
+  };
+
+  const anterior = () => {
+    setIndice((prev) => (prev - 1 + filtrados.length) % filtrados.length);
+  };
+
+  if (filtrados.length === 0) return null;
+
+  const itemActual = filtrados[indice];
+
+  return (
+    <div className="contenedor-carrusel-etiqueta">
+      <h2 className="categoria-titulo">{titulo}</h2>
+      <div className="separador-carrusel"></div>
+      <div className="carrusel-contenido">
+        <button className="btn-carrusel" onClick={anterior} title="Anterior">
+          <FaChevronLeft size={24} />
+        </button>
+        <MisItems key={indice} estate={itemActual} invertido={indice % 2 !== 0} />
+        <button className="btn-carrusel" onClick={siguiente} title="Siguiente">
+          <FaChevronRight size={24} />
+        </button>
+      </div>
+      <div className="indicadores">
+        {filtrados.map((_, i) => (
+          <span
+            key={i}
+            className={`indicador ${i === indice ? "activo" : ""}`}
+          ></span>
         ))}
-        </div>
-        </>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default function News() {
-    return (
-        <>
-            <NavbarSeparator />
-            <Banner />
-            <Miscellaneous />
-        </>
-    );
+  return (
+    <>
+      <NavbarSeparator />
+      <Banner />
+      <CarruselPorEtiqueta titulo="Destacados" etiqueta="outstanding" />
+      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="new" />
+      <CarruselPorEtiqueta titulo="En Rebajas" etiqueta="sale" />
+    </>
+  );
 }

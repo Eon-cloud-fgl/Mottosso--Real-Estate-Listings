@@ -27,6 +27,7 @@ import {
 
 
 import NavbarSeparator from "../components/Separator";
+import MapArray from "../components/Maps"
 
 
 
@@ -45,7 +46,7 @@ export default function Property() {
                     id: propertyId,
                 },
             });
-            
+
             setProperty(response.data);
         } catch (error) {
             console.error("Error cargando propiedades:", error);
@@ -59,9 +60,9 @@ export default function Property() {
             fetchProperty();
         }
     }, [propertyId]);
-    
-    
-    
+
+
+
     return (
         <>
             <NavbarSeparator />
@@ -76,8 +77,9 @@ export default function Property() {
                                 <Image />
                                 <Characteristics property={property} />
                             </div>
-                            <Details property={property}/>
+                            <Details property={property} />
                             <AboutProperty property={property} />
+                            <MapEmbed property={property} />
                         </div>
 
                         {/* columna derecha (ubicación y formulario) */}
@@ -93,7 +95,7 @@ export default function Property() {
 }
 
 
-function Description({property}) {
+function Description({ property }) {
     return (
         <div id="description-major">
             <h2>{property.title}</h2>
@@ -102,15 +104,48 @@ function Description({property}) {
     );
 }
 
-function LocationDescription({property}) {
+function LocationDescription({ property }) {
     return (
         <div className="description-location">
-            <IoLocationOutline />
-            <div className="location-details">
-                <p>Direccion: {property.address}</p>
-                <p>Localidad: {property.city}</p>
+            <a href="#map" className="location-title">
+                <IoLocationOutline />
+                <div className="location-details">
+                    <p>Direccion: {property.address}</p>
+                    <p>Localidad: {property.city}</p>
+                </div>
+            </a>
+            {/* <div className="location-container">
+                <MapArray
+                    locations={[
+                        {
+                            name: property.title,
+                            address: `${property.address}, ${property.city}, ${property.state}`,
+                        },
+                    ]}
+                />
+
+            </div> */}
+        </div>
+    );
+}
+
+function MapEmbed({property}) {
+    return (
+        <div className="details" id="map">
+            <h3>Ubicacion</h3>
+            <div className="location-container">
+                <MapArray
+                    locations={[
+                        {
+                            name: property.title,
+                            address: `${property.address}, ${property.city}, ${property.state}`,
+                        },
+                    ]}
+                />
+
             </div>
         </div>
+
     );
 }
 
@@ -148,7 +183,6 @@ function Image() {
         setCurrent(index);
     };
 
-    // Mostrar 3 thumbnails relacionadas al current
     const getVisibleThumbnails = () => {
         const total = images.length;
         if (total <= 3) return images.map((src, idx) => ({ src, idx }));
@@ -204,7 +238,7 @@ function ContactIcons() {
     );
 }
 
-function Characteristics({property}) {
+function Characteristics({ property }) {
     return (
         <div className="characteristics">
             <div className="price">
@@ -236,7 +270,7 @@ function Characteristics({property}) {
     );
 }
 
-function Details({property}) {
+function Details({ property }) {
     return (
         <div className="details">
             <h3>Detalles de la propiedad</h3>
@@ -247,16 +281,16 @@ function Details({property}) {
                 <li><FaCouch /> Tipo: {property.type}</li>
                 <li><FaRegClock /> Antigüedad: 5 años</li>
                 <li><FaCar />Cochera: {property.garage}</li>
-
             </ul>
         </div>
     );
 }
 
-function AboutProperty({property}) {
+function AboutProperty({ property }) {
     return (
         <div className="about-property">
             <h3>Sobre la propiedad</h3>
+
             <p>{property.description}</p>
         </div>
     );

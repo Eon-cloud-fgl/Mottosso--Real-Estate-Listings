@@ -1,20 +1,77 @@
-const MapEmbed = () => {
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Fix for broken default icons in Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
+
+// Function to get coordinates from address using Nominatim
+const getCoordinatesFromAddress = async (address) => {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+  try {
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'YourAppName/1.0' },
+    });
+    const data = await response.json();
+    if (data.length > 0) {
+      return {
+        lat: parseFloat(data[0].lat),
+        lng: parseFloat(data[0].lon),
+      };
+    }
+  } catch (error) {
+    console.error('Error geocoding address:', error);
+  }
+  return null;
+};
+
+const MapArray = ({ locations }) => {
+  const [locationsWithCoords, setLocationsWithCoords] = useState([]);
+
+  useEffect(() => {
+    const fetchCoords = async () => {
+      const results = await Promise.all(
+        locations.map(async (loc) => {
+          const coords = await getCoordinatesFromAddress(loc.address);
+          return coords ? { ...loc, ...coords } : null;
+        })
+      );
+      setLocationsWithCoords(results.filter(Boolean));
+    };
+
+    if (locations?.length) {
+      fetchCoords();
+    }
+  }, [locations]);
+
+  if (locationsWithCoords.length === 0) {
+    return <p>Cargando Mapa...</p>;
+  }
+
+  const center = [locationsWithCoords[0].lat, locationsWithCoords[0].lng];
+
   return (
-    <div style={{ borderRadius: '10px', overflow: 'hidden', maxWidth: '100%', width: '1000px', height: '350px' }}>
-      <iframe
-        title="Ubicación Inmobiliaria"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.499993663974!2d-56.72049612332963!3d-36.372888353074956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959c1b154dda6499%3A0x369ec85d5d646157!2sAv.%20Talas%20del%20Tuy%C3%BA%203295%2C%20B7105%20San%20Clemente%20del%20Tuyu%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1753822676361!5m2!1ses!2sar"
-        width="100%"
-        height="100%"
-        allowFullScreen=""
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        style={{ border: 0 }}
+    <MapContainer center={center} zoom={13} style={{ height: '350px', width: '100%', borderRadius: '10px' }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="Map data © OpenStreetMap contributors"
       />
-    </div>
+      {locationsWithCoords.map((loc, index) => (
+        <Marker key={index} position={[loc.lat, loc.lng]}>
+          <Popup>
+            <strong>{loc.name}</strong><br />
+            {loc.address}
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
   );
 };
 
-export default MapEmbed;
-
-
+export default MapArray;

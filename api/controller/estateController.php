@@ -74,6 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $estate = $estateModel->getEstateByOutstanding();
             echo json_encode($estate);
             break;
+
+        case 'getNewsEstate':
+            $estate = $estateModel->getNewsEstate();
+            echo json_encode($estate);
+            break;
             
         default:
             http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.
