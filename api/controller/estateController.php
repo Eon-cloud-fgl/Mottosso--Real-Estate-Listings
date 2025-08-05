@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         }
                     }
                     
-        
+                    //esto se fija que la galeria de imagenes( el input que sube las imagenes no este vacio y procede )
                         if (isset($_FILES['gallery_images'])) {
                             $files = $_FILES['gallery_images'];
 

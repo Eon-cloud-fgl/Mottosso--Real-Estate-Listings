@@ -149,7 +149,7 @@ function AddProduct({ onClose }) {
 
 
 function ModifyProduct({ onClose, estate, onUpdate }) {
-  if (!estate) return null; // Por si estate es null, evita error
+  if (!estate) return null; 
   const [loading, setLoading] = useState(false);
   const [deleteImageId, setDeleteImageId] = useState(null);
   const handleDeleteImage = async (imageId) => {
