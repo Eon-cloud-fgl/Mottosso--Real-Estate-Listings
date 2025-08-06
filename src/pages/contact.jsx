@@ -1,6 +1,6 @@
 import "../styles/contact.css";
 import NavbarSeparator from "../components/Separator";
-import MapEmbed from "../components/Maps";
+import MapArray from "../components/Maps";
 import axios, { Axios } from 'axios';
 import { IoIosArrowDown, IoIosArrowBack } from "react-icons/io";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaTwitter, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
@@ -125,7 +125,7 @@ function ContactForm() {
     return (
         <>
             <div className="contenedor-formulario">
-                <form className="contact-form" onSubmit={handleSubmit}> 
+                <form className="contact-form" onSubmit={handleSubmit}>
                     <h2>Formulario de Contacto</h2>
                     <div className="form-group">
                         <label htmlFor="name">Nombre y Apellido:</label>
@@ -234,7 +234,14 @@ export default function Contact() {
                     <OpenContactButton />
                 </div>
                 <div className="contenedor-contacto-maps">
-                    <MapEmbed />
+                    <MapArray
+                        locations={[
+                            {
+                                name: "Nuestra Sucursal",
+                                address: "Av. Talas del Tuyú 3295, San Clemente del Tuyu, Provincia de Buenos Aires",
+                            },
+                        ]}
+                    />
                     <ContactSection />
                 </div>
                 <Faqs />

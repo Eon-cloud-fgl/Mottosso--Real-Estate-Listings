@@ -99,7 +99,13 @@ function ImageItem() {
 
 }
 
-function MisItems({ imageN, title, info }) {
+function MisItems({ imageN, title, info, option }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/${option}`);
+    }
+
     return (
         <>
             <div className="contenedor-menor">
@@ -110,7 +116,7 @@ function MisItems({ imageN, title, info }) {
                     <p id="item-titulo">{title}</p>
                     <p id="item-info">{info}</p>
                     <div className="contenedor-boton">
-                        <button>Conocer Mas</button>
+                        <button onClick={handleClick}>Conocer Mas</button>
                     </div>
                 </div>
 
@@ -128,16 +134,16 @@ function Miscellaneous() {
                 <p className="outstanding-subtitle">“Desde la búsqueda hasta la tasación, estamos con vos en cada paso.”</p>
             </div> */}
             <div className="miscellaneous-items">
-                <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." />
-                <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." />
-                <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." />
+                <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." option="estate" />
+                <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." option="contact" />
+                <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." option="appraisals" />
             </div>
         </div>
     );
 }
 
 function OutstandingItem({ estate }) {
-    
+
     const navigate = useNavigate();
 
     const handleSelectEstate = () => {
