@@ -36,7 +36,9 @@ export default function Property() {
     const [searchParams] = useSearchParams();
     const propertyId = searchParams.get("id");
     const [property, setProperty] = useState([]);
+    const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+
 
     const fetchProperty = async () => {
         try {
@@ -55,9 +57,25 @@ export default function Property() {
         }
     }
 
+    const fetchImage = async () => {
+        try {
+            const response = await axios.get(`http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php`, {
+                params: {
+                    action: "getImagesById",
+                    id: propertyId,
+                },
+            });
+
+            setImages(response.data);
+        } catch (error) {
+            console.error("Error cargando propiedades:", error);
+        }
+    }
+
     useEffect(() => {
         if (propertyId) {
             fetchProperty();
+            fetchImage();
         }
     }, [propertyId]);
 
@@ -74,7 +92,8 @@ export default function Property() {
                         {/* columna izquierda (imagen y características) */}
                         <div className="image-characteristics-group" id="image-background">
                             <div className="container-wrapper">
-                                <Image />
+                                <Image images={images} />
+                                <div className="separato-image-property" />
                                 <Characteristics property={property} />
                             </div>
                             <Details property={property} />
@@ -129,7 +148,7 @@ function LocationDescription({ property }) {
     );
 }
 
-function MapEmbed({property}) {
+function MapEmbed({ property }) {
     return (
         <div className="details" id="map">
             <h3>Ubicacion</h3>
@@ -157,31 +176,21 @@ function PhoneContactButton() {
     );
 }
 
-
-const images = [
-    "/casa.avif",
-    "/mottoso-fondo.png",
-    "/casa.avif",
-    "/mottoso-fondo.png",
-    "/casa.avif",
-    "/mottoso-fondo.png",
-    "/casa.avif",
-];
-
-function Image() {
+function Image({ images }) {
     const [current, setCurrent] = useState(0);
+    const [fade, setFade] = useState(false);
 
-    const next = () => {
-        setCurrent((prev) => (prev + 1) % images.length);
+    const changeImage = (newIndex) => {
+        setFade(true);
+        setTimeout(() => {
+            setCurrent(newIndex);
+            setFade(false);
+        }, 200); // tiempo de fade-out
     };
 
-    const prev = () => {
-        setCurrent((prev) => (prev - 1 + images.length) % images.length);
-    };
-
-    const handleThumbnailClick = (index) => {
-        setCurrent(index);
-    };
+    const next = () => changeImage((current + 1) % images.length);
+    const prev = () => changeImage((current - 1 + images.length) % images.length);
+    const handleThumbnailClick = (index) => changeImage(index);
 
     const getVisibleThumbnails = () => {
         const total = images.length;
@@ -199,11 +208,17 @@ function Image() {
 
     return (
         <div className="gallery-wrapper">
-
-
             <div className="container-image-wrapper">
                 <div className="container-image">
-                    <img src={images[current]} alt={`Imagen ${current + 1}`} />
+                    {images?.length > 0 && images[current] && (
+                        <img
+                            key={idx}
+                            src={`/${src.image_url}`}
+                            alt={`Miniatura ${idx + 1}`}
+                            className={`thumbnail ${idx === current ? "active fade-in" : ""}`}
+                            onClick={() => handleThumbnailClick(idx)}
+                        />
+                    )}
                 </div>
                 <div className="carousel-controls">
                     <button className="carousel-btn" onClick={prev}><FaChevronLeft /></button>
@@ -217,8 +232,8 @@ function Image() {
                 {visibleThumbnails.map(({ src, idx }) => (
                     <img
                         key={idx}
-                        src={src}
-                        className={`thumbnail ${idx === current ? "active" : ""}`}
+                        src={`/${src.image_url}`}
+                        className={`thumbnail ${idx === current ? "active fade-in" : ""}`}
                         onClick={() => handleThumbnailClick(idx)}
                     />
                 ))}
@@ -239,52 +254,72 @@ function ContactIcons() {
 }
 
 function Characteristics({ property }) {
+    const isValid = (value) =>
+        !(value === 0 || value === "0" || value === null || value === undefined || value === "");
+
     return (
         <div className="characteristics">
-            <div className="price">
-                <h3>${property.price}</h3>
-            </div>
+            {isValid(property.price) && (
+                <div className="price">
+                    <h3>${property.price}</h3>
+                </div>
+            )}
+
             <div className="features">
-                <div className="feature">
-                    <FaCouch size={30} />
-                    <span>Ambientes</span>
-                    <p>{property.rooms}</p>
-                </div>
-                <div className="feature">
-                    <MdOutlineBedroomChild size={30} />
-                    <span>Dormitorios</span>
-                    <p>{property.bedrooms}</p>
-                </div>
-                <div className="feature">
-                    <MdOutlineBathroom size={30} />
-                    <span>Baños</span>
-                    <p>{property.bathrooms}</p>
-                </div>
-                <div className="feature">
-                    <IoMdPerson size={30} />
-                    <span>Tipo</span>
-                    <p>{property.operation}</p>
-                </div>
+                {isValid(property.rooms) && (
+                    <div className="feature">
+                        <FaCouch size={30} />
+                        <span>Ambientes</span>
+                        <p>{property.rooms}</p>
+                    </div>
+                )}
+                {isValid(property.bedrooms) && (
+                    <div className="feature">
+                        <MdOutlineBedroomChild size={30} />
+                        <span>Dormitorios</span>
+                        <p>{property.bedrooms}</p>
+                    </div>
+                )}
+                {isValid(property.bathrooms) && (
+                    <div className="feature">
+                        <MdOutlineBathroom size={30} />
+                        <span>Baños</span>
+                        <p>{property.bathrooms}</p>
+                    </div>
+                )}
+                {isValid(property.operation) && (
+                    <div className="feature">
+                        <IoMdPerson size={30} />
+                        <span>Tipo</span>
+                        <p>{property.operation}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
 }
 
+
+
 function Details({ property }) {
+    const showValue = (value, fallback = "No especificado") =>
+        value === 0 || value === "0" || value === null || value === undefined || value === "" ? fallback : value;
+
     return (
         <div className="details">
             <h3>Detalles de la propiedad</h3>
             <ul className="property-details">
-                <li><FaDollarSign /> Precio: ${property.price}</li>
-                <li><MdSignalCellularAlt /> Superficie: {property.total_area} m²</li>
-                <li><IoLocationOutline /> Ubicación: {property.address}, {property.city}</li>
-                <li><FaCouch /> Tipo: {property.type}</li>
-                <li><FaRegClock /> Antigüedad: 5 años</li>
-                <li><FaCar />Cochera: {property.garage}</li>
+                <li><FaDollarSign /> Precio: ${showValue(property.price)}</li>
+                <li><MdSignalCellularAlt /> Superficie: {showValue(property.total_area)} m²</li>
+                <li><IoLocationOutline /> Ubicación: {showValue(property.address)}, {showValue(property.city)}</li>
+                <li><FaCouch /> Tipo: {showValue(property.type)}</li>
+                <li><FaRegClock /> Antigüedad: {showValue(property.antique)}</li>
+                <li><FaCar /> Cochera: {showValue(property.garage)}</li>
             </ul>
         </div>
     );
 }
+
 
 function AboutProperty({ property }) {
     return (

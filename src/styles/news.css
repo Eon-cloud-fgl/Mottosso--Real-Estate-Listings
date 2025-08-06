@@ -160,9 +160,9 @@
   color: #fff;
 }
 
-.etiqueta-item.outstanding { background-color: #f59e0b; }
-.etiqueta-item.new     { background-color: #10b981; }
-.etiqueta-item.sale   { background-color: #ef4444; }
+.etiqueta-item.destacado { background-color: #f59e0b; }
+.etiqueta-item.nuevo     { background-color: #10b981; }
+.etiqueta-item.oferta   { background-color: #ef4444; }
 
 .contenedor-novedades-menor-article {
   position: absolute;
@@ -240,6 +240,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: auto;
 }
 
 .btn-detalles:hover {

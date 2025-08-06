@@ -20,7 +20,10 @@ function Banner() {
   );
 }
 
-function MisItems({ estate, invertido}) {
+function MisItems({ estate, invertido }) {
+  const isValid = (value) =>
+    !(value === 0 || value === "0" || value === null || value === undefined || value === "");
+
   return (
     <div className={`contenedor-novedades-menor ${invertido ? "invertido" : ""} fade-slide-in`}>
       <div className="contenedor-novedades-menor-imagen">
@@ -29,29 +32,41 @@ function MisItems({ estate, invertido}) {
             {estate.status}
           </span>
         )}
-        <img src={`/info-banner-1.avif`} alt={estate.title} />
+        <img src={`/${estate.main_image}`} alt={estate.title} />
       </div>
 
       <div className="contenedor-novedades-menor-article">
         <h6 className="outstanding-title">{estate.title}</h6>
 
-        <p className="outstanding-address">
-          <FaMapMarkerAlt style={{ marginRight: "6px" }} />
-          {estate.address}
-        </p>
+        {isValid(estate.address) && (
+          <p className="outstanding-address">
+            <FaMapMarkerAlt style={{ marginRight: "6px" }} />
+            {estate.address}
+          </p>
+        )}
 
-        <p className="outstanding-price">
-          <FaDollarSign style={{ marginRight: "6px" }} />
-          {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}`}
-        </p>
+        {isValid(estate.price) && (
+          <p className="outstanding-price">
+            <FaDollarSign style={{ marginRight: "6px" }} />
+            {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}`}
+          </p>
+        )}
 
         <p className="outstanding-separator"></p>
 
         <ul className="outstanding-features">
-          <li><FaRulerCombined style={{ marginRight: "4px" }} />{estate.total_area} m²</li>
-          <li><FaCouch style={{ marginRight: "4px" }} />{estate.rooms} Amb</li>
-          <li><FaBed style={{ marginRight: "4px" }} />{estate.bedrooms} Dorm</li>
-          <li><FaBath style={{ marginRight: "4px" }} />{estate.bathrooms} Baños</li>
+          {isValid(estate.total_area) && (
+            <li><FaRulerCombined style={{ marginRight: "4px" }} />{estate.total_area} m²</li>
+          )}
+          {isValid(estate.rooms) && (
+            <li><FaCouch style={{ marginRight: "4px" }} />{estate.rooms} Amb</li>
+          )}
+          {isValid(estate.bedrooms) && (
+            <li><FaBed style={{ marginRight: "4px" }} />{estate.bedrooms} Dorm</li>
+          )}
+          {isValid(estate.bathrooms) && (
+            <li><FaBath style={{ marginRight: "4px" }} />{estate.bathrooms} Baños</li>
+          )}
         </ul>
 
         <button className="btn-detalles">Ver más detalles</button>
@@ -59,6 +74,7 @@ function MisItems({ estate, invertido}) {
     </div>
   );
 }
+
 
 function CarruselPorEtiqueta({ titulo, etiqueta }) {
   const [estates, setEstates] = useState([]);
@@ -131,9 +147,9 @@ export default function News() {
     <>
       <NavbarSeparator />
       <Banner />
-      <CarruselPorEtiqueta titulo="Destacados" etiqueta="outstanding" />
-      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="new" />
-      <CarruselPorEtiqueta titulo="En Rebajas" etiqueta="sale" />
+      <CarruselPorEtiqueta titulo="Destacados" etiqueta="destacado" />
+      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="buevo" />
+      <CarruselPorEtiqueta titulo="En Rebajas" etiqueta="oferta" />
     </>
   );
 }

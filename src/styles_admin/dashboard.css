@@ -115,13 +115,21 @@
 
 /* IMAGEN DE ITEM */
 .item-img {
-  padding: 3rem 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 14px;
+  border-radius: 3px;
   flex-grow: 1;
   height: 12rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.it-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
 }
 
 /* BOTONES DE PAGINACIÓN */

@@ -16,7 +16,7 @@ class EstateModel
         $type = '';
 
         if (!$includeDrafts) {
-            $query .= " AND status != 'draft'"; // Excluye propiedades en borrador por defecto
+            $query .= " AND status != 'borrador'"; // Excluye propiedades en borrador por defecto
         }
 
         if (!empty($filters['query'])) {
@@ -152,7 +152,7 @@ class EstateModel
 
     function deleteEstate($estateId)
     {
-        $query = "UPDATE properties SET status = 'draft' WHERE id = ?";
+        $query = "UPDATE properties SET status = 'borrador' WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $estateId);
         return $stmt->execute();
@@ -172,7 +172,7 @@ class EstateModel
 
     function getEstateByOutstanding()
     {
-        $query = "SELECT * FROM properties WHERE status = 'outstanding' ORDER BY RAND() LIMIT 4";
+        $query = "SELECT * FROM properties WHERE status = 'destacado' ORDER BY RAND() LIMIT 4";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -181,7 +181,7 @@ class EstateModel
     }
 
     function getNewsEstate(){
-        $query = "SELECT * FROM properties WHERE status = 'outstanding' OR status = 'new' OR status = 'sale' ORDER BY RAND()";
+        $query = "SELECT * FROM properties WHERE status = 'destacado' OR status = 'nuevo' OR status = 'oferta' ORDER BY RAND()";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();

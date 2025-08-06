@@ -1,6 +1,8 @@
 import "../styles/enterprise.css";
 import NavbarSeparator from "../components/Separator";
 import { FaHome, FaKey, FaBuilding, FaHandshake, FaFileSignature } from 'react-icons/fa';
+import MapArray from "../components/Maps";
+
 
 
 
@@ -62,15 +64,14 @@ function Local() {
                     <img src="/img/enterprise-local-1.jpg" alt="Local Mottoso Propiedades" width="600px"/>
                 </div>
                 <div className="local-map">
-                    <iframe
-                        title="Mapa de ubicación"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3212.499993663974!2d-56.72049612332963!3d-36.372888353074956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959c1b154dda6499%3A0x369ec85d5d646157!2sAv.%20Talas%20del%20Tuy%C3%BA%203295%2C%20B7105%20San%20Clemente%20del%20Tuyu%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1753822676361!5m2!1ses!2sar"
-                        width="600"
-                        height="250"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                    ></iframe>
+                    <MapArray
+                        locations={[
+                            {
+                                name: "Nuestra Sucursal",
+                                address: "Av. Talas del Tuyú 3295, San Clemente del Tuyu, Provincia de Buenos Aires",
+                            },
+                        ]}
+                    />
                 </div>
             </div>
         </div>
