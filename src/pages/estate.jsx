@@ -82,7 +82,13 @@ function Filter({ onFilterChange }) {
     return (
         <div className="ce-filter">
             <div className="ce-filter--search">
-                <AutocompleteInput value={query} onChange={setQuery} />
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Buscar por Ficha..."
+                />
+
                 <span><AiOutlineKey /></span>
             </div>
 

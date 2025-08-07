@@ -212,11 +212,9 @@ function Image({ images }) {
                 <div className="container-image">
                     {images?.length > 0 && images[current] && (
                         <img
-                            key={idx}
-                            src={`/${src.image_url}`}
-                            alt={`Miniatura ${idx + 1}`}
-                            className={`thumbnail ${idx === current ? "active fade-in" : ""}`}
-                            onClick={() => handleThumbnailClick(idx)}
+                            src={`/${images[current].image_url}`}
+                            alt={`Imagen ${current + 1}`}
+                            className={fade ? "fade-out" : ""}
                         />
                     )}
                 </div>
