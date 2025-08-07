@@ -4,6 +4,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { FaTrash } from "react-icons/fa";
+
 
 function Buttons({ onShowAdd, onShowModify, onDeleteItem, isDeleteDisabled }) {
   return (
@@ -340,12 +342,19 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
           {estate.property_images && estate.property_images.map((img) => (
             <div key={img.id_imagen} className="gallery-image-box">
               <img src={`/${img.ruta_imagen}`} alt={`Imagen ${img.id_imagen}`} className="gallery-image" />
-              <button type="button" onClick={() => handleDeleteImage(img.id_imagen)}>Eliminar</button>
-              <input
+              <button
+                type="button"
+                onClick={() => handleDeleteImage(img.id_imagen)}
+                className="gallery-button"
+                aria-label="Eliminar imagen"
+              >
+                <FaTrash />
+              </button>
+              {/* <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleReplaceImage(img.id_imagen, e.target.files[0])}
-              />
+              /> */}
             </div>
           ))}
           <label>Añadir imágenes:
@@ -357,6 +366,8 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     </div >
   );
 }
+
+
 function ItemContainer({ items, selectedItemId, onSelectItem, currentPage, onPageChange, itemsPerPage }) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;

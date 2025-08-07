@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2025 a las 01:27:14
+-- Tiempo de generación: 07-08-2025 a las 20:14:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -72,7 +72,8 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`id`, `listing_id`, `title`, `description`, `type`, `operation`, `address`, `city`, `state`, `price`, `bedrooms`, `bathrooms`, `covered_area`, `total_area`, `rooms`, `garage`, `antique`, `status`, `main_image`, `created_at`, `user_id`) VALUES
-(1, 0, ' VENTA DE CASA A TERMINAR – DOS UNIDADES FUNCIONALES 🏠 SAN CLEMENTE DEL TUYU - LA COSTA ', '📝 Escritura incluida – ¡Listo para transferir!\r\n📞 Se escuchan ofertas razonables\r\nExcelente oportunidad para inversión o vivienda propia + renta.\r\nLa propiedad cuenta con dos unidades funcionales, ideal para:\r\n✔️ Vivienda + alquiler\r\n✔️ Dos familias\r\n✔️ Inversores\r\n🔹 Construcción a terminar\r\n🔹 Lote amplio\r\n🔹 Zona tranquila, en crecimiento\r\n🔹 Todos los servicios cerca\r\n📲 Consultas por mensaje privado o al 2252412525 (whatsapp)\r\nNo pierdas esta oportunidad única de tener dos propiedades por el precio de una.', 'casa', 'venta', 'C. 90 & C. 81', 'B7105 San Clemente del Tuyu', 'Buenos Aires', 25000.00, 0, 0, 0, 0, 0, 0, 0, 'destacado', 'api/upload/68938ba1c35bc_casa-venta (1).jpg', '2025-08-06 14:06:41', NULL);
+(1, 0, ' VENTA DE CASA A TERMINAR – DOS UNIDADES FUNCIONALES 🏠 SAN CLEMENTE DEL TUYU - LA COSTA ', '📝 Escritura incluida – ¡Listo para transferir!\r\n📞 Se escuchan ofertas razonables\r\nExcelente oportunidad para inversión o vivienda propia + renta.\r\nLa propiedad cuenta con dos unidades funcionales, ideal para:\r\n✔️ Vivienda + alquiler\r\n✔️ Dos familias\r\n✔️ Inversores\r\n🔹 Construcción a terminar\r\n🔹 Lote amplio\r\n🔹 Zona tranquila, en crecimiento\r\n🔹 Todos los servicios cerca\r\n📲 Consultas por mensaje privado o al 2252412525 (whatsapp)\r\nNo pierdas esta oportunidad única de tener dos propiedades por el precio de una.', 'casa', 'venta', 'C. 90 & C. 81', 'B7105 San Clemente del Tuyu', 'Buenos Aires', 25000.00, 0, 0, 0, 0, 0, 0, 0, 'destacado', 'api/upload/68938ba1c35bc_casa-venta (1).jpg', '2025-08-06 14:06:41', NULL),
+(2, 0, 'CASA TIPO PH', '¡Oportunidad en excelente ubicación!\r\nUbicado sobre Avenida Séptima y 51, este luminoso y cómodo inmueble te ofrece todo lo que necesitás:\r\n\r\n🛏 2 dormitorios amplios\r\n🛋 Living-comedor espacioso y super iluminado\r\n🔥 Parrilla independiente ideal para tus reuniones\r\n🚗 Espacio propio para estacionar tu vehículo\r\n\r\nTodo esto por solo USD 40.000.\r\n¡No dejes pasar esta oportunidad de inversión en una zona estratégica!', 'ph', 'venta', 'Av. Septima y 51', 'San Clemente del Tuyu', 'Buenos Aires', 40000.00, 2, 1, 0, 0, 2, 0, 0, 'nuevo', 'api/upload/6894b19444b6a_008e2334-8137-4434-826a-7d659b3cba6f.jpg', '2025-08-07 11:00:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,12 @@ INSERT INTO `property_images` (`id`, `property_id`, `image_url`, `caption`) VALU
 (2, 1, 'api/upload/689399de17a19-casa-venta (2).jpg', NULL),
 (3, 1, 'api/upload/689399de1855d-casa-venta (3).jpg', NULL),
 (4, 1, 'api/upload/689399de18f96-casa-venta (4).jpg', NULL),
-(5, 1, 'api/upload/689399de196e2-casa-venta (5).jpg', NULL);
+(5, 1, 'api/upload/689399de196e2-casa-venta (5).jpg', NULL),
+(6, 2, 'api/upload/6894b1944c61d-81f52e0e-2ede-41fc-9c48-bd966bed3f19.jpg', NULL),
+(7, 2, 'api/upload/6894b1944d1a1-fb1cddb2-f18e-49e5-ad5b-b0f94fea9538.jpg', NULL),
+(8, 2, 'api/upload/6894b1944d81a-fc51929d-4bb5-4fe3-9b4d-f2963054be2c.jpg', NULL),
+(9, 2, 'api/upload/6894b1944dea0-008e2334-8137-4434-826a-7d659b3cba6f.jpg', NULL),
+(10, 2, 'api/upload/6894b1944e33f-05866fc4-f1dc-4c38-a329-7c9b7968d835.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -166,13 +172,13 @@ ALTER TABLE `inquiries`
 -- AUTO_INCREMENT de la tabla `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `property_images`
 --
 ALTER TABLE `property_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
