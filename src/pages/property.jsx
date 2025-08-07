@@ -244,9 +244,9 @@ function Image({ images }) {
 function ContactIcons() {
     return (
         <div className="contact-icons-wrapper">
-            <FaWhatsapp size={35} />
-            <CgMail size={35} />
-            <FaFacebookSquare size={35} />
+            <a href="https://wa.me/541120516283" target="blank"><FaWhatsapp size={35} /></a>
+            <a href="mailto:mottosopropiedades@gmail.com?subject=Consulta" target="blank"><CgMail size={35} /></a>
+            <a href="https://www.facebook.com/people/Mottoso Propiedades" target="blank"><FaFacebookSquare size={35} /></a>
         </div>
     );
 }
