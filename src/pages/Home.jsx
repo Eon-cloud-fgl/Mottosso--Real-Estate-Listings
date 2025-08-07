@@ -56,7 +56,12 @@ function Bar() {
     return (
         <div className="hero-form-bar">
             <div className="hero-form-bar--input">
-                <input value={query} onChange={setQuery} />
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Buscar por Ficha..."
+                />
             </div>
             <select value={type} onChange={(e) => setType(e.target.value)}>
                 <option value="" disabled hidden>Tipo de propiedad</option>
