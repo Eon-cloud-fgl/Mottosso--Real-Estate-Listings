@@ -74,7 +74,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $estate = $estateModel->getEstateByOutstanding();
             echo json_encode($estate);
             break;
-            
+
+        case 'getNewsEstate':
+            $estate = $estateModel->getNewsEstate();
+            echo json_encode($estate);
+            break;
+
+
+        case 'getImagesById':
+            if (isset($_GET['id'])) {
+                $images = $estateModel->getImagesByEstateId($_GET['id']);
+                echo json_encode($images);
+            } else {
+                echo json_encode(['error' => 'Falta el ID de la propiedad']);
+            }
+            break;
+
         default:
             http_response_code(400); // Establece el código de estado HTTP a 400 si la acción no es válida.
             echo json_encode(['error' => 'Acción no válida']); // Envía un mensaje de error indicando que la acción no es válida.
@@ -105,118 +120,118 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $estateId = $data['id'];
                 $estateData = $_POST;
                 unset($estateData['action'], $estateData['id']);
-                
-                    if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
-                        $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
-                        $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
 
-                        if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
-                            $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo); 
-                        } else {
-                            echo json_encode(['error' => 'Error al subir la imagen']);
-                            exit;
-                        }
+                if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
+                    $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
+                    $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
+
+                    if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
+                        $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo);
+                    } else {
+                        echo json_encode(['error' => 'Error al subir la imagen']);
+                        exit;
                     }
-                    
-                    //esto se fija que la galeria de imagenes( el input que sube las imagenes no este vacio y procede )
-                        if (isset($_FILES['gallery_images'])) {
-                            $files = $_FILES['gallery_images'];
+                }
 
-                            for ($i = 0; $i < count($files['name']); $i++) {
-                                if ($files['error'][$i] === UPLOAD_ERR_OK) {
-                                    $tmpName = $files['tmp_name'][$i];
-                                    $name = basename($files['name'][$i]);
-                                    $targetDir = __DIR__ . '/../upload/';
-                                    $uniqueName = uniqid() . '-' . $name;
-                                    $targetFile = $targetDir . $uniqueName;
+                //esto se fija que la galeria de imagenes( el input que sube las imagenes no este vacio y procede )
+                if (isset($_FILES['gallery_images'])) {
+                    $files = $_FILES['gallery_images'];
 
-                                    if (move_uploaded_file($tmpName, $targetFile)) {
-                                        $imagePath = 'api/upload/' . $uniqueName;
-        
-                                        $estateModel->addImage($estateId, $imagePath);
-                                    } else {
+                    for ($i = 0; $i < count($files['name']); $i++) {
+                        if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                            $tmpName = $files['tmp_name'][$i];
+                            $name = basename($files['name'][$i]);
+                            $targetDir = __DIR__ . '/../upload/';
+                            $uniqueName = uniqid() . '-' . $name;
+                            $targetFile = $targetDir . $uniqueName;
 
-                                        echo json_encode(['error' => 'Error al subir una imagen de la galería']);
-                                        exit;
-                                    }
-                                }
+                            if (move_uploaded_file($tmpName, $targetFile)) {
+                                $imagePath = 'api/upload/' . $uniqueName;
+
+                                $estateModel->addImage($estateId, $imagePath);
+                            } else {
+
+                                echo json_encode(['error' => 'Error al subir una imagen de la galería']);
+                                exit;
                             }
                         }
+                    }
+                }
 
-                $result = $estateModel->modifyEstate($estateId, $estateData); 
+                $result = $estateModel->modifyEstate($estateId, $estateData);
                 echo json_encode(['success' => $result === true]);
             } else {
-                http_response_code(400); 
-                echo json_encode(['error' => 'Datos incompletos']); 
+                http_response_code(400);
+                echo json_encode(['error' => 'Datos incompletos']);
             }
 
             break;
 
-            case 'addEstate':
-                if (!empty($_POST['title']) && !empty($_POST['description'])) {
-                    $estateData = $_POST;
-                    unset($estateData['action']);
+        case 'addEstate':
+            if (!empty($_POST['title']) && !empty($_POST['description'])) {
+                $estateData = $_POST;
+                unset($estateData['action']);
 
-                  
-                    if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
-                        $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
-                        $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
 
-                        if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
-                            $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo);
-                        } else {
-                            echo json_encode(['error' => 'Error al subir la imagen principal']);
-                            exit;
-                        }
+                if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
+                    $nombreArchivo = uniqid() . '_' . basename($_FILES['main_image']['name']);
+                    $rutaDestino = __DIR__ . '/../upload/' . $nombreArchivo;
+
+                    if (move_uploaded_file($_FILES['main_image']['tmp_name'], $rutaDestino)) {
+                        $estateData['main_image'] = 'api/upload/' . trim($nombreArchivo);
+                    } else {
+                        echo json_encode(['error' => 'Error al subir la imagen principal']);
+                        exit;
                     }
+                }
 
-                
-                    $newEstateId = $estateModel->addEstate($estateData); 
-                    if ($newEstateId) {
-           
-                        if (isset($_FILES['gallery_images'])) {
-                            $files = $_FILES['gallery_images'];
 
-                            for ($i = 0; $i < count($files['name']); $i++) {
-                                if ($files['error'][$i] === UPLOAD_ERR_OK) {
-                                    $tmpName = $files['tmp_name'][$i];
-                                    $name = basename($files['name'][$i]);
-                                    $targetDir = __DIR__ . '/../upload/';
-                                    $uniqueName = uniqid() . '-' . $name;
-                                    $targetFile = $targetDir . $uniqueName;
+                $newEstateId = $estateModel->addEstate($estateData);
+                if ($newEstateId) {
 
-                                    if (move_uploaded_file($tmpName, $targetFile)) {
-                                        $imagePath = 'api/upload/' . $uniqueName;
-                                        $estateModel->addImage($newEstateId, $imagePath);
-                                    }
+                    if (isset($_FILES['gallery_images'])) {
+                        $files = $_FILES['gallery_images'];
+
+                        for ($i = 0; $i < count($files['name']); $i++) {
+                            if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                                $tmpName = $files['tmp_name'][$i];
+                                $name = basename($files['name'][$i]);
+                                $targetDir = __DIR__ . '/../upload/';
+                                $uniqueName = uniqid() . '-' . $name;
+                                $targetFile = $targetDir . $uniqueName;
+
+                                if (move_uploaded_file($tmpName, $targetFile)) {
+                                    $imagePath = 'api/upload/' . $uniqueName;
+                                    $estateModel->addImage($newEstateId, $imagePath);
                                 }
                             }
                         }
-
-                        echo json_encode([
-                            'success' => true,
-                            'estate_id' => $newEstateId
-                        ]);
-                    } else {
-                        echo json_encode(['error' => 'No se pudo guardar la propiedad']);
                     }
+
+                    echo json_encode([
+                        'success' => true,
+                        'estate_id' => $newEstateId
+                    ]);
                 } else {
-                    http_response_code(400);
-                    echo json_encode(['error' => 'Datos incompletos']);
+                    echo json_encode(['error' => 'No se pudo guardar la propiedad']);
                 }
-                break;
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'Datos incompletos']);
+            }
+            break;
 
         case 'deleteEstate':
             if (isset($data['id'])) {
                 $estateId = $data['id'];
-                $result = $estateModel->deleteEstate($estateId); 
+                $result = $estateModel->deleteEstate($estateId);
                 echo json_encode(['success' => $result === true]);
             } else {
-                http_response_code(400); 
+                http_response_code(400);
                 echo json_encode(['error' => 'Datos incompletos']);
             }
             break;
-            case 'replaceImage':
+        case 'replaceImage':
             if (isset($data["id_imagen"]) && isset($_FILES['new_image'])) {
                 $imageId = $data["id_imagen"];
                 $nombreArchivo = uniqid() . '_' . basename($_FILES['new_image']['name']);
@@ -233,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo json_encode(['error' => 'Faltan datos']);
             }
             break;
-            case 'deleteImage':
+        case 'deleteImage':
             if (isset($data["id_imagen"])) {
                 $result = $estateModel->deleteImageById($data["id_imagen"]);
                 echo json_encode(['success' => $result]);
@@ -241,7 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo json_encode(['error' => 'ID de imagen no proporcionado']);
             }
             break;
-            case 'getImagesByProperty':
+
+        case 'getImagesByProperty':
             if (isset($_GET['estateId'])) {
                 $images = $estateModel->getImagesByEstateId($_GET['estateId']);
                 echo json_encode($images);
@@ -249,16 +265,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo json_encode(['error' => 'Falta el ID de la propiedad']);
             }
             break;
+
         default:
-            http_response_code(400); 
-            echo json_encode(['error' => 'Acción no válida']); 
+            http_response_code(400);
+            echo json_encode(['error' => 'Acción no válida']);
             break;
-            
-        }
+
+    }
 
 } else {
-    http_response_code(405); 
-    echo json_encode(['error' => 'Método no permitido']); 
+    http_response_code(405);
+    echo json_encode(['error' => 'Método no permitido']);
 }
 
 

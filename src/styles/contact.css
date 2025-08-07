@@ -351,7 +351,7 @@ hr {
 }
 
 .contenedor-contacto-maps {
-    width:auto;
+    width:1150px;
     height: auto;
     display: flex;
     align-items: center;
@@ -401,6 +401,7 @@ hr {
   }
 
   .contenedor-contacto-maps {
+    width: 350px;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;

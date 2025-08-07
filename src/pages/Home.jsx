@@ -99,7 +99,13 @@ function ImageItem() {
 
 }
 
-function MisItems({ imageN, title, info }) {
+function MisItems({ imageN, title, info, option }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/${option}`);
+    }
+
     return (
         <>
             <div className="contenedor-menor">
@@ -110,7 +116,7 @@ function MisItems({ imageN, title, info }) {
                     <p id="item-titulo">{title}</p>
                     <p id="item-info">{info}</p>
                     <div className="contenedor-boton">
-                        <button>Conocer Mas</button>
+                        <button onClick={handleClick}>Conocer Mas</button>
                     </div>
                 </div>
 
@@ -128,21 +134,23 @@ function Miscellaneous() {
                 <p className="outstanding-subtitle">“Desde la búsqueda hasta la tasación, estamos con vos en cada paso.”</p>
             </div> */}
             <div className="miscellaneous-items">
-                <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." />
-                <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." />
-                <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." />
+                <MisItems imageN={1} title="Propiedades" info="Destacadas Explorá los hogares más buscados, listos para mudarte o invertir." option="estate" />
+                <MisItems imageN={2} title="Asesoramiento" info="Te acompañamos en cada paso para que tomes la mejor decisión." option="contact" />
+                <MisItems imageN={3} title="Tasaciones" info="Te ayudamos a darle el valor que merece a tu hogar." option="appraisals" />
             </div>
         </div>
     );
 }
 
 function OutstandingItem({ estate }) {
-    
     const navigate = useNavigate();
 
     const handleSelectEstate = () => {
         navigate(`/property?id=${estate.id}`);
     };
+
+    const isValid = (value) =>
+        !(value === 0 || value === "0" || value === null || value === undefined || value === "");
 
     return (
         <a className="outstanding-item" onClick={handleSelectEstate}>
@@ -153,18 +161,21 @@ function OutstandingItem({ estate }) {
             <div className="outstanding-details">
                 <h6 className="outstanding-title">{estate.title}</h6>
                 <p className="outstanding-address">{estate.address}</p>
-                <p className="outstanding-price">${estate.price}</p>
+                {isValid(estate.price) && (
+                    <p className="outstanding-price">${estate.price}</p>
+                )}
                 <p className="outstanding-separator"></p>
                 <ul className="outstanding-features">
-                    <li>{estate.total_area} m²</li>
-                    <li>{estate.rooms} Amb</li>
-                    <li>{estate.bedrooms} Dorm</li>
-                    <li>{estate.bathrooms} Baños</li>
+                    {isValid(estate.total_area) && <li>{estate.total_area} m²</li>}
+                    {isValid(estate.rooms) && <li>{estate.rooms} Amb</li>}
+                    {isValid(estate.bedrooms) && <li>{estate.bedrooms} Dorm</li>}
+                    {isValid(estate.bathrooms) && <li>{estate.bathrooms} Baños</li>}
                 </ul>
             </div>
         </a>
     );
 }
+
 
 
 function Outstanding() {

@@ -16,7 +16,7 @@ class EstateModel
         $type = '';
 
         if (!$includeDrafts) {
-            $query .= " AND status != 'draft'"; // Excluye propiedades en borrador por defecto
+            $query .= " AND status != 'borrador'"; // Excluye propiedades en borrador por defecto
         }
 
         if (!empty($filters['query'])) {
@@ -152,7 +152,7 @@ class EstateModel
 
     function deleteEstate($estateId)
     {
-        $query = "UPDATE properties SET status = 'draft' WHERE id = ?";
+        $query = "UPDATE properties SET status = 'borrador' WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $estateId);
         return $stmt->execute();
@@ -172,12 +172,36 @@ class EstateModel
 
     function getEstateByOutstanding()
     {
-        $query = "SELECT * FROM properties WHERE status = 'outstanding' ORDER BY RAND() LIMIT 4";
+        $query = "SELECT * FROM properties WHERE status = 'destacado' ORDER BY RAND() LIMIT 4";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getNewsEstate(){
+        $query = "SELECT * FROM properties WHERE status = 'destacado' OR status = 'nuevo' OR status = 'oferta' ORDER BY RAND()";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getStatusList() {
+        $query = "SELECT DISTINCT status FROM properties ORDER BY status ASC";
+        $result = $this->conn->query($query);
+
+        $statusList = [];
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $statusList[] = $row['status'];
+            }
+        }
+
+        return $statusList;
     }
     function getImagesByEstateId($estateId) 
     {

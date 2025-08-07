@@ -32,10 +32,10 @@ function AddProduct({ onClose }) {
     try {
       const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php",
         formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       if (response.data.success) {
         toast.success("Propiedad agregada exitosamente");
@@ -70,18 +70,24 @@ function AddProduct({ onClose }) {
         <label>Tipo:
           <select name="type" required>
             <option value="">Seleccione</option>
-            <option value="house">Casa</option>
-            <option value="apartment">Departamento</option>
+            <option value="departamento">Departamento</option>
+            <option value="casa">Casa</option>
+            <option value="ph">PH</option>
+            <option value="terreno">Terreno</option>
+            <option value="local">Local</option>
+            <option value="oficina">Oficina</option>
+            <option value="otro">Otro</option>
           </select>
         </label>
 
         <label>Operación:
           <select name="operation" required>
             <option value="">Seleccione</option>
-            <option value="sale">Venta</option>
-            <option value="rent">Alquiler</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
           </select>
         </label>
+
 
         <label>Dirección:
           <input type="text" name="address" required />
@@ -127,9 +133,10 @@ function AddProduct({ onClose }) {
         </label>
 
         <label>Estado:
-          <select name="status" required>
-            <option value="published">Publicado</option>
-            <option value="draft">Borrador</option> 
+          <select name="status" required defaultValue="borrador">
+            <option value="nuevo">Nuevo</option>
+            <option value="publicado">Publicado</option>
+            <option value="borrador">Borrador</option>
           </select>
         </label>
 
@@ -138,7 +145,7 @@ function AddProduct({ onClose }) {
         </label>
 
         <label>Galería de imágenes:
-        <input type="file" name="gallery_images[]" accept="image/*" multiple />
+          <input type="file" name="gallery_images[]" accept="image/*" multiple />
         </label>
 
         <button type="submit">Agregar Propiedad</button>
@@ -149,7 +156,7 @@ function AddProduct({ onClose }) {
 
 
 function ModifyProduct({ onClose, estate, onUpdate }) {
-  if (!estate) return null; 
+  if (!estate) return null;
   const [loading, setLoading] = useState(false);
   const [deleteImageId, setDeleteImageId] = useState(null);
   const handleDeleteImage = async (imageId) => {
@@ -201,7 +208,7 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.target);
     formData.append("action", "modifyEstate");
     formData.append("id", estate.id);
@@ -226,7 +233,7 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     } finally {
       setLoading(false);
     }
-    
+
   };
   return (
     <div className="form-overlay" onClick={onClose} >
@@ -251,17 +258,21 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
         <label>Tipo:
           <select name="type" required defaultValue={estate.type}>
             <option value="">Seleccione</option>
-            <option value="house">Casa</option>
-            <option value="apartment">Departamento</option>
-            <option value="land">Terreno</option>
+            <option value="departamento">Departamento</option>
+            <option value="casa">Casa</option>
+            <option value="ph">PH</option>
+            <option value="terreno">Terreno</option>
+            <option value="local">Local</option>
+            <option value="oficina">Oficina</option>
+            <option value="otro">Otro</option>
           </select>
         </label>
 
         <label>Operación:
           <select name="operation" required defaultValue={estate.operation}>
             <option value="">Seleccione</option>
-            <option value="sale">Venta</option>
-            <option value="rent">Alquiler</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
           </select>
         </label>
 
@@ -310,11 +321,14 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
 
         <label>Estado:
           <select name="status" required defaultValue={estate.status}>
-            <option value="published">Publicado</option>
-            <option value="draft">Borrador</option>
-            <option value="reserved">Reservado</option>
-            <option value="sold">Vendido</option>
-            <option value="rented">Rentado</option>
+            <option value="publicado">Publicado</option>
+            <option value="borrador">Borrador</option>
+            <option value="reservado">Reservado</option>
+            <option value="vendido">Vendido</option>
+            <option value="alquilado">Alquilado</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="destacado">Destacado</option>
+            <option value="oferta">Rebaja</option>
           </select>
         </label>
 
@@ -322,22 +336,22 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
           <input type="file" name="main_image" accept="image/*" />
         </label>
         <div className="gallery-preview">
-        <h3>Galería Actual</h3>
-        {estate.property_images && estate.property_images.map((img) => (
-          <div key={img.id_imagen} className="gallery-image-box">
-            <img src={`/${img.ruta_imagen}`} alt={`Imagen ${img.id_imagen}`} className="gallery-image" />
-            <button type="button" onClick={() => handleDeleteImage(img.id_imagen)}>Eliminar</button>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleReplaceImage(img.id_imagen, e.target.files[0])}
-            />
-          </div>
-        ))}
-        <label>Añadir imágenes:
-        <input type="file" name="gallery_images[]" accept="image/*" multiple />
-        </label>
-      </div>
+          <h3>Galería Actual</h3>
+          {estate.property_images && estate.property_images.map((img) => (
+            <div key={img.id_imagen} className="gallery-image-box">
+              <img src={`/${img.ruta_imagen}`} alt={`Imagen ${img.id_imagen}`} className="gallery-image" />
+              <button type="button" onClick={() => handleDeleteImage(img.id_imagen)}>Eliminar</button>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleReplaceImage(img.id_imagen, e.target.files[0])}
+              />
+            </div>
+          ))}
+          <label>Añadir imágenes:
+            <input type="file" name="gallery_images[]" accept="image/*" multiple />
+          </label>
+        </div>
         <button type="submit" disabled={loading}>{loading ? "Modificando..." : "Modificar Propiedad"}</button>
       </form>
     </div >
@@ -383,12 +397,16 @@ function ItemContainer({ items, selectedItemId, onSelectItem, currentPage, onPag
 }
 
 function Item({ estate, onSelect, selected }) {
+  console.log(`/${estate.main_image}`);
   return (
     <div className={`item ${selected ? "selected" : ""}`} onClick={onSelect}>
-      <div
-        className="item-img"
-        style={{ backgroundImage: `url(/${estate.main_image})` }}
-      ></div>
+      <div className="item-img">
+        <img
+          src={`/${estate.main_image}`}
+          alt={estate.title}
+          className="it-image"
+        />
+      </div>
       <h2>{estate.title}</h2>
       <p>{estate.type} en {estate.operation}</p>
       <p>{estate.city}, {estate.state}</p>
@@ -500,32 +518,32 @@ export default function Dashboard() {
 
   return (
     <>
-    <div className="dashboard-container">
-      <Miscellaneous />
-      <Buttons
-        onShowAdd={handleShowAdd}
-        onShowModify={handleShowModify}
-        onDeleteItem={handleDeleteItem}
-        isDeleteDisabled={selectedItemId === null}
-      />
-      <ItemContainer
-        items={items}
-        selectedItemId={selectedItemId}
-        onSelectItem={handleSelectItem}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-      />
-      {showFormAdd && <AddProduct onClose={() => setShowFormAdd(false)} />}
-      {showFormModify && (
-        <ModifyProduct
-          onClose={() => setShowFormModify(false)}
-          estate={items.find(item => item.id === selectedItemId)}
-          onUpdate={() => setUpdateFlag(prev => !prev)}  // Callback para actualizar la lista
+      <div className="dashboard-container">
+        <Miscellaneous />
+        <Buttons
+          onShowAdd={handleShowAdd}
+          onShowModify={handleShowModify}
+          onDeleteItem={handleDeleteItem}
+          isDeleteDisabled={selectedItemId === null}
         />
-      )}
-      <ToastContainer />
-    </div>
+        <ItemContainer
+          items={items}
+          selectedItemId={selectedItemId}
+          onSelectItem={handleSelectItem}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+        />
+        {showFormAdd && <AddProduct onClose={() => setShowFormAdd(false)} />}
+        {showFormModify && (
+          <ModifyProduct
+            onClose={() => setShowFormModify(false)}
+            estate={items.find(item => item.id === selectedItemId)}
+            onUpdate={() => setUpdateFlag(prev => !prev)}  // Callback para actualizar la lista
+          />
+        )}
+        <ToastContainer />
+      </div>
     </>
   );
 }
