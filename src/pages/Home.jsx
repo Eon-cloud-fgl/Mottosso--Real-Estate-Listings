@@ -56,13 +56,18 @@ function Bar() {
     return (
         <div className="hero-form-bar">
             <div className="hero-form-bar--input">
-                <AutocompleteInput value={query} onChange={setQuery} />
+                <input value={query} onChange={setQuery} />
             </div>
             <select value={type} onChange={(e) => setType(e.target.value)}>
-                <option value="">Tipo</option>
-                <option value="house">Casa</option>
-                <option value="apartment">Apartamento</option>
-                <option value="land">Terreno</option>
+                <option value="" disabled hidden>Tipo de propiedad</option>
+                <option value="">Todos</option>
+                <option value="departamento">Departamento</option>
+                <option value="casa">Casa</option>
+                <option value="ph">PH</option>
+                <option value="terreno">Terreno</option>
+                <option value="local">Local</option>
+                <option value="oficina">Oficina</option>
+                <option value="otro">Otro</option>
             </select>
             <button onClick={handleSearch}>Buscar</button>
         </div>

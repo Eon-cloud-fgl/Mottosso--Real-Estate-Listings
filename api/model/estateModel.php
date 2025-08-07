@@ -20,9 +20,9 @@ class EstateModel
         }
 
         if (!empty($filters['query'])) {
-            $query .= " AND city = ?";
+            $query .= " AND listing_id = ?";
             $params[] = $filters['query'];
-            $type .= 's';
+            $type .= 'i';
         }
 
         if (!empty($filters['type'])) {

@@ -23,7 +23,7 @@ function EstateItem({ estate }) {
     return (
         <a onClick={handleSelectEstate} className="ce-item-link">
             <div className="ce-item">
-                <img src={`/${estate.main_image}`} alt="" />
+                <img src={`/info-banner-1.avif`} alt="" />
 
                 <div className="ce-item-content">
                     <div className="ce-item-info">
@@ -96,13 +96,9 @@ function Filter({ onFilterChange }) {
                     >
                         <option value="" disabled hidden>Tipo de propiedad</option>
                         <option value="">Todos</option>
-                        <option value="departamento">Departamento</option>
-                        <option value="casa">Casa</option>
-                        <option value="ph">PH</option>
-                        <option value="terreno">Terreno</option>
-                        <option value="local">Local</option>
-                        <option value="oficina">Oficina</option>
-                        <option value="otro">Otro</option>
+                        <option value="house">Casa</option>
+                        <option value="apartment">Apartamento</option>
+                        <option value="land">Terreno</option>
                     </select>
                 </div>
 
@@ -111,8 +107,8 @@ function Filter({ onFilterChange }) {
                     <select value={operation} onChange={(e) => setOperation(e.target.value)} className="ce-filter--select">
                         <option value="" disabled hidden>Operación</option>
                         <option value="">Todos</option>
-                        <option value="venta">Compra</option>
-                        <option value="alquiler">Alquiler</option>
+                        <option value="sale">Compra</option>
+                        <option value="rent">Alquiler</option>
                     </select>
                 </div>
 
