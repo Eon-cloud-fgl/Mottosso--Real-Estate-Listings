@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from "./components/Navbar"
-import Home from "./pages/home"
+import Home from "./pages/Home"
 import Appraisals from "./pages/appraisals"
 import Contact from "./pages/contact"
 import Enterprise from "./pages/enterprise"
@@ -40,7 +40,7 @@ function App() {
     }, [loading])
 
     return (
-        <>
+        <div className='app-container'>
             {!isAdminRoute && <Navbar />}
             {isAdminRoute && rutaBooleano && <NavbarAdmin />}
             {showLoader && <Loader visible={loading} />}
@@ -60,7 +60,7 @@ function App() {
                 </Routes>
             </div>
             {!isAdminRoute && <Footer />}
-        </>
+        </div>
     )
 }
 
