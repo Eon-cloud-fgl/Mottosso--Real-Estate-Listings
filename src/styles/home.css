@@ -106,11 +106,15 @@ main {
   z-index: 10;
 }
 
+.hero-form-bar select {
+  padding: 0.75rem 1rem;
+
+}
+
 .hero-form-bar select,
 .hero-form-bar .hero-form-bar--input {
   border: none;
   background: #f5f5f5;
-  padding: 0.75rem 1rem;
   border-radius: 30px;
   font-size: 0.95rem;
   outline: none;
@@ -475,10 +479,20 @@ main {
 }
 
 @media (max-width: 768px) {
-  .contenedor-descripcion {
+
+  .hero-content {
+    left: 8%;
+    max-width: 370px;
+  }
+
+  .miscellaneous-items {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+  }
+
+  .image-stack{
+    display: none;
   }
 
   .cd-item {

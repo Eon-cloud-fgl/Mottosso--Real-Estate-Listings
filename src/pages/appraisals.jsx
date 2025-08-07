@@ -178,7 +178,7 @@ function Contact() {
                     <h3>Tambien podes contactarnos por Whatsapp</h3>
                     <p>Nuestros Agentes atenderan tus consultas</p>
                     <WhatsAppButton
-                        phone="5491123456789"
+                        phone="2252412525"
                         message="Hola, estoy interesado en tazar una propiedad."
                     />
 
@@ -192,7 +192,7 @@ function Contact() {
                     <h3>¿Buscas un Asesoramiento Personalizado?</h3>
                     <div className="advice-info">
                         <WhatsAppButton
-                            phone="5491123456789"
+                            phone="2252412525"
                             message="Hola, estoy interesado en Asesoramiento Personalizado."
                         />
                         <button className="btn-secondary">Contactar</button>
