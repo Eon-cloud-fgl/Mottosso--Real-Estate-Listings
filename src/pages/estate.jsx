@@ -49,7 +49,7 @@ function EstateItem({ estate }) {
 function Filter({ onFilterChange }) {
     const [showForm, setShowForm] = useState(false);
     const [searchParams] = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get("query") || "");
+    const [query, setQuery] = useState(searchParams.get("listing_id") || "");
     const [type, setType] = useState(searchParams.get("type") || "");
     const [operation, setOperation] = useState(searchParams.get("operation") || "");
 
@@ -82,7 +82,7 @@ function Filter({ onFilterChange }) {
     return (
         <div className="ce-filter">
             <div className="ce-filter--search">
-                <AutocompleteInput value={query} onChange={setQuery} />
+                <input value={query} onChange={setQuery} />
                 <span><AiOutlineKey /></span>
             </div>
 
