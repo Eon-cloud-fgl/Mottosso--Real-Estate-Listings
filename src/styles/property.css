@@ -584,7 +584,7 @@
         font-size: 24px;
     }
     #description-major{
-        max-width: max-content;
+        max-width: 350px;
     }
     #description-major span {
         font-size: 14px;
@@ -609,7 +609,6 @@
         font-size: 18px;
     }
 
-    /* 👇 Agregado */
     .details,
     .about-property {
         padding: 10px;

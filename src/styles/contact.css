@@ -196,7 +196,7 @@
   padding: 1rem 0.5rem;
   margin-left: 0.75rem;
   cursor: pointer;
-  z-index: 2;
+  z-index: 999999;
   position: absolute;
   top: 50%;
   left: 100%;
@@ -390,7 +390,7 @@ hr {
     left: 20px;
     width: 55px;
     height: 55px;
-    z-index: 10;
+    z-index: 999999;
   }
 
   .tooltip {
