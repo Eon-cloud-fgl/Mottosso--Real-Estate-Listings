@@ -10,7 +10,7 @@ import News from "./pages/news"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
 import Login from "./pages/admin/Login"
-import Dashboard from "./pages/admin/Dashboard"
+import Dashboard from "./pages/admin/dashboard"
 import NavbarAdmin from "./components/NavbarAdmin"
 import Property from "./pages/property";
 
