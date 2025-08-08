@@ -191,13 +191,14 @@ function OutstandingItem({ estate }) {
 function Outstanding() {
     const [estates, setEstates] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const fetchEstates = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("https://cors-anywhere.herokuapp.com/https://mottosopruebas.unaux.com/api/controller/estateController.php", {
+            const res = await axios.get("https://mottosopruebas.unaux.com/api/controller/estateController.php", {
                 params: { action: "getEstateByOutstanding" },
-                withCredentials: true // solo si usas cookies de sesión y el servidor permite credenciales CORS
+                headers: {
+                    'Access-Control-Allow-Origin': 'https://mottoso-propiedades.netlify.app'
+                }
             });
             setEstates(res.data);
             console.log("Respuesta:", res.data);
@@ -207,7 +208,6 @@ function Outstanding() {
             setLoading(false);
         }
     };
-
     useEffect(() => {
         fetchEstates();
     }, []);
