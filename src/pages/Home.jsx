@@ -195,11 +195,17 @@ function Outstanding() {
     const fetchEstates = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("https://prueba-mottoso.fwh.is/api/controller/estateController.php", {
-                params: { action: "getEstateByOutstanding" },
-            });
-            setEstates(res.data);
-            console.log("Respuesta:", res.data);
+            const res = await fetch(
+                "https://prueba-mottoso.fwh.is/api/controller/estateController.php?action=getEstateByOutstanding"
+            );
+
+            if (!res.ok) {
+                throw new Error(`Error HTTP: ${res.status}`);
+            }
+
+            const data = await res.json();
+            setEstates(data);
+            console.log("Respuesta:", data);
         } catch (error) {
             console.error("Error cargando propiedades:", error);
         } finally {
