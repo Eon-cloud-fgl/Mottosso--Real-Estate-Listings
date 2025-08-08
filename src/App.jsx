@@ -13,6 +13,7 @@ import Login from "./pages/admin/Login"
 import Dashboard from "./pages/admin/dashboard"
 import NavbarAdmin from "./components/NavbarAdmin"
 import Property from "./pages/property";
+import OtterTaskTest from "./pages/otterTest";
 
 function App() {
     const [loading, setLoading] = useState(false)
@@ -54,6 +55,7 @@ function App() {
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
                     <Route path="/property" element={<Property />} />
+                    <Route path="/otter" element={<Property />} />
                     {/*RUTA ADMIN*/}
                     <Route path="/admin" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
