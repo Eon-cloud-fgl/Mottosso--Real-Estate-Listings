@@ -195,10 +195,7 @@ function Outstanding() {
         setLoading(true);
         try {
             const res = await axios.get("https://mottosopruebas.unaux.com/api/controller/estateController.php", {
-                params: { action: "getEstateByOutstanding" },
-                headers: {
-                    'Access-Control-Allow-Origin': 'https://mottoso-propiedades.netlify.app'
-                }
+                params: { action: "getEstateByOutstanding" }
             });
             setEstates(res.data);
             console.log("Respuesta:", res.data);
@@ -208,6 +205,7 @@ function Outstanding() {
             setLoading(false);
         }
     };
+    
     useEffect(() => {
         fetchEstates();
     }, []);
