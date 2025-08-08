@@ -55,7 +55,7 @@ function App() {
                     <Route path="/estate" element={<Estate />}/>
                     <Route path="/news" element={<News />}/>
                     <Route path="/property" element={<Property />} />
-                    <Route path="/otter" element={<Property />} />
+                    <Route path="/otter" element={<OtterTaskTest />} />
                     {/*RUTA ADMIN*/}
                     <Route path="/admin" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
