@@ -76,7 +76,7 @@ function MisItems({ estate, invertido }) {
           )}
         </ul>
 
-        <button className="btn-detalles" onClick={handleClick}>Ver más detalles</button>
+        <button className="btn-detalles" onClick={handleSelectEstate}>Ver más detalles</button>
       </div>
     </div>
   );

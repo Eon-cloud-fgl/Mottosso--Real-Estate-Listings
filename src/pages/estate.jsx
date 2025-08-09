@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 
 
 function EstateItem({ estate }) {
-
     const navigate = useNavigate();
 
     const handleSelectEstate = () => {
@@ -27,16 +26,29 @@ function EstateItem({ estate }) {
 
                 <div className="ce-item-content">
                     <div className="ce-item-info">
-                        <h6 className="ce-info--price">${estate.price}</h6>
+                        <h6 className="ce-info--price">
+                            ${estate.price}
+                        </h6>
                         <span className="ce-info--address">{estate.address}</span>
+
                         <div className="ce-info--icon">
-                            <span><RxHome /> {estate.total_area}m² terreno</span>
-                            <span><RxRulerSquare /> {estate.covered_area}m² cubiertos</span>
-                            <span><RxDimensions /> {estate.rooms} ambientes</span>
-                            <span><PiToiletPaper /> {estate.bathrooms} baños</span>
+                            <span>
+                                <RxHome /> {estate.total_area && estate.total_area !== 0 ? `${estate.total_area}m² terreno` : "Sin info"}
+                            </span>
+                            <span>
+                                <RxRulerSquare /> {estate.covered_area && estate.covered_area !== 0 ? `${estate.covered_area}m² cubiertos` : "Sin info"}
+                            </span>
+                            <span>
+                                <RxDimensions /> {estate.rooms && estate.rooms !== 0 ? `${estate.rooms} ambientes` : "Sin info"}
+                            </span>
+                            <span>
+                                <PiToiletPaper /> {estate.bathrooms && estate.bathrooms !== 0 ? `${estate.bathrooms} baños` : "Sin info"}
+                            </span>
                         </div>
+
                         <p className="ce-info--description">{estate.description}</p>
                     </div>
+
                     <div className="ce-item-actions">
                         <button className="ce-action--icon"><AiFillPhone /></button>
                     </div>
@@ -45,6 +57,7 @@ function EstateItem({ estate }) {
         </a>
     );
 }
+
 
 function Filter({ onFilterChange }) {
     const [showForm, setShowForm] = useState(false);

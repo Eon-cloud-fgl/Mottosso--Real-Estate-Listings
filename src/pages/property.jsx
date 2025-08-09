@@ -11,19 +11,25 @@ import {
     FaPhone,
     FaRegClock,
     FaWhatsapp,
-    FaCar
+    FaCar,
+    FaBed
 } from "react-icons/fa";
 
+import { MdMeetingRoom } from "react-icons/md";
 import { CgMail } from "react-icons/cg";
-
+import { BiArea } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoMdPerson } from "react-icons/io";
+import { FiType } from "react-icons/fi";
 
 import {
     MdOutlineBathroom,
     MdOutlineBedroomChild,
     MdSignalCellularAlt
 } from "react-icons/md";
+
+import { RxDimensions } from "react-icons/rx";
+import { PiToiletPaper } from "react-icons/pi";
 
 
 import NavbarSeparator from "../components/Separator";
@@ -92,7 +98,7 @@ export default function Property() {
                         {/* columna izquierda (imagen y características) */}
                         <div className="image-characteristics-group" id="image-background">
                             <div className="container-wrapper">
-                                <Image images={images} />
+                                <Image images={images} property={property} />
                                 <div className="separato-image-property" />
                                 <Characteristics property={property} />
                             </div>
@@ -152,6 +158,7 @@ function MapEmbed({ property }) {
     return (
         <div className="details" id="map">
             <h3>Ubicacion</h3>
+            <p>{property.address}, {property.city}, {property.state}</p>
             <div className="location-container">
                 <MapArray
                     locations={[
@@ -176,7 +183,7 @@ function PhoneContactButton() {
     );
 }
 
-function Image({ images }) {
+function Image({ images, property}) {
     const [current, setCurrent] = useState(0);
     const [fade, setFade] = useState(false);
 
@@ -223,7 +230,7 @@ function Image({ images }) {
                     <span className="carousel-indicator">{current + 1} / {images.length}</span>
                     <button className="carousel-btn" onClick={next}><FaChevronRight /></button>
                 </div>
-                <ContactIcons />
+                <ContactIcons property_id={property.listing_id}/>
             </div>
 
             <div className="thumbnails-column">
@@ -241,12 +248,20 @@ function Image({ images }) {
 }
 
 
-function ContactIcons() {
+function ContactIcons({property_id}) {
     return (
         <div className="contact-icons-wrapper">
-            <a href="https://wa.me/541120516283" target="blank"><FaWhatsapp size={35} /></a>
+            <a
+                href={`https://wa.me/2252412525?text=${encodeURIComponent(
+                    `Hola, te consulto por la propiedad de ficha: ${property_id}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaWhatsapp size={35} />
+            </a>
             <a href="mailto:mottosopropiedades@gmail.com?subject=Consulta" target="blank"><CgMail size={35} /></a>
-            <a href="https://www.facebook.com/people/Mottoso Propiedades" target="blank"><FaFacebookSquare size={35} /></a>
+            <a href="https://www.facebook.com/people/MottosoPropiedades" target="blank"><FaFacebookSquare size={35} /></a>
         </div>
     );
 }
@@ -287,7 +302,7 @@ function Characteristics({ property }) {
                 )}
                 {isValid(property.operation) && (
                     <div className="feature">
-                        <IoMdPerson size={30} />
+                        <FiType size={30} />
                         <span>Tipo</span>
                         <p>{property.operation}</p>
                     </div>
@@ -308,15 +323,19 @@ function Details({ property }) {
             <h3>Detalles de la propiedad</h3>
             <ul className="property-details">
                 <li><FaDollarSign /> Precio: ${showValue(property.price)}</li>
-                <li><MdSignalCellularAlt /> Superficie: {showValue(property.total_area)} m²</li>
+                <li><BiArea /> Superficie: {showValue(property.total_area)} m²</li>
                 <li><IoLocationOutline /> Ubicación: {showValue(property.address)}, {showValue(property.city)}</li>
-                <li><FaCouch /> Tipo: {showValue(property.type)}</li>
+                <li><FiType /> Tipo: {showValue(property.type)}</li>
                 <li><FaRegClock /> Antigüedad: {showValue(property.antique)}</li>
                 <li><FaCar /> Cochera: {showValue(property.garage)}</li>
+                <li><RxDimensions /> Ambientes: {showValue(property.rooms)}</li>
+                <li><FaBed /> Habitaciones: {showValue(property.bedrooms)}</li>
+                <li><PiToiletPaper /> Baños: {showValue(property.bathrooms)}</li>
             </ul>
         </div>
     );
 }
+
 
 
 function AboutProperty({ property }) {
