@@ -19,23 +19,32 @@ function Banner() {
     );
 }
 
+
 function Description() {
     return (
         <div className="ds-container">
             <h2>Tasasiones Inmobiliarias con Propiedades Mottoso</h2>
-            <p>Realizamos el análisis de su inmueble basado en un profundo analisis, para brindar un valor real del mercado, tomando en cuenta la ubicación, superficie, comodidades y las caracteristicas unicas de tu hogar.</p>
-            <h3>¿Que tipo de propiedades se pueden tasar?</h3>
-            <ul>
-                <li><span className="icon-descripcion"><FaHome/></span>Casas</li>
-                <li><span className="icon-descripcion"><FaBuilding/></span>Departamentos</li>
-                <li><span className="icon-descripcion"><MdLandscape/></span>Terrenos</li>
-                <li><span className="icon-descripcion"><FaShop/></span>Locales comerciales</li>
-                <li><span className="icon-descripcion"><PiOfficeChairFill/></span>Oficinas</li>
-            </ul>
+            <p>
+                Realizamos el análisis de su inmueble basado en un profundo análisis, para brindar un valor real del mercado, tomando en cuenta la ubicación, superficie, comodidades y las características únicas de tu hogar.
+            </p>
+
+            {/* Invisible en responsive*/}
+            <div className="property-types">
+                <h3>¿Qué tipo de propiedades se pueden tasar?</h3>
+                <ul>
+                    <li><span className="icon-descripcion"><FaHome /></span>Casas</li>
+                    <li><span className="icon-descripcion"><FaBuilding /></span>Departamentos</li>
+                    <li><span className="icon-descripcion"><MdLandscape /></span>Terrenos</li>
+                    <li><span className="icon-descripcion"><FaShop /></span>Locales comerciales</li>
+                    <li><span className="icon-descripcion"><PiOfficeChairFill /></span>Oficinas</li>
+                </ul>
+            </div>
+
             <span>No lo dudes más, la inversión es el éxito que te espera</span>
         </div>
-    )
+    );
 }
+
 
 
 function Form() {
