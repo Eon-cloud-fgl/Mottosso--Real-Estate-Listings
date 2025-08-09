@@ -10,7 +10,7 @@ import News from "./pages/news"
 import Footer from "./components/Footer"
 import Loader from "./components/Loader"
 import Login from "./pages/admin/Login"
-import Dashboard from "./pages/admin/Dashboard"
+import Dashboard from "./pages/admin/dashboard"
 import NavbarAdmin from "./components/NavbarAdmin"
 import Property from "./pages/property";
 
@@ -55,7 +55,7 @@ function App() {
                     <Route path="/news" element={<News />}/>
                     <Route path="/property" element={<Property />} />
                     {/*RUTA ADMIN*/}
-                    <Route path="/admin" element={<Login />} />
+                    <Route path="/admin/login" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                 </Routes>
             </div>

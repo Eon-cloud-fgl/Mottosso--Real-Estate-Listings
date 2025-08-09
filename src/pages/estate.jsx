@@ -136,7 +136,7 @@ export default function Estate() {
         setLoading(true);
 
         try {
-            const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+            const res = await axios.get("/api/controller/estateController.php", {
                 params: {
                     action: "getPublishedEstates",
                     ...filters,

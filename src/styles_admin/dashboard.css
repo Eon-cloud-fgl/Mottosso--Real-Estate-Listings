@@ -313,6 +313,80 @@
   background: var(--admin-bg-hover-transparent);
 }
 
+.gallery-image-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px dashed var(--admin-bg-hover);
+  border-radius: 12px;
+  padding: 0.7rem;
+  min-height: 150px;
+  justify-content: center;
+  align-items: center;
+  background: var(--admin-bg-primary);
+  position: relative;
+  margin-top: 1rem;
+}
+
+.gallery-image-box.empty::before {
+  content: "Sin imágenes todavía";
+  color: var(--admin-text-four);
+  font-size: 0.95rem;
+  opacity: 0.6;
+  text-align: center;
+}
+
+.gallery-image {
+  position: relative;
+  width: 100%;
+  max-width: auto;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--admin-bg-hover);
+  transition: all 0.3s ease;
+}
+
+.gallery-image-box:hover .gallery-button{
+    opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-image-box:hover .gallery-image{
+  filter: brightness(0.8);
+}
+
+.gallery-button {
+  position: absolute;
+  display: flex; /* Siempre flex para centrar el ícono */
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  background: #426aaa !important;
+  color: white !important;
+  border: 1px dashed var(--admin-text-second);
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-button svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
 /* MEDIA QUERIES */
 
 /* Tablets y móviles grandes */
@@ -362,6 +436,21 @@
 
 /* Paleta de colores del panel de Admin */
 :root {
+  --admin-bg-primary: #ffffff;
+  --admin-bg-second: #e6e9f7;
+  --admin-bg-nav: #121750;
+  --admin-bg-hover-transparent: rgba(1, 40, 85, 0.08);
+  --admin-bg-hover: #f4f4f4;
+  --admin-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --admin-primary: #012855;
+  --admin-text-primary: #012855;
+  --admin-text-second: #4b5b76;
+  --admin-text-three: #012855;
+  --admin-text-four: #6b7c98;
+}
+
+/* antiguo root 
+:root {
   --admin-bg-primary: #0d0d1f;
   --admin-bg-second: #151429;
   --admin-bg-hover-transparent: rgba(29, 28, 56, 0.77);
@@ -372,4 +461,4 @@
   --admin-text-second: #9baeca;
   --admin-text-three: #fefefe;
   --admin-text-four: #9baeca;
-}
+} */

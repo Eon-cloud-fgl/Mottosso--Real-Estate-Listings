@@ -63,7 +63,7 @@ function Form() {
         formData.append("action", "appraisalsMail");
 
         try {
-            const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/contactController.php",
+            const response = await axios.post("/api/controller/contactController.php",
                 formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',

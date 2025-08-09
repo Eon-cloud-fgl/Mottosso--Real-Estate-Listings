@@ -103,7 +103,7 @@ const handleSubmit = async (e) => {
 
     try {
         const response = await axios.post(
-            'http://localhost/Mottoso-Real-Estate-Listings/api/controller/contactController.php',
+            '/api/controller/contactController.php',
             JSON.stringify(data),
             {
                 headers: { "Content-Type": "application/json" },
@@ -211,9 +211,9 @@ function ContactSection() {
             <div className="social">
                 <p>Siguenos:</p>
                 <div className="social-icons">
-                    <a href="#"><FaTwitter /></a>
-                    <a href="#"><FaFacebookF /></a>
-                    <a href="#"><FaLinkedinIn /></a>
+                    <a href="https://www.x.com/@mottosopropiedades" target="blank"><FaTwitter /></a>
+                    <a href="https://www.facebook.com/people/Mottoso Propiedades" target="blank"><FaFacebookF /></a>
+                    <a href="https://www.linkedin.com/in/Mottoso Propiedades" target="blank"><FaLinkedinIn /></a>
                 </div>
             </div>
         </section>

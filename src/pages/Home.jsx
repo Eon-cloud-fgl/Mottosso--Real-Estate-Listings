@@ -191,12 +191,11 @@ function OutstandingItem({ estate }) {
 function Outstanding() {
     const [estates, setEstates] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const fetchEstates = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
-                params: { action: "getEstateByOutstanding" },
+            const res = await axios.get("https://mottosopruebas.unaux.com/api/controller/estateController.php", {
+                params: { action: "getEstateByOutstanding" }
             });
             setEstates(res.data);
             console.log("Respuesta:", res.data);
@@ -206,7 +205,7 @@ function Outstanding() {
             setLoading(false);
         }
     };
-
+    
     useEffect(() => {
         fetchEstates();
     }, []);

@@ -4,6 +4,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Buttons({ onShowAdd, onShowModify, onDeleteItem, isDeleteDisabled }) {
   return (
@@ -30,7 +32,7 @@ function AddProduct({ onClose }) {
     const formData = new FormData(e.target);
     formData.append("action", "addEstate");
     try {
-      const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php",
+      const response = await axios.post("/api/controller/estateController.php",
         formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -164,7 +166,7 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     if (!confirm) return;
 
     try {
-      const res = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+      const res = await axios.post("/api/controller/estateController.php", {
         action: "deleteImage",
         id_imagen: imageId
       });
@@ -188,7 +190,7 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     formData.append("new_image", newFile);
 
     try {
-      const res = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", formData, {
+      const res = await axios.post("/api/controller/estateController.php", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -213,7 +215,7 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     formData.append("action", "modifyEstate");
     formData.append("id", estate.id);
     try {
-      const response = await axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php",
+      const response = await axios.post("/api/controller/estateController.php",
         formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -340,12 +342,19 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
           {estate.property_images && estate.property_images.map((img) => (
             <div key={img.id_imagen} className="gallery-image-box">
               <img src={`/${img.ruta_imagen}`} alt={`Imagen ${img.id_imagen}`} className="gallery-image" />
-              <button type="button" onClick={() => handleDeleteImage(img.id_imagen)}>Eliminar</button>
-              <input
+              <button
+                type="button"
+                onClick={() => handleDeleteImage(img.id_imagen)}
+                className="gallery-button"
+                aria-label="Eliminar imagen"
+              >
+                <FaTrash />
+              </button>
+              {/* <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleReplaceImage(img.id_imagen, e.target.files[0])}
-              />
+              /> */}
             </div>
           ))}
           <label>Añadir imágenes:
@@ -357,6 +366,8 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
     </div >
   );
 }
+
+
 function ItemContainer({ items, selectedItemId, onSelectItem, currentPage, onPageChange, itemsPerPage }) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
@@ -442,6 +453,8 @@ function Miscellaneous() {
 
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const [properties, setProperties] = useState([]);
   const itemsPerPage = 8;
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -453,7 +466,7 @@ export default function Dashboard() {
     setLoading(true);
 
     try {
-      const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+      const res = await axios.get("/api/controller/estateController.php", {
         params: {
           action: "getAllEstates"
         }
@@ -497,7 +510,7 @@ export default function Dashboard() {
     if (!confirmDelete) return;
 
     // Realiza la solicitud para eliminar el producto
-    axios.post("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+    axios.post("/api/controller/estateController.php", {
       action: "deleteEstate",
       id: selectedItemId
     })
@@ -515,7 +528,21 @@ export default function Dashboard() {
         toast.error("Error al eliminar el producto. Inténtalo de nuevo más tarde.");
       });
   };
-
+    useEffect(() => {
+        axios.get("/api/controller/dashboard_session.php", {
+            withCredentials: true // necesario para que envíe cookies de sesión
+        })
+        .then(res => {
+            setProperties(res.data.data);
+        })
+        .catch(err => {
+            if (err.response && err.response.status === 401) {
+                navigate("/admin/login"); // si no hay sesión, manda al login
+            } else {
+                console.error("Error cargando datos:", err);
+            }
+        });
+    }, [navigate]);
   return (
     <>
       <div className="dashboard-container">
