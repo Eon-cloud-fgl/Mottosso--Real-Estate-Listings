@@ -128,7 +128,7 @@
 }
 
 .ce-item img {
-  width: 480px;
+  width: 450px;
   height: 100%;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
@@ -292,6 +292,10 @@
   .ce-item {
     width: 100%;
     margin: 10px 0;
+  }
+
+  .ce-item-link {
+    margin: 0 1rem;
   }
 
   .ce-item img {

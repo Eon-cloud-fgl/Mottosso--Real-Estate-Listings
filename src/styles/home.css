@@ -485,6 +485,10 @@ main {
     max-width: 370px;
   }
 
+  .separator-icon{
+    display: none;
+  }
+  
   .miscellaneous-items {
     flex-direction: column;
     align-items: center;

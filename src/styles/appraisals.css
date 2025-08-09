@@ -430,7 +430,7 @@ textarea {
 }
 
 /*Responsive iphone 12 pro*/
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 460px) {
   /* Oculta solo el bloque de tipos de propiedad */
   .property-types {
     display: none !important;

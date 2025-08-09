@@ -115,21 +115,26 @@
     gap: 40px;
     flex-wrap: wrap;
     align-content: flex-start;
+    margin: 1rem;
 }
 
 .container-image {
     position: relative;
-    height: 430px;
+    height: 600px;
+    max-height: 600px;
     overflow: hidden;
 }
 
 .container-image img {
-    height: auto;
+    width: 100%;
+    max-width: 950px;
+    min-height: 600px;
     border-radius: 8px;
-    object-fit: cover;
-    width: 950px;
+    object-fit: contain;
     transition: opacity 0.5s ease;
     opacity: 1;
+    object-fit: cover;
+    width: 950px;
 }
 
 .container-image img.fade-out {
@@ -213,13 +218,6 @@
     flex: 1;
     border-radius: 8px;
     overflow: hidden;
-}
-
-.container-image img {
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    width: 950px;
 }
 
 .carousel-controls {
@@ -480,41 +478,7 @@
 }
 @media (max-width: 1200px) {
     .container-image img {
-        width: 100%;
-    }
-
-    .thumbnail {
-        width: 100%;
-        height: auto;
-    }
-
-    .image-contact-wrapper {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    #description-major {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
         max-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .property-details {
-        grid-template-columns: 1fr;
-        margin: 10px;
-    }
-
-    .contact-icons-wrapper {
-        bottom: 10px;
-        right: 10px;
-        gap: 8px;
-    }
-
-    .container-image {
-        height: auto;
     }
 
     .gallery-wrapper {
@@ -528,15 +492,8 @@
         overflow-y: hidden;
     }
 
-    .thumbnails-column::-webkit-scrollbar {
-        height: 6px;
-        width: 0;
-    }
-
     .thumbnail {
-        width: 120px;
-        height: 80px;
-        flex-shrink: 0;
+        max-width: 120px;
     }
 
     .characteristics {
@@ -546,30 +503,36 @@
     }
 
     .features {
-        flex-direction: column;
         align-items: stretch;
     }
+    .description-location{
+        display: none;
+    }
+    .image-characteristics-group {
+    margin: 1rem;
+    }
+}
 
-    .feature {
-        width: 100%;
+@media (max-width: 768px) {
+    .image-contact-wrapper {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .details,
-    .about-property {
-        padding: 15px;
-    }
-
-    .about-property p,
-    .details p {
-        margin: 8px 0;
-    }
-
-    .price {
-        font-size: 20px;
-    }
-
-    .right-side-column {
+    #description-major {
         max-width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    #description-major h2 {
+        font-size: 24px;
+    }
+
+    #description-major span {
+        font-size: 14px;
+        padding: 4px 6px;
     }
 }
 
@@ -579,51 +542,24 @@
         left: 20px;
         padding: 14px;
     }
-
-    #description-major h2 {
-        font-size: 24px;
+    .container-image img {
+    min-height: 250px;
     }
-    #description-major{
-        max-width: 350px;
-    }
-    #description-major span {
-        font-size: 14px;
-        padding: 3px 6px;
+    .container-image {
+        height: 250px;
     }
 
-    .property-details li {
-        font-size: 16px;
-    }
-
-    .contact-icons-wrapper svg {
-        padding: 6px;
-    }
-
-    .carousel-controls {
-        flex-direction: column;
-        padding: 6px;
-        gap: 6px;
-    }
-
-    .carousel-btn {
-        font-size: 18px;
+    .thumbnail {
+        max-width: 100px;
     }
 
     .details,
     .about-property {
         padding: 10px;
-        margin-top: 20px;
-    }
-
-    .about-property h3,
-    .details h3 {
-        font-size: 18px;
-        margin-bottom: 12px;
     }
 
     .about-property p,
     .details p {
         font-size: 14px;
-        margin: 6px 0;
     }
 }
