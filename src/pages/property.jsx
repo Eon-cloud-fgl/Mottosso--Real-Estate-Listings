@@ -42,7 +42,7 @@ export default function Property() {
 
     const fetchProperty = async () => {
         try {
-            const response = await axios.get(`http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php`, {
+            const response = await axios.get(`/api/controller/estateController.php`, {
                 params: {
                     action: "getProperty",
                     id: propertyId,
@@ -59,7 +59,7 @@ export default function Property() {
 
     const fetchImage = async () => {
         try {
-            const response = await axios.get(`http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php`, {
+            const response = await axios.get(`/api/controller/estateController.php`, {
                 params: {
                     action: "getImagesById",
                     id: propertyId,

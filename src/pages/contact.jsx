@@ -103,7 +103,7 @@ const handleSubmit = async (e) => {
 
     try {
         const response = await axios.post(
-            'http://localhost/Mottoso-Real-Estate-Listings/api/controller/contactController.php',
+            '/api/controller/contactController.php',
             JSON.stringify(data),
             {
                 headers: { "Content-Type": "application/json" },

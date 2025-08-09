@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios, { Axios } from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import "../../styles_admin/login.css";
+import { useNavigate } from "react-router-dom";
+import { redirect } from 'react-router-dom';
 
 export default function Login() {
     return (
@@ -17,7 +19,7 @@ export default function Login() {
 }
 
 function LoginForm() {
-
+    const navigate = useNavigate();
     const [input, setInput] = useState({
         name: "",
         email: "",
@@ -38,7 +40,7 @@ function LoginForm() {
 
         try {
             const response = await axios.post(
-                "http://localhost/Mottoso-Real-Estate-Listings/api/controller/userController.php",
+                "/api/controller/userController.php",
                 { ...input, action: "LoginForm" },
                 {
                     headers: { "Content-Type": "application/json" },
@@ -48,6 +50,7 @@ function LoginForm() {
 
             setRespuesta(response.data.message);
             toast.success(response.data.message);
+            navigate("/admin/dashboard");
         } catch (error) {
             //console.error("Error:", error); esto es por si quieren ver el error que tira el axios
             if (error.response && error.response.data && error.response.data.message) {
