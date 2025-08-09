@@ -83,7 +83,7 @@ function CarruselPorEtiqueta({ titulo, etiqueta }) {
   const fetchEstates = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost/Mottoso-Real-Estate-Listings/api/controller/estateController.php", {
+      const res = await axios.get("/api/controller/estateController.php", {
         params: { action: "getNewsEstate" },
       });
       setEstates(res.data);
