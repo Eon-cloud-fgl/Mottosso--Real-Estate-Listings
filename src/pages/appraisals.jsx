@@ -80,155 +80,155 @@ function Form() {
             console.error("Error al enviar la solicitud:", error);
             toast.error("Error al enviar la solicitud. Por favor, inténtalo de nuevo.");
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
     };
 
 
-            return (
-                <div className="form-container">
-                    <h3>Formulario de Tasación</h3>
+    return (
+        <div className="form-container">
+            <h3>Formulario de Tasación</h3>
 
-                    {/* Barra de progreso */}
-                    <div className="progress-bar">
-                        <div className="progress-fill" style={{ width: `${((step + 1) / (totalSteps + 1)) * 100}%` }}></div>
+            {/* Barra de progreso */}
+            <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${((step + 1) / (totalSteps + 1)) * 100}%` }}></div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="appraisal-form">
+                {step === 0 && (
+                    <div className="form-step">
+                        <label htmlFor="address">Dirección:</label>
+                        <input type="text" id="address" name="address" placeholder="Ingrese la dirección" required />
                     </div>
+                )}
 
-                    <form onSubmit={handleSubmit} className="appraisal-form">
-                        {step === 0 && (
-                            <div className="form-step">
-                                <label htmlFor="address">Dirección:</label>
-                                <input type="text" id="address" name="address" placeholder="Ingrese la dirección" required />
-                            </div>
-                        )}
+                {step === 1 && (
+                    <div className="form-step">
+                        <label htmlFor="locality">Localidad:</label>
+                        <input type="text" id="locality" name="locality" placeholder="Ingrese la localidad" required />
+                    </div>
+                )}
 
-                        {step === 1 && (
-                            <div className="form-step">
-                                <label htmlFor="locality">Localidad:</label>
-                                <input type="text" id="locality" name="locality" placeholder="Ingrese la localidad" required />
-                            </div>
-                        )}
+                {step === 2 && (
+                    <div className="form-step">
+                        <label htmlFor="property-type">Tipo de Propiedad:</label>
+                        <select id="property-type" name="property-type">
+                            <option value="casa">Casa</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="terreno">Terreno</option>
+                            <option value="local-comercial">Local Comercial</option>
+                            <option value="oficina">Oficina</option>
+                        </select>
+                    </div>
+                )}
 
-                        {step === 2 && (
-                            <div className="form-step">
-                                <label htmlFor="property-type">Tipo de Propiedad:</label>
-                                <select id="property-type" name="property-type">
-                                    <option value="casa">Casa</option>
-                                    <option value="departamento">Departamento</option>
-                                    <option value="terreno">Terreno</option>
-                                    <option value="local-comercial">Local Comercial</option>
-                                    <option value="oficina">Oficina</option>
-                                </select>
-                            </div>
-                        )}
+                {step === 3 && (
+                    <div className="form-step">
+                        <label htmlFor="operation-type">Tipo de Operación:</label>
+                        <select id="operation-type" name="operation-type">
+                            <option value="venta">Venta</option>
+                            <option value="alquiler">Alquiler</option>
+                            <option value="ambos">Ambos</option>
+                        </select>
 
-                        {step === 3 && (
-                            <div className="form-step">
-                                <label htmlFor="operation-type">Tipo de Operación:</label>
-                                <select id="operation-type" name="operation-type">
-                                    <option value="venta">Venta</option>
-                                    <option value="alquiler">Alquiler</option>
-                                    <option value="ambos">Ambos</option>
-                                </select>
+                        <label htmlFor="description">Descripción:</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Ingrese una descripción" required></textarea>
+                    </div>
+                )}
 
-                                <label htmlFor="description">Descripción:</label>
-                                <textarea id="description" name="description" rows="4" placeholder="Ingrese una descripción" required></textarea>
-                            </div>
-                        )}
-
-                        {step === 4 && (
-                            <div>
-                                <div className="form-step">
-                                    <label htmlFor="contact-name">Nombre:</label>
-                                    <input type="text" id="contact-name" name="name" placeholder="Ingrese su nombre" required />
-                                </div>
-                                <div className="form-step">
-                                    <label htmlFor="contact-email">Email:</label>
-                                    <input type="email" id="contact-email" name="email" placeholder="Ingrese su email" required />
-                                </div>
-
-                                <div className="form-step">
-                                    <label htmlFor="contact-phone">Teléfono:</label>
-                                    <input type="tel" id="contact-phone" name="phone" placeholder="Ingrese su número" required />
-                                </div>
-
-                            </div>
-                        )}
-
-                        <div className="form-buttons">
-                            {step > 0 && (
-                                <button type="button" className="btn secondary" onClick={prevStep}>
-                                    Anterior
-                                </button>
-                            )}
-                            {step < totalSteps ? (
-                                <button type="button" className="btn primary" onClick={nextStep}>
-                                    Siguiente
-                                </button>
-                            ) : (
-                                <button type="submit" className="btn submit">
-                                    Enviar Solicitud
-                                </button>
-                            )}
+                {step === 4 && (
+                    <div>
+                        <div className="form-step">
+                            <label htmlFor="name">Nombre:</label>
+                            <input type="text" id="name" name="name" placeholder="Ingrese su nombre" required />
                         </div>
-                    </form>
+                        <div className="form-step">
+                            <label htmlFor="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Ingrese su email" required />
+                        </div>
 
-                    <Contact />
+                        <div className="form-step">
+                            <label htmlFor="phone">Teléfono:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Ingrese su número" required />
+                        </div>
 
+                    </div>
+                )}
+
+                <div className="form-buttons">
+                    {step > 0 && (
+                        <button type="button" className="btn secondary" onClick={prevStep}>
+                            Anterior
+                        </button>
+                    )}
+                    {step < totalSteps ? (
+                        <button type="button" className="btn primary" onClick={nextStep}>
+                            Siguiente
+                        </button>
+                    ) : (
+                        <button type="submit" className="btn submit">
+                            Enviar Solicitud
+                        </button>
+                    )}
                 </div>
-            );
-        }
+            </form>
+
+            <Contact />
+
+        </div>
+    );
+}
 
 
 
 function Contact() {
-            return (
-                <div className="contact-info">
-                    <h3>Tambien podes contactarnos por Whatsapp</h3>
-                    <p>Nuestros Agentes atenderan tus consultas</p>
-                    <WhatsAppButton
-                        phone="2252412525"
-                        message="Hola, estoy interesado en tazar una propiedad."
-                    />
+    return (
+        <div className="contact-info">
+            <h3>Tambien podes contactarnos por Whatsapp</h3>
+            <p>Nuestros Agentes atenderan tus consultas</p>
+            <WhatsAppButton
+                phone="2252412525"
+                message="Hola, estoy interesado en tasar una propiedad."
+            />
 
+        </div>
+    );
+}
+
+function Advice() {
+    return (
+        <div className="advice-container">
+            <h3>¿Buscas un Asesoramiento Personalizado?</h3>
+            <div className="advice-info">
+                <WhatsAppButton
+                    phone="2252412525"
+                    message="Hola, estoy interesado en Asesoramiento Personalizado."
+                />
+                <button className="btn-secondary">Contactar</button>
+            </div>
+        </div>
+    );
+}
+
+export default function Appraisals() {
+    return (
+        <>
+            <NavbarSeparator />
+            <header>
+                <Banner />
+            </header>
+
+            <main>
+                <div className="flex-wrapper">
+                    <Description />
+
+                    <Form />
                 </div>
-            );
-        }
+                <Advice />
+            </main>
 
-        function Advice() {
-            return (
-                <div className="advice-container">
-                    <h3>¿Buscas un Asesoramiento Personalizado?</h3>
-                    <div className="advice-info">
-                        <WhatsAppButton
-                            phone="2252412525"
-                            message="Hola, estoy interesado en Asesoramiento Personalizado."
-                        />
-                        <button className="btn-secondary">Contactar</button>
-                    </div>
-                </div>
-            );
-        }
-
-        export default function Appraisals() {
-            return (
-                <>
-                    <NavbarSeparator />
-                    <header>
-                        <Banner />
-                    </header>
-
-                    <main>
-                        <div className="flex-wrapper">
-                            <Description />
-
-                            <Form />
-                        </div>
-                        <Advice />
-                    </main>
-
-                </>
-            )
-        }
+        </>
+    )
+}
 
 
