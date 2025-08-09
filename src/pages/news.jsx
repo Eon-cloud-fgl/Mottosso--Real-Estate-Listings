@@ -155,7 +155,7 @@ export default function News() {
       <NavbarSeparator />
       <Banner />
       <CarruselPorEtiqueta titulo="Destacados" etiqueta="destacado" />
-      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="buevo" />
+      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="nuevo" />
       <CarruselPorEtiqueta titulo="En Rebajas" etiqueta="oferta" />
     </>
   );
