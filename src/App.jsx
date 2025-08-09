@@ -58,6 +58,7 @@ function App() {
                     <Route path="/otter" element={<OtterTaskTest />} />
                     {/*RUTA ADMIN*/}
                     <Route path="/admin" element={<Login />} />
+                    <Route path="/admin" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                 </Routes>
             </div>
