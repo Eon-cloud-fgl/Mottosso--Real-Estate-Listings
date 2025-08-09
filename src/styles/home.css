@@ -501,6 +501,10 @@ main {
     margin: 0 auto;
   }
 
+  .separator-icon {
+    display: none;
+  }
+
   .image-stack {
     width: 100%;
     max-width: 600px;
