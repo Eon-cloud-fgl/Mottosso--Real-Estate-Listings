@@ -428,3 +428,22 @@ textarea {
     font-size: 1.4rem;
   }
 }
+
+/*Responsive iphone 12 pro*/
+@media screen and (max-width: 400px) {
+  /* Oculta solo el bloque de tipos de propiedad */
+  .property-types {
+    display: none !important;
+  }
+
+  /* Acomoda el layout en columnas */
+  .flex-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .ds-container,
+  .form-container {
+    width: 100%;
+  }
+}
