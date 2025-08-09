@@ -23,7 +23,7 @@ function EstateItem({ estate }) {
     return (
         <a onClick={handleSelectEstate} className="ce-item-link">
             <div className="ce-item">
-                <img src={`/${estate.main_image}`} alt="" />
+                <img src={`/${estate.main_image}`} className="ce-item-img" alt="" />
 
                 <div className="ce-item-content">
                     <div className="ce-item-info">

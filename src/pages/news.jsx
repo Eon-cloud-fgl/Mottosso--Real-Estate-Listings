@@ -1,5 +1,6 @@
 import "../styles/news.css";
 import NavbarSeparator from "../components/Separator";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
@@ -21,6 +22,12 @@ function Banner() {
 }
 
 function MisItems({ estate, invertido }) {
+  const navigate = useNavigate();
+
+  const handleSelectEstate = () => {
+    navigate(`/property?id=${estate.id}`);
+  };
+
   const isValid = (value) =>
     !(value === 0 || value === "0" || value === null || value === undefined || value === "");
 
@@ -69,7 +76,7 @@ function MisItems({ estate, invertido }) {
           )}
         </ul>
 
-        <button className="btn-detalles">Ver más detalles</button>
+        <button className="btn-detalles" onClick={handleClick}>Ver más detalles</button>
       </div>
     </div>
   );

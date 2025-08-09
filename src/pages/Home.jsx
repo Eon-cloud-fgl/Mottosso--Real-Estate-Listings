@@ -72,6 +72,10 @@ function Bar() {
                 <option value="terreno">Terreno</option>
                 <option value="local">Local</option>
                 <option value="oficina">Oficina</option>
+                <option value="oficina">Oficina</option>
+                <option value="chacra">Chacra</option>
+                <option value="chalet">Chalet</option>
+                <option value="duplex">Duplex</option>
                 <option value="otro">Otro</option>
             </select>
             <button onClick={handleSearch}>Buscar</button>
@@ -165,7 +169,7 @@ function OutstandingItem({ estate }) {
     return (
         <a className="outstanding-item" onClick={handleSelectEstate}>
             <div className="image-wrapper">
-                <img src="/casa.avif" alt={estate.title} className="outstanding-image" />
+                <img src={estate.main_image} alt={estate.title} className="outstanding-image" />
                 <span className="badge">Destacado</span>
             </div>
             <div className="outstanding-details">
