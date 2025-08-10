@@ -125,6 +125,7 @@
   border-radius: 8px;
   width: 75rem;
   height: 350px;
+  position: relative;
 }
 
 .ce-item img {
@@ -144,6 +145,37 @@
   gap: 10px;
 }
 
+.badge-estate {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary);
+  opacity: 0.9;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+.badge-estate.destacado {
+  background-color: #f59e0b; /* amarillo */
+}
+
+.badge-estate.nuevo {
+  background-color: #10b981; /* verde */
+}
+
+.badge-estate.oferta {
+  background-color: #ef4444; /* rojo */
+}
+
+.badge-estate.default {
+  background-color: var(--primary); /* azul */
+}
 .ce-item-info {
   flex: 1;
   display: flex;
@@ -222,7 +254,12 @@
   .ce-filter--search {
     width: 90%;
   }
-
+    
+  .badge-estate {
+    top: 8px;
+    left: 8px;
+    font-size: 0.7rem;
+  }
   .ce-filter--options {
     flex-direction:row;
     gap: 20px;
@@ -274,7 +311,12 @@
     padding: 15px;
     gap: 15px;
   }
-
+  .badge-estate {
+    top: 6px;
+    left: 6px;
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
   .ce-filter--search {
     flex-direction: row;
     width: 100%;

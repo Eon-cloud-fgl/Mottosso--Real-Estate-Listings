@@ -18,12 +18,22 @@ function EstateItem({ estate }) {
     const handleSelectEstate = () => {
         navigate(`/property?id=${estate.id}`);
     };
-
+    const getBadgeClass = (status) => {
+        const normalized = status?.toLowerCase();
+        if (normalized === "destacado") return "destacado";
+        if (normalized === "nuevo") return "nuevo";
+        if (normalized === "oferta") return "oferta";
+        return "default";
+    };
     return (
         <a onClick={handleSelectEstate} className="ce-item-link">
             <div className="ce-item">
                 <img src={`/${estate.main_image}`} className="ce-item-img" alt="" />
-
+                {estate.status?.toLowerCase() !== "publicado" && (
+                    <span className={`badge-estate ${getBadgeClass(estate.status)}`}>
+                        {estate.status}
+                    </span>
+                )}
                 <div className="ce-item-content">
                     <div className="ce-item-info">
                         <h6 className="ce-info--price">
