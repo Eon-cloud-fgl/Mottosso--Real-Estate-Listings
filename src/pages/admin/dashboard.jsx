@@ -72,13 +72,16 @@ function AddProduct({ onClose }) {
         <label>Tipo:
           <select name="type" required>
             <option value="">Seleccione</option>
-            <option value="departamento">Departamento</option>
-            <option value="casa">Casa</option>
-            <option value="ph">PH</option>
-            <option value="terreno">Terreno</option>
-            <option value="local">Local</option>
-            <option value="oficina">Oficina</option>
-            <option value="otro">Otro</option>
+              <option value="">Todos</option>
+              <option value="house">Casa</option>
+              <option value="apartment">Apartamento</option>
+              <option value="land">Terreno</option>
+              <option value="local">Local</option>
+              <option value="oficina">Oficina</option>
+              <option value="chacra">Chacra</option>
+              <option value="chalet">Chalet</option>
+              <option value="duplex">Duplex</option>
+              <option value="otro">Otro</option>
           </select>
         </label>
 
