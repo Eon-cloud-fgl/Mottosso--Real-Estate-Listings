@@ -176,7 +176,7 @@ function OutstandingItem({ estate }) {
                 <h6 className="outstanding-title">{estate.title}</h6>
                 <p className="outstanding-address">{estate.address}</p>
                 {isValid(estate.price) && (
-                    <p className="outstanding-price">${estate.price}</p>
+                    <p className="outstanding-price">${estate.price} {estate.currency}</p>
                 )}
                 <p className="outstanding-separator"></p>
                 <ul className="outstanding-features">

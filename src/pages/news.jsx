@@ -55,7 +55,7 @@ function MisItems({ estate, invertido }) {
         {isValid(estate.price) && (
           <p className="outstanding-price">
             <FaDollarSign style={{ marginRight: "6px" }} />
-            {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}`}
+            {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}${estate.currency}`}
           </p>
         )}
 
