@@ -476,6 +476,13 @@
     max-width: 500px;
     flex: 1;
 }
+
+@media (max-width: 1500px) {
+    .description-location{
+        display: none;
+    }
+}
+
 @media (max-width: 1200px) {
     .container-image img {
         max-width: 100%;
@@ -504,12 +511,15 @@
 
     .features {
         align-items: stretch;
+        flex-wrap: wrap;
     }
-    .description-location{
+
+    .description-location {
         display: none;
     }
+
     .image-characteristics-group {
-    margin: 1rem;
+        margin: 1rem;
     }
 }
 
@@ -517,6 +527,10 @@
     .image-contact-wrapper {
         flex-direction: column;
         gap: 20px;
+    }
+    
+    .feature {
+        flex-wrap: wrap;
     }
 
     #description-major {
@@ -537,14 +551,22 @@
 }
 
 @media (max-width: 480px) {
+
+    .image-contact-wrapper{
+        margin: 0;
+    }
+
     .phone-contact-button {
         bottom: 20px;
         left: 20px;
         padding: 14px;
     }
+
     .container-image img {
-    min-height: 250px;
+        min-height: 250px;
+        width: 350px;
     }
+
     .container-image {
         height: 250px;
     }
@@ -562,4 +584,55 @@
     .details p {
         font-size: 14px;
     }
+
+    h2,
+    h3 {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 18px;
+        padding: 4px;
+    }
+
+    .feature {
+        flex-wrap: wrap;
+    }
+
+    .feature span {
+        font-size: 12px;
+    }
+
+    .property-details {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        font-size: 16px;
+    }
+
+    .thumbnail {
+        max-width: 80px;
+        height: 80px;
+    }
+
+    .gallery-wrapper {
+        gap: 8px;
+    }
+
+    .contact-icons-wrapper {
+        bottom: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .contact-icons-wrapper svg {
+        padding: 6px;
+        font-size: 24px;
+    }
+
+    #description-major {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+
 }

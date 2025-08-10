@@ -55,7 +55,7 @@ function MisItems({ estate, invertido }) {
         {isValid(estate.price) && (
           <p className="outstanding-price">
             <FaDollarSign style={{ marginRight: "6px" }} />
-            {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}`}
+            {estate.price === "Consultar" ? "Precio a consultar" : `$${estate.price}${estate.currency}`}
           </p>
         )}
 
@@ -154,7 +154,7 @@ export default function News() {
       <NavbarSeparator />
       <Banner />
       <CarruselPorEtiqueta titulo="Destacados" etiqueta="destacado" />
-      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="buevo" />
+      <CarruselPorEtiqueta titulo="Nuevos" etiqueta="nuevo" />
       <CarruselPorEtiqueta titulo="En Rebajas" etiqueta="oferta" />
     </>
   );

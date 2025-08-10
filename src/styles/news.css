@@ -252,6 +252,9 @@
 }
 
 /* Responsive */
+/* ----------- Responsive mejorado ----------- */
+
+/* <= 1024px */
 @media (max-width: 1024px) {
   .contenedor-novedades-menor,
   .contenedor-novedades-menor.invertido {
@@ -269,6 +272,13 @@
     box-shadow: 0 6px 14px rgba(0,0,0,0.1);
     padding: 1rem;
     margin-top: 1rem;
+  }
+
+  .outstanding-title {
+    font-size: 1.15rem;
+  }
+  .outstanding-price {
+    font-size: 1.15rem;
   }
 }
 

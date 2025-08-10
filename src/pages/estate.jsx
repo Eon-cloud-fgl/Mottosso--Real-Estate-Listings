@@ -36,8 +36,9 @@ function EstateItem({ estate }) {
                 )}
                 <div className="ce-item-content">
                     <div className="ce-item-info">
+                        <h2 className="ce-info--title">{estate.title}</h2>
                         <h6 className="ce-info--price">
-                            ${estate.price}
+                            ${estate.price} {estate.currency}
                         </h6>
                         <span className="ce-info--address">{estate.address}</span>
 
@@ -125,9 +126,15 @@ function Filter({ onFilterChange }) {
                     >
                         <option value="" disabled hidden>Tipo de propiedad</option>
                         <option value="">Todos</option>
-                        <option value="house">Casa</option>
-                        <option value="apartment">Apartamento</option>
-                        <option value="land">Terreno</option>
+                        <option value="casa">Casa</option>
+                        <option value="departamento">Apartamento</option>
+                        <option value="terreno">Terreno</option>
+                        <option value="local">Local</option>
+                        <option value="oficina">Oficina</option>
+                        <option value="chacra">Chacra</option>
+                        <option value="chalet">Chalet</option>
+                        <option value="duplex">Duplex</option>
+                        <option value="otro">Otro</option>
                     </select>
                 </div>
 
