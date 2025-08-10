@@ -120,6 +120,9 @@ function Filter({ onFilterChange }) {
                         <option value="land">Terreno</option>
                         <option value="local">Local</option>
                         <option value="oficina">Oficina</option>
+                        <option value="chacra">Chacra</option>
+                        <option value="chalet">Chalet</option>
+                        <option value="duplex">Duplex</option>
                         <option value="otro">Otro</option>
                     </select>
                 </div>
