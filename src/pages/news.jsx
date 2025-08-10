@@ -94,7 +94,6 @@ function CarruselPorEtiqueta({ titulo, etiqueta }) {
         params: { action: "getNewsEstate" },
       });
       setEstates(res.data);
-      console.log("Respuesta:", res.data);
     } catch (error) {
       console.error("Error cargando propiedades:", error);
     } finally {

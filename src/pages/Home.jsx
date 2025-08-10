@@ -195,21 +195,21 @@ function OutstandingItem({ estate }) {
 function Outstanding() {
     const [estates, setEstates] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const fetchEstates = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("https://mottosopruebas.unaux.com/api/controller/estateController.php", {
-                params: { action: "getEstateByOutstanding" }
+            const res = await axios.get("/api/controller/estateController.php", {
+                params: { action: "getEstateByOutstanding" },
             });
             setEstates(res.data);
-            console.log("Respuesta:", res.data);
         } catch (error) {
             console.error("Error cargando propiedades:", error);
         } finally {
             setLoading(false);
         }
     };
-    
+
     useEffect(() => {
         fetchEstates();
     }, []);
@@ -240,7 +240,6 @@ function Outstanding() {
         </section>
     );
 }
-
 
 export default function Home() {
     return (
