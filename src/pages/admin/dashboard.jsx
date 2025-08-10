@@ -107,6 +107,13 @@ function AddProduct({ onClose }) {
           <input type="number" name="price" required />
         </label>
 
+        <label>Modena:
+          <select name="currency">
+            <option value="usd">USD</option>
+            <option value="arg">ARG</option>
+          </select>
+        </label>
+
         <label>Dormitorios:
           <input type="number" name="bedrooms" min="0" required />
         </label>
@@ -294,6 +301,13 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
           <input type="number" name="price" required defaultValue={estate.price} />
         </label>
 
+        <label>Modena:
+          <select name="currency">
+            <option value="usd">USD</option>
+            <option value="arg">ARG</option>
+          </select>
+        </label>
+
         <label>Dormitorios:
           <input type="number" name="bedrooms" min="0" required defaultValue={estate.bedrooms} />
         </label>
@@ -421,7 +435,7 @@ function Item({ estate, onSelect, selected }) {
       <h2>{estate.title}</h2>
       <p>{estate.type} en {estate.operation}</p>
       <p>{estate.city}, {estate.state}</p>
-      <p><strong>${estate.price.toLocaleString()}</strong></p>
+      <p><strong>${estate.price.toLocaleString()} {estate.currency}</strong></p>
       <p className={`status ${estate.status === "activo" ? "active" : "inactive"}`}>
         {estate.status}
       </p>
@@ -528,21 +542,21 @@ export default function Dashboard() {
         toast.error("Error al eliminar el producto. Inténtalo de nuevo más tarde.");
       });
   };
-    useEffect(() => {
-        axios.get("/api/controller/dashboard_session.php", {
-            withCredentials: true // necesario para que envíe cookies de sesión
-        })
-        .then(res => {
-            setProperties(res.data.data);
-        })
-        .catch(err => {
-            if (err.response && err.response.status === 401) {
-                navigate("/admin/login"); // si no hay sesión, manda al login
-            } else {
-                console.error("Error cargando datos:", err);
-            }
-        });
-    }, [navigate]);
+  useEffect(() => {
+    axios.get("/api/controller/dashboard_session.php", {
+      withCredentials: true // necesario para que envíe cookies de sesión
+    })
+      .then(res => {
+        setProperties(res.data.data);
+      })
+      .catch(err => {
+        if (err.response && err.response.status === 401) {
+          navigate("/admin/login"); // si no hay sesión, manda al login
+        } else {
+          console.error("Error cargando datos:", err);
+        }
+      });
+  }, [navigate]);
   return (
     <>
       <div className="dashboard-container">
