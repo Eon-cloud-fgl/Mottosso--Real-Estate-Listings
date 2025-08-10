@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "../../styles_admin/login.css";
 import { useNavigate } from "react-router-dom";
 import { redirect } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
     return (
@@ -27,6 +28,7 @@ function LoginForm() {
         rememberme: ""
     });
     const [respuesta, setRespuesta] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setInput({
@@ -34,7 +36,7 @@ function LoginForm() {
             [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
         });
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -79,7 +81,23 @@ function LoginForm() {
 
                 <label>
                     <span>Contraseña</span>
-                    <input type="password" name="password" value={input.password} onChange={handleChange} placeholder="********" required />
+                    <div className="password-wrapper">
+                        <input 
+                            type={showPassword ? "text" : "password"} 
+                            name="password" 
+                            value={input.password} 
+                            onChange={handleChange} 
+                            placeholder="********" 
+                            required 
+                        />
+                        <button 
+                            type="button" 
+                            className="toggle-password" 
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEye /> : <FaEyeSlash />}
+                        </button>
+                    </div>
                 </label>
 
                 <div className="login-footer">

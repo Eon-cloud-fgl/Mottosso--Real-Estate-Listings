@@ -160,7 +160,7 @@
   color: #fff;
 }
 
-.etiqueta-item.destacado { background-color: #f59e0b; }
+.etiqueta-item.destacado { background-color: var(--primary) }
 .etiqueta-item.nuevo     { background-color: #10b981; }
 .etiqueta-item.oferta   { background-color: #ef4444; }
 
@@ -181,7 +181,6 @@
   text-overflow: ellipsis;
   z-index: 5;
 }
-
 /* Posición alternativa cuando es invertido */
 .contenedor-novedades-menor.invertido .contenedor-novedades-menor-article {
   left: -2rem;

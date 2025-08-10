@@ -162,7 +162,7 @@
   z-index: 2;
 }
 .badge-estate.destacado {
-  background-color: #f59e0b; /* amarillo */
+  background-color: var(--primary); /* amarillo */
 }
 
 .badge-estate.nuevo {

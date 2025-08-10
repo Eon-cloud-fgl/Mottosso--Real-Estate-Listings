@@ -106,14 +106,41 @@
   font-weight: 600;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   flex-shrink: 0;
-  min-width: 120px;
 }
 
 .login-form button:hover {
   background-color: #01438f;
   box-shadow: 0 0 10px rgba(1, 40, 85, 0.6);
 }
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #012855;
+}
 
+.password-wrapper input {
+  border: none;
+  background: transparent;
+  flex: 1;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #012855;
+}
+
+.password-wrapper input:focus {
+  outline: none;
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #012855;
+  padding: 0 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
 .form-links {
   margin-top: 20px;
   font-size: 13px;
