@@ -274,7 +274,7 @@ function Characteristics({ property }) {
         <div className="characteristics">
             {isValid(property.price) && (
                 <div className="price">
-                    <h3>${property.price}{property.currency}</h3>
+                    <h3>${property.price} {property.currency}</h3>
                 </div>
             )}
 
@@ -322,7 +322,7 @@ function Details({ property }) {
         <div className="details">
             <h3>Detalles de la propiedad</h3>
             <ul className="property-details">
-                <li><FaDollarSign /> Precio: ${showValue(property.price)}{property.currency}</li>
+                <li><FaDollarSign /> Precio: ${showValue(property.price)} {property.currency}</li>
                 <li><BiArea /> Superficie: {showValue(property.total_area)} m²</li>
                 <li><IoLocationOutline /> Ubicación: {showValue(property.address)}, {showValue(property.city)}</li>
                 <li><FiType /> Tipo: {showValue(property.type)}</li>
