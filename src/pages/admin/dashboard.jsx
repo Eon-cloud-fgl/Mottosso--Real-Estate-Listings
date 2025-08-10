@@ -61,6 +61,10 @@ function AddProduct({ onClose }) {
           <IoCloseSharp />
         </button>
         <h2>Agregar Propiedad</h2>
+        <label>Ficha:
+          <input type="text" name="listing_id" required />
+        </label>
+
         <label>Título:
           <input type="text" name="title" required />
         </label>
@@ -255,8 +259,8 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
         </button>
         <h2>Modificar Propiedad</h2>
 
-        <label>ID de la propiedad:
-          <input type="text" name="id" readOnly defaultValue={estate.id} />
+        <label>Ficha de la propiedad:
+          <input type="text" name="listing_id" required defaultValue={estate.listing_id} />
         </label>
 
         <label>Título:
