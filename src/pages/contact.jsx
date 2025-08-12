@@ -97,19 +97,16 @@ function OpenContactButton() {
 const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target);
+    formData.append("action", "FormContacto");
 
     try {
-        const response = await axios.post(
-            '/api/controller/contactController.php',
-            JSON.stringify(data),
-            {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-            }
-        );
+        const response = await axios.post("/api/controller/contactController.php",
+                formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+        });
 
         if (response.data.success) {
             console.log("Mail enviado correctamente");
@@ -155,8 +152,7 @@ function ContactForm() {
 
                         <label htmlFor="message">Mensaje:</label>
                         <textarea id="message" name="message" rows="4" placeholder="Ingrese su mensaje" required></textarea>
-
-                        <input type="hidden" name="action" value="FormContacto" />
+                        
                         <button type="submit">Enviar</button>
                     </div>
                 </form>

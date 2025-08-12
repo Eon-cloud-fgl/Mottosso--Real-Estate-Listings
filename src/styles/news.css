@@ -357,7 +357,12 @@
     max-height: 320px; /* altura uniforme */
     overflow: hidden;
   }
-
+  .outstanding-features{
+   padding-bottom: 2rem;
+  }
+  .outstanding-separator{
+   margin: 1px;
+  }
   /* Imagen más chica y uniforme */
   .contenedor-novedades-menor-imagen {
     height: 160px;
@@ -381,17 +386,21 @@
   /* Texto más chico para que todo entre */
   .outstanding-title {
     font-size: 1rem;
+    padding-bottom: 6px;
   }
   .outstanding-address {
     font-size: 0.85rem;
+    padding-bottom: 6px;
   }
   .outstanding-price {
     font-size: 1rem;
+    padding-bottom: 6px;
   }
 
   /* Botón más compacto */
   .btn-detalles {
     padding: 0.4rem 1rem;
     font-size: 0.8rem;
+    width: 100%;
   }
 }
