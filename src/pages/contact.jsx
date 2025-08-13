@@ -119,7 +119,6 @@ const handleSubmit = async (e) => {
         console.error("fallo:", err);
     }
 };
-
 // Formulario de contacto
 function ContactForm() { 
     const [searchParams] = useSearchParams();
