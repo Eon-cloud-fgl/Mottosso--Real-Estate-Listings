@@ -189,7 +189,6 @@ function ContactForm() {
                     {/* Campo oculto con el ID de propiedad */}
                     <input type="hidden" name="listing_id" value={property || ""} />
                     
-                    <input type="hidden" name="action" value="FormContacto" />
                     <button type="submit">Enviar</button>
                 </div>
             </form>
