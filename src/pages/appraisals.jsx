@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { MdLandscape } from "react-icons/md";
 import { PiOfficeChairFill } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+
 
 function Banner() {
     return (
@@ -196,6 +198,11 @@ function Contact() {
 }
 
 function Advice() {
+    const navigate = useNavigate();
+
+    const handleContact = () => {
+        navigate(`/contact?type=inversion`);
+    };
     return (
         <div className="advice-container">
             <h3>¿Buscas un Asesoramiento Personalizado?</h3>
@@ -204,7 +211,7 @@ function Advice() {
                     phone="2252412525"
                     message="Hola, estoy interesado en Asesoramiento Personalizado."
                 />
-                <button className="btn-secondary">Contactar</button>
+                <button className="btn-secondary" onClick={handleContact}>Contactar</button>
             </div>
         </div>
     );

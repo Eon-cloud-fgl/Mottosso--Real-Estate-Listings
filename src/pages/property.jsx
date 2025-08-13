@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/property.css";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import {
     FaChevronLeft,
     FaChevronRight,
@@ -112,7 +112,7 @@ export default function Property() {
                             <LocationDescription property={property} />
                         </div>
                     </div>
-                    <PhoneContactButton />
+                    <PhoneContactButton property={property}/>
                 </div>
             </main>
         </>
@@ -175,15 +175,21 @@ function MapEmbed({ property }) {
     );
 }
 
-function PhoneContactButton() {
+function PhoneContactButton({property}) {
+    const navigate = useNavigate();
+
+    const handleSelectEstate = () => {
+        navigate(`/contact?type=${property.operation}&property=${property.listing_id}`);
+    };
+
     return (
-        <a className="phone-contact-button">
+        <a className="phone-contact-button" onClick={handleSelectEstate}>
             <FaPhone size={40} />
         </a>
     );
 }
 
-function Image({ images, property}) {
+function Image({ images, property }) {
     const [current, setCurrent] = useState(0);
     const [fade, setFade] = useState(false);
 
@@ -230,7 +236,7 @@ function Image({ images, property}) {
                     <span className="carousel-indicator">{current + 1} / {images.length}</span>
                     <button className="carousel-btn" onClick={next}><FaChevronRight /></button>
                 </div>
-                <ContactIcons property_id={property.listing_id}/>
+                <ContactIcons property_id={property.listing_id} />
             </div>
 
             <div className="thumbnails-column">
@@ -248,7 +254,7 @@ function Image({ images, property}) {
 }
 
 
-function ContactIcons({property_id}) {
+function ContactIcons({ property_id }) {
     return (
         <div className="contact-icons-wrapper">
             <a

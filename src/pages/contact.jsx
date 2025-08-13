@@ -1,9 +1,11 @@
 import "../styles/contact.css";
+import React, { useState, useEffect } from "react";
 import NavbarSeparator from "../components/Separator";
 import MapArray from "../components/Maps";
 import axios, { Axios } from 'axios';
 import { IoIosArrowDown, IoIosArrowBack } from "react-icons/io";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaTwitter, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import { useSearchParams } from "react-router-dom";
 
 
 // Banner
@@ -117,49 +119,85 @@ const handleSubmit = async (e) => {
         console.error("fallo:", err);
     }
 };
+
 // Formulario de contacto
-function ContactForm() {
+function ContactForm() { 
+    const [searchParams] = useSearchParams();
+    const property = searchParams.get("property");
+    const type = searchParams.get("type");
+
+    const typeMap = {
+        venta: "compra",
+        compra: "venta",
+        alquiler: "alquiler",
+        tasacion: "tasacion",
+        administracion: "administracion",
+        inversion: "inversion",
+        credito: "credito",
+        general: "general"
+    };
+
+    const selectedType = typeMap[type] || "";
+
+    useEffect(() => {
+        // Si hay algún parámetro en la URL, abrir el formulario
+        if (property || type) {
+            const formContainer = document.querySelector(".contenedor-formulario");
+            if (formContainer) {
+                formContainer.classList.add("contenedor-formulario-open");
+            }
+        }
+    }, [property, type]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // tu lógica para enviar el formulario
+    };
+
     return (
-        <>
-            <div className="contenedor-formulario">
-                <form className="contact-form" onSubmit={handleSubmit}>
-                    <h2>Formulario de Contacto</h2>
-                    <div className="form-group">
-                        <label htmlFor="name">Nombre y Apellido:</label>
-                        <input type="text" id="name" name="name" placeholder="Ingrese su Nombre y Apellido" required />
+        <div className="contenedor-formulario">
+            <form className="contact-form" onSubmit={handleSubmit}>
+                <h2>Formulario de Contacto</h2>
+                <div className="form-group">
+                    <label htmlFor="name">Nombre y Apellido:</label>
+                    <input type="text" id="name" name="name" placeholder="Ingrese su Nombre y Apellido" required />
 
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Ingrese su email" required />
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Ingrese su email" required />
 
-                        <label htmlFor="phone">Teléfono:</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Ingrese su número" required />
+                    <label htmlFor="phone">Teléfono:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Ingrese su número" required />
 
-                        <label htmlFor="address">Direccion:</label>
-                        <input type="text" id="address" name="address" placeholder="Ingrese su direccion" required />
+                    <label htmlFor="address">Direccion:</label>
+                    <input type="text" id="address" name="address" placeholder="Ingrese su direccion" required />
 
-                        <label htmlFor="typeofq">Tipo de consulta</label>
-                        <select id="typeofq" name="typeofq">
-                            <option value="">Seleccione una opción</option>
-                            <option value="compra">Consulta por compra de propiedad</option>
-                            <option value="venta">Consulta por venta de propiedad</option>
-                            <option value="alquiler">Consulta por alquiler de propiedad</option>
-                            <option value="tasacion">Solicitar tasación</option>
-                            <option value="administracion">Consulta sobre administración de propiedades</option>
-                            <option value="inversion">Asesoramiento en inversiones inmobiliarias</option>
-                            <option value="credito">Consulta sobre créditos hipotecarios</option>
-                            <option value="general">Otra consulta general</option>
-                        </select>
+                    <label htmlFor="typeofq">Tipo de consulta</label>
+                    <select id="typeofq" name="typeofq" defaultValue={selectedType}>
+                        <option value="">Seleccione una opción</option>
+                        <option value="compra">Consulta por adquisicion de propiedad</option>
+                        <option value="venta">Consulta por venta de mi propiedad</option>
+                        <option value="alquiler">Consulta por alquiler de propiedad</option>
+                        <option value="tasacion">Solicitar tasación</option>
+                        <option value="administracion">Consulta sobre administración de propiedades</option>
+                        <option value="inversion">Asesoramiento en inversiones inmobiliarias</option>
+                        <option value="credito">Consulta sobre créditos hipotecarios</option>
+                        <option value="general">Otra consulta general</option>
+                    </select>
 
-                        <label htmlFor="message">Mensaje:</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Ingrese su mensaje" required></textarea>
-                        
-                        <button type="submit">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </>
+                    <label htmlFor="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Ingrese su mensaje" required></textarea>
+
+                    {/* Campo oculto con el ID de propiedad */}
+                    <input type="hidden" name="listing_id" value={property || ""} />
+                    
+                    <input type="hidden" name="action" value="FormContacto" />
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
     );
 }
+
 function ContactSection() {
     return (
         <section className="contact-section">

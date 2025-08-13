@@ -18,6 +18,7 @@ function EstateItem({ estate }) {
     const handleSelectEstate = () => {
         navigate(`/property?id=${estate.id}`);
     };
+
     const getBadgeClass = (status) => {
         const normalized = status?.toLowerCase();
         if (normalized === "destacado") return "destacado";
@@ -25,6 +26,11 @@ function EstateItem({ estate }) {
         if (normalized === "oferta") return "oferta";
         return "default";
     };
+
+    const handleContact = () => {
+        navigate(`/contact?type=${estate.operation}&property=${estate.listing_id}`);
+    };
+
     return (
         <a onClick={handleSelectEstate} className="ce-item-link">
             <div className="ce-item">
@@ -61,7 +67,15 @@ function EstateItem({ estate }) {
                     </div>
 
                     <div className="ce-item-actions">
-                        <button className="ce-action--icon"><AiFillPhone /></button>
+                        <button
+                            className="ce-action--icon"
+                            onClick={(e) => {
+                                e.stopPropagation(); // evita el click del <a>
+                                handleContact();     // sigue ejecutando la acción del botón
+                            }}
+                        >
+                            <AiFillPhone />
+                        </button>
                     </div>
                 </div>
             </div>
