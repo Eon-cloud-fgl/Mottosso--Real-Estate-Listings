@@ -11,16 +11,6 @@
   background-color: var(--admin-bg-primary);
   box-sizing: border-box;
 }
-
-/* Título */
-.title {
-  color: #fff;
-  text-align: start;
-  font-weight: 700;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
 /* Contenedor general para varios elementos */
 .miscellaneous-container {
   width: 100%;
@@ -152,7 +142,7 @@
 }
 
 .pagination-buttons button.active {
-  background-color: var(--admin-bg-hover-transparent);
+  background-color: var(--admin-bg-second);
   color: white;
 }
 
@@ -212,13 +202,14 @@
 /* BOTONES CERRAR FORM */
 #close:focus-within,
 #close2:focus-within {
-  color: var(--admin-text-second);
+  color: var(--admin-close-color-hover);
 }
 
 #close,
 #close2 {
   font-size: 20px;
   padding: 0;
+  color: var(--admin-close-color);
   background: var(--admin-bg-second);
   max-width: fit-content;
   cursor: pointer;
@@ -232,7 +223,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--admin-bg-second);
-  color: var(--admin-text-primary);
+  color: var(--admin-text-primary-light);
   z-index: 1300;
   padding: 1.5rem;
   border-radius: 20px;
@@ -437,16 +428,19 @@
 /* Paleta de colores del panel de Admin */
 :root {
   --admin-bg-primary: #ffffff;
-  --admin-bg-second: #e6e9f7;
+  --admin-bg-second: #33438d;
   --admin-bg-nav: #121750;
-  --admin-bg-hover-transparent: rgba(1, 40, 85, 0.08);
+  --admin-bg-hover-transparent: rgba(255, 255, 255, 0.658);
   --admin-bg-hover: #f4f4f4;
   --admin-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   --admin-primary: #012855;
   --admin-text-primary: #012855;
+  --admin-text-primary-light: #ffffff;
   --admin-text-second: #4b5b76;
   --admin-text-three: #012855;
   --admin-text-four: #6b7c98;
+  --admin-close-color:rgb(90, 0, 0);
+  --admin-close-color-hover: #ff0000;
 }
 
 /* antiguo root 

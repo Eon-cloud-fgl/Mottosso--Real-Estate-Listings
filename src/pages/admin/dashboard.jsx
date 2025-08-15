@@ -5,19 +5,16 @@ import { IoIosSearch } from "react-icons/io";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Buttons({ onShowAdd, onShowModify, onDeleteItem, isDeleteDisabled }) {
   return (
     <>
-      <div className="buttons-container">
         <button className="buttons" onClick={onShowAdd} id="addProduct">Agregar Producto</button>
         <button className="buttons" onClick={onShowModify} id="modifyProduct">Modificar Producto</button>
         <button className="buttons" id="deleteProduct" onClick={onDeleteItem} disabled={isDeleteDisabled}>
           Eliminar Producto
         </button>
-        <form className="search-form"><input className="search" type="text" /><span id="search-icon"><IoIosSearch /></span></form>
-      </div>
     </>
   )
 }
@@ -76,7 +73,6 @@ function AddProduct({ onClose }) {
         <label>Tipo:
           <select name="type" required>
             <option value="">Seleccione</option>
-            <option value="">Todos</option>
             <option value="house">Casa</option>
             <option value="apartment">Apartamento</option>
             <option value="land">Terreno</option>
@@ -274,7 +270,6 @@ function ModifyProduct({ onClose, estate, onUpdate }) {
         <label>Tipo:
           <select name="type" required defaultValue={estate.type}>
             <option value="">Seleccione</option>
-            <option value="">Todos</option>
             <option value="house">Casa</option>
             <option value="apartment">Apartamento</option>
             <option value="land">Terreno</option>
@@ -483,17 +478,30 @@ export default function Dashboard() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updateFlag, setUpdateFlag] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("listing_id") || "");
+  useEffect(() => {
+        const timeout = setTimeout(() => {
+            const currentParams = Object.fromEntries(searchParams.entries());
 
+            const filters = {
+                ...currentParams,
+                query
+            };
+        fetchEstates(filters);
+  }, 400);
+ return () => clearTimeout(timeout);
+}, [query]);
 
-
-  const fetchEstates = async () => {
+  const fetchEstates = async (filters = {}) => {
     setLoading(true);
 
     try {
       const res = await axios.get("/api/controller/estateController.php", {
         params: {
-          action: "getAllEstates"
-        }
+          action: "getAllEstates",
+                    ...filters,
+        },
       });
 
       setItems(res.data);
@@ -504,6 +512,9 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+    useEffect(() => {
+        fetchEstates(); // Si no pasás filtros, igual se manda action=getAllEstates
+    }, []);
 
   useEffect(() => {
     fetchEstates();
@@ -570,13 +581,23 @@ export default function Dashboard() {
   return (
     <>
       <div className="dashboard-container">
-        <Miscellaneous />
-        <Buttons
+        <div className="buttons-container">
+         <Buttons
           onShowAdd={handleShowAdd}
           onShowModify={handleShowModify}
           onDeleteItem={handleDeleteItem}
           isDeleteDisabled={selectedItemId === null}
         />
+        <form className="search-form">
+          <input
+          className="search"
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar por Ficha..."
+          /><span id="search-icon"><IoIosSearch /></span>
+          </form>
+        </div>
         <ItemContainer
           items={items}
           selectedItemId={selectedItemId}
