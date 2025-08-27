@@ -56,6 +56,7 @@ function App() {
                     <Route path="/property" element={<Property />} />
                     {/*RUTA ADMIN*/}
                     <Route path="/admin/login" element={<Login />} />
+                    <Route path="/admin" element={<Login />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                 </Routes>
             </div>

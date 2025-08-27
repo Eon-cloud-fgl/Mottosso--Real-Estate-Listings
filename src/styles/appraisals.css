@@ -122,6 +122,10 @@ label {
     margin: 12px 5px;
 }
 
+.form-step.hidden {
+    display: none;
+}
+
 .form-step:before,
 .form-step:after {
     content: "";
