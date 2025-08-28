@@ -28,6 +28,19 @@ function Footerinfo() {
     );
 }
 
+function CreatorLinks() {
+    return (
+        <div className="creator-links">
+            <p>Desarrollado por <a href="https://ottersolutions.netlify.app/" target="_blank" rel="noopener noreferrer">Otter Solutions</a></p>
+        </div>
+    );
+}
+
 export default function Footer() {
-    return <Footerinfo />;
+    return (
+        <>
+            <Footerinfo />
+            <CreatorLinks />
+        </>
+    );
 }

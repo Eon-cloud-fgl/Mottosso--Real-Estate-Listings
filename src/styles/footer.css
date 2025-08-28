@@ -1,5 +1,5 @@
 .footer {
-  opacity: 0.9;
+    opacity: 0.9;
     background-color: #022042;
     color: #ffffff;
     padding: 40px 20px 20px;
@@ -44,12 +44,39 @@
     color: #ccc;
 }
 
+.creator-links {
+    display: flex;
+    justify-content: end;
+    opacity: 0.9;
+    padding: 10px 50px;
+    font-size: 0.85rem;
+    color: #ccc;
+    background-color: #081f3a;
+}
+
+.creator-links a {
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.creator-links a:hover {
+    text-decoration: underline;
+}
+
+.creator-links p{
+    margin-right: 30px;
+}
+
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
+
     .footer-section {
         max-width: 100%;
     }

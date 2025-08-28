@@ -12,7 +12,9 @@ import Loader from "./components/Loader"
 import Login from "./pages/admin/Login"
 import Dashboard from "./pages/admin/dashboard"
 import NavbarAdmin from "./components/NavbarAdmin"
-import Property from "./pages/property";
+import Property from "./pages/property"
+
+import PrivateRoute from "./pages/admin/PrivateRoute"
 
 function App() {
     const [loading, setLoading] = useState(false)
@@ -46,18 +48,28 @@ function App() {
             {showLoader && <Loader visible={loading} />}
             <div className={isAdminRoute ? "admin-container" : "container"}>
                 <Routes>
-                    {/*RUTA USUARIO*/}
+                    {/* RUTAS USUARIO */}
                     <Route path="/" element={<Home />} />
                     <Route path="/appraisals" element={<Appraisals />} />
-                    <Route path="/contact" element={<Contact />}/>
+                    <Route path="/contact" element={<Contact />} />
                     <Route path="/enterprise" element={<Enterprise />} />
-                    <Route path="/estate" element={<Estate />}/>
-                    <Route path="/news" element={<News />}/>
+                    <Route path="/estate" element={<Estate />} />
+                    <Route path="/news" element={<News />} />
                     <Route path="/property" element={<Property />} />
-                    {/*RUTA ADMIN*/}
+
+                    {/* RUTAS ADMIN */}
                     <Route path="/admin/login" element={<Login />} />
                     <Route path="/admin" element={<Login />} />
-                    <Route path="/admin/dashboard" element={<Dashboard />} />
+                    
+                    {/* Dashboard protegido */}
+                    <Route 
+                        path="/admin/dashboard" 
+                        element={
+                            <PrivateRoute>
+                                <Dashboard />
+                            </PrivateRoute>
+                        } 
+                    />
                 </Routes>
             </div>
             {!isAdminRoute && <Footer />}
